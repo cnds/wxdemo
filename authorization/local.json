@@ -18,5 +18,9 @@
       "port": 10001
     }
   },
+  "wechat": {
+    "appId": "wx706fb33771137dc7",
+    "appSecret": "327d8c8c58eae6cd3818ac36ac21a84c"
+  },
   "api_port": 10000
 }
