@@ -12,5 +12,5 @@
     "host": "localhost",
     "port": 6379
   },
-  "api_port": 8080
+  "api_port": 10001
 }

@@ -35,4 +35,4 @@ class StoreSessions(Base):
 
         token = create_jwt({'accountId': store_id}, salt)
         return jsonify({
-            'mobile': mobile, 'id': store_id, 'token': token.decode()})
+            'mobile': mobile, 'id': store_id, 'token': token.decode()}), 201

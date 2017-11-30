@@ -12,5 +12,11 @@
     "host": "47.96.190.185",
     "port": 6379
   },
-  "api_port": 10001
+  "service": {
+    "accounts": {
+      "host": "localhost",
+      "port": 10001
+    }
+  },
+  "api_port": 10000
 }
