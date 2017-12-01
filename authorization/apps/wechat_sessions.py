@@ -1,6 +1,7 @@
 import requests
 
 from flask import request
+from wxbase.utils import create_jwt
 
 from authorization.apps.base import BaseHandler
 from authorization.apps.json_validate import SCHEMA
@@ -32,5 +33,5 @@ class WechatSessionsHandler(BaseHandler):
 
         # TODO: save open_id&session_key to db, add api in accounts
         # {'token': token, 'openid': 'openid', 'sessionKey': session_key}
-
-
+        session = create_jwt({'openid': open_id}, session_key)
+        return {'session': session}, 201
