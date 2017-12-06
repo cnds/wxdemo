@@ -1,13 +1,33 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+
+  <view class='name'>
+    <text>登录页面</text>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+
+  <view class='index'>
+
+    <view class='login-item'>
+      <view class='login-item-info'>手机</view>
+      <view><input /></view>
+    </view>
+
+    <view class='login-item'>
+      <view class='login-item-info'>密码</view>
+      <view class='login-password'>
+        <input style='flex-grow:1' password='true'></input>
+        <text>忘记密码</text>
+      </view>
+    </view>
+
+    <view class='login-item bottom'>
+      <button class='login-btn' bindtap='btnClick'>登录</button>
+    </view>
+
+    <view class='index-bottom'>
+      <view> 没有账户? <text>注册</text></view>
+    </view>
   </view>
+
 </view>
+
