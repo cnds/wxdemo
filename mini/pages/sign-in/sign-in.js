@@ -4,15 +4,26 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+
   },
   //事件处理函数
-  bindViewTap: function() {
+  loginClick: function() {
+    // wx.request({
+    //   url: 'http://localhost:10000',
+    //   method: 'POST',
+    //   data: {
+    //     mobile: 18621866027,
+    //     password: 123456
+    //   },
+    //   success: function(res) {
+    //     console.log(res)
+    //   }
+    // })
     wx.navigateTo({
-      url: '../demo/demo'
+      url: '../sign-up/sign-up',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
   onLoad: function () {

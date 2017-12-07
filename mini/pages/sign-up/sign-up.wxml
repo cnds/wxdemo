@@ -1,0 +1,38 @@
+<!--pages/sign-up/sign-up.wxml-->
+<view class="container">
+
+  <view class='name'>
+    <text>注册页面</text>
+  </view>
+
+  <view class='index'>
+
+    <view class='sign-up-item'>
+      <view class='sign-up-item-info'>手机</view>
+      <view>
+        <input />
+      </view>
+    </view>
+
+    <view class='sign-up-item'>
+      <view class='sign-up-item-info'>密码</view>
+      <view class='sign-up-password'>
+        <input style='flex-grow:1' password='true'></input>
+      </view>
+    </view>
+
+    <view class='sign-up-item'>
+      <view class='sign-up-item-info'>验证码</view>
+      <view class='sign-up-sms'>
+        <input style='flex-grow:1'></input>
+        <button bindtap='sendSmsClick'>发送验证码</button>
+      </view>
+    </view>
+
+    <view class='sign-up-item bottom'>
+      <button class='sign-up-btn' bindtap='signupClick'>注册</button>
+    </view>
+
+  </view>
+
+</view>

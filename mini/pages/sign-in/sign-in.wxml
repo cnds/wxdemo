@@ -9,7 +9,9 @@
 
     <view class='login-item'>
       <view class='login-item-info'>手机</view>
-      <view><input /></view>
+      <view>
+        <input />
+      </view>
     </view>
 
     <view class='login-item'>
@@ -21,13 +23,14 @@
     </view>
 
     <view class='login-item bottom'>
-      <button class='login-btn' bindtap='btnClick'>登录</button>
+      <button class='login-btn' bindtap='loginClick'>登录</button>
     </view>
 
     <view class='index-bottom'>
-      <view> 没有账户? <text>注册</text></view>
+      <view> 没有账户?
+        <text>注册</text>
+      </view>
     </view>
   </view>
 
 </view>
-

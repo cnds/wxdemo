@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/sign-in/sign-in",
     "pages/logs/logs",
-    "pages/demo/demo"
+    "pages/demo/demo",
+    "pages/sign-up/sign-up"
   ],
   "window": {
     "backgroundTextStyle": "light",
