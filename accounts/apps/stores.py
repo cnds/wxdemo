@@ -22,9 +22,6 @@ class Stores(Base):
         return jsonify({'stores': stores})
 
     def post(self):
-
-        # TODO: sms validate
-
         is_valid, data = self.get_params_from_request(request,
                                                      SCHEMA['stores_post'])
         if not is_valid:
@@ -32,6 +29,13 @@ class Stores(Base):
 
         mobile = data['mobile']
         password = data['password']
+        sms_code = data['code']
+
+        redis_key = self.redis.REDIS_STRING['ssu'] + mobile + ':'
+        code_from_redis = self.redis.get_value(redis_key)
+        if code_from_redis != sms_code:
+            return self.error_msg(self.ERR['sms_code_verification_failed'])
+
         flag, store_from_db = self.db.find_by_condition('stores',
                                                         {'mobile': mobile})
         if not flag:
@@ -78,11 +82,11 @@ class Store(Base):
         return '', 405
 
 
-class StoresResetPassword(Base):
+class StoreResetPassword(Base):
 
     def post(self):
         is_valid, data = self.get_params_from_request(
-            request, SCHEMA['stores_reset_password'])
+            request, SCHEMA['store_reset_password'])
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
@@ -114,4 +118,4 @@ class StoresResetPassword(Base):
         if not result:
             return self.error_msg(self.ERR['not_found'])
 
-        return jsonify({'id': store_id}), 200
+        return jsonify({'id': store_id}), 201

@@ -13,9 +13,10 @@ stores_post = {
     "type": "object",
     "properties": {
         "password": {"type": "string", "minLength": 8},
-        "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"}
+        "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"},
+        "code": {"type": "string"}
     },
-    "required": ["mobile", "password"],
+    "required": ["mobile", "password", "code"],
     "additionalProperties": False
 }
 
@@ -30,7 +31,7 @@ store_sessions_post = {
     "additionalProperties": False
 }
 
-stores_reset_password = {
+store_reset_password = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -47,5 +48,5 @@ SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
-    'stores_reset_password': stores_reset_password,
+    'store_reset_password': store_reset_password,
 }
