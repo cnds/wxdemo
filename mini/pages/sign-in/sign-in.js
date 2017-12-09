@@ -16,18 +16,18 @@ Page({
         mobile: this.data.mobile,
         password: this.data.password
       },
-      success: function(e) {
-        status = e.statusCode
+      success: function(res) {
+        status = res.statusCode
         if (status === '201') {
           wx.redirectTo({
             url: '../demo/demo',
           })
         } else if (status === '400') {
           // TODO
-          console.log(e.data.error)
+          console.log(res.data.error)
         } else {
           // TODO
-          console.log(e.data.error)
+          console.log(res.data.error)
         }
       }
     })

@@ -5,62 +5,61 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    mobile: null,
+    password: null,
+    code: null,
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  signupClick: function(event) {
+    wx.request({
+      url: 'http://localhost:20000/authorization/stores',
+      data: {
+        mobile: this.data.mobile,
+        password: this.data.password,
+        code: this.data.code
+      },
+      method: 'POST',
+      success: function(res) {
+        status = res.statusCode
+        if (status === '201') {
+          wx.redirectTo({
+            url: '../sign-in/sign-in',
+          })
+        } else {
+          console.log(res.data.error)
+        }
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  mobileInput: function(event) {
+    this.setData({
+      mobile: event.detail.value
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  passwordInput: function(event) {
+    this.setData({
+      password: event.detail.value
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  smsInput: function(event) {
+    this.setData({
+      code: event.detail.value
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  sendSmsClick: function(event) {
+    wx.request({
+      url: 'http://localhost:20000/authorization/sms',
+      data: {
+        verifyType: 'store_sign_up',
+        mobile: this.data.mobile
+      },
+      method: 'POST',
+      success: function(res) {
+        status = res.statusCode
+        if (status !== '201') {
+          console.log(res.data.error)
+        }
+      }
+    })
   }
+
 })

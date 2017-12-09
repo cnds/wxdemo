@@ -10,14 +10,14 @@
     <view class='reset-pwd-item'>
       <view class='reset-pwd-item-info'>手机</view>
       <view>
-        <input />
+        <input bindinput='mobileInput' />
       </view>
     </view>
 
     <view class='reset-pwd-item'>
       <view class='reset-pwd-item-info'>密码</view>
       <view class='new-password'>
-        <input style='flex-grow:1' password='true'></input>
+        <input style='flex-grow:1' password='true' bindinput='passwordInput'></input>
       </view>
     </view>
 
@@ -31,7 +31,7 @@
     <view class='reset-pwd-item'>
       <view class='reset-pwd-item-info'>验证码</view>
       <view class='reset-pwd-sms'>
-        <input style='flex-grow:1'></input>
+        <input style='flex-grow:1' bindinput='smsInput'></input>
         <button bindtap='sendSmsClick'>发送验证码</button>
       </view>
     </view>
