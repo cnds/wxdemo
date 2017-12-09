@@ -10,15 +10,15 @@
     <view class='login-item'>
       <view class='login-item-info'>手机</view>
       <view>
-        <input />
+        <input bindinput='mobileInput' />
       </view>
     </view>
 
     <view class='login-item'>
       <view class='login-item-info'>密码</view>
       <view class='login-password'>
-        <input style='flex-grow:1' password='true'></input>
-        <text>忘记密码</text>
+        <input style='flex-grow:1' password='true' bindinput='passwordInput'></input>
+        <text bindtap='ResetPwdTap'>忘记密码</text>
       </view>
     </view>
 
@@ -28,7 +28,7 @@
 
     <view class='index-bottom'>
       <view> 没有账户?
-        <text>注册</text>
+        <text bindtap='signUpTap'>注册</text>
       </view>
     </view>
   </view>

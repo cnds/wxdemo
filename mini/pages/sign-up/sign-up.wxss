@@ -8,6 +8,14 @@
   justify-content: space-between;
 }
 
+.name {
+  height: 80px;
+}
+
+.name text {
+  font-size: 30px;
+}
+
 .index {
   flex-grow: 1;
   height: 50%;

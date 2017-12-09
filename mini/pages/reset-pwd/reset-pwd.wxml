@@ -1,0 +1,45 @@
+<!--pages/sign-up/sign-up.wxml-->
+<view class="container">
+
+  <view class='name'>
+    <text>重置密码页面</text>
+  </view>
+
+  <view class='reset-pwd'>
+
+    <view class='reset-pwd-item'>
+      <view class='reset-pwd-item-info'>手机</view>
+      <view>
+        <input />
+      </view>
+    </view>
+
+    <view class='reset-pwd-item'>
+      <view class='reset-pwd-item-info'>密码</view>
+      <view class='new-password'>
+        <input style='flex-grow:1' password='true'></input>
+      </view>
+    </view>
+
+    <view class='reset-pwd-item'>
+      <view class='reset-pwd-item-info'>重新输入</view>
+      <view class='new-password'>
+        <input style='flex-grow:1' password='true'></input>
+      </view>
+    </view>
+
+    <view class='reset-pwd-item'>
+      <view class='reset-pwd-item-info'>验证码</view>
+      <view class='reset-pwd-sms'>
+        <input style='flex-grow:1'></input>
+        <button bindtap='sendSmsClick'>发送验证码</button>
+      </view>
+    </view>
+
+    <view class='reset-pwd-item bottom'>
+      <button class='reset-pwd-btn' bindtap='resetPwdClick'>提交</button>
+    </view>
+
+  </view>
+
+</view>

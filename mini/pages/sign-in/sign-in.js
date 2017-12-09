@@ -1,65 +1,65 @@
-//index.js
+//sign-in.js
 //获取应用实例
 const app = getApp()
 
 Page({
   data: {
-
+    mobile: null,
+    password: null
   },
   //事件处理函数
   loginClick: function() {
-    // wx.request({
-    //   url: 'http://localhost:10000',
-    //   method: 'POST',
-    //   data: {
-    //     mobile: 18621866027,
-    //     password: 123456
-    //   },
-    //   success: function(res) {
-    //     console.log(res)
-    //   }
+    wx.request({
+      url: 'http://localhost:20000/authorization/store-sessions',
+      method: 'POST',
+      data: {
+        mobile: this.data.mobile,
+        password: this.data.password
+      },
+      success: function(e) {
+        status = e.statusCode
+        if (status === '201') {
+          wx.redirectTo({
+            url: '../demo/demo',
+          })
+        } else if (status === '400') {
+          // TODO
+          console.log(e.data.error)
+        } else {
+          // TODO
+          console.log(e.data.error)
+        }
+      }
+    })
+    // wx.navigateTo({
+    //   url: '../sign-up/sign-up',
+    //   success: function(res) {},
+    //   fail: function(res) {},
+    //   complete: function(res) {},
     // })
-    wx.navigateTo({
-      url: '../sign-up/sign-up',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
+  },
+
+  mobileInput: function(event) {
+    this.setData({
+      mobile: event.detail.value
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+
+  passwordInput: function(event) {
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      password: event.detail.value
+    })
+  },
+
+  signUpTap: function(event) {
+    wx.navigateTo({
+      url: '../sign-up/sign-up',
+    })
+  },
+
+  ResetPwdTap: function(event) {
+    wx.navigateTo({
+      url: '../reset-pwd/reset-pwd',
     })
   }
 })

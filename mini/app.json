@@ -3,7 +3,8 @@
     "pages/sign-in/sign-in",
     "pages/logs/logs",
     "pages/demo/demo",
-    "pages/sign-up/sign-up"
+    "pages/sign-up/sign-up",
+    "pages/reset-pwd/reset-pwd"
   ],
   "window": {
     "backgroundTextStyle": "light",
