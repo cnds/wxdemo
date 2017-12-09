@@ -1,18 +1,18 @@
 from flask import jsonify, logging
-from flask.views import MethodView
 from jsonschema import validate, ValidationError
 
-from wxbase import MongoBase, RedisBase
-from accounts.config import config
 
 
 class UtilBase(object):
 
     _error_msg = {
         'invalid_body_content': 'INVALID_BODY_CONTENT',
+        'invalid_query_params': 'INVALID_QUERY_PARAMS',
         'conflict_user_exist': 'CONFLICT_USER_EXIST',
         'user_not_found': 'USER_NOT_FOUND',
+        'not_found': 'NOT_FOUND',
         'password_verification_failed': 'PASSWORD_VERIFICATION_FAILED',
+        'sms_code_verification_failed': 'SMS_CODE_VERIFICATION_FAILED',
     }
 
 
