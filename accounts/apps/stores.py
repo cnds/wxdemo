@@ -1,8 +1,8 @@
 from flask import jsonify, request
 
 from wxbase.utils import create_md5_key, create_hash_key
-from accounts.apps.base import Base
-from accounts.apps.json_validate import SCHEMA
+from apps.base import Base
+from apps.json_validate import SCHEMA
 
 
 
@@ -13,7 +13,7 @@ class Stores(Base):
         is_valid, tag = self.validate_dict_with_schema(params,
                                                        SCHEMA['stores_get'])
         if not is_valid:
-            return self.error_msg(self.ERR['invalid_body_content'], tag)
+            return self.error_msg(self.ERR['invalid_query_params'], tag)
 
         flag, stores = self.db.find_by_condition('stores', params)
         if not flag:
@@ -52,11 +52,11 @@ class Stores(Base):
 
             store_id = store['id']
 
-        salt = create_md5_key((store_id))
-        password = create_hash_key(password, salt)
+        salt = create_md5_key(store_id)
+        hashed_password = create_hash_key(password, salt)
         flag, result = self.db.update(
             'stores', {'id': store_id},
-            {'$set': {'password': password, 'status': 'done'}})
+            {'$set': {'password': hashed_password, 'status': 'done'}})
         if not flag:
             return '', 500
 
@@ -76,3 +76,42 @@ class Store(Base):
 
     def delete(self, store_id):
         return '', 405
+
+
+class StoresResetPassword(Base):
+
+    def post(self):
+        is_valid, data = self.get_params_from_request(
+            request, SCHEMA['stores_reset_password'])
+        if not is_valid:
+            return self.error_msg(self.ERR['invalid_body_content'], data)
+
+        new_password = data['newPassword']
+        sms_code = data['code']
+        mobile = data['mobile']
+        flag, store = self.db.find_by_condition('stores', {'mobile': mobile})
+        if not flag:
+            self.logger.error('get store from db failed')
+            return '', 500
+
+        if not store:
+            return self.error_msg(self.ERR['not_found'])
+
+        store_id = store[0]['id']
+
+        redis_key = self.redis.REDIS_STRING['srp'] + mobile + ':'
+        code_from_redis = self.redis.get_value(redis_key)
+        if code_from_redis != sms_code:
+            return self.error_msg(self.ERR['sms_code_verification_failed'])
+
+        salt = create_md5_key(store_id)
+        hashed_password = create_hash_key(new_password, salt)
+        flag, result = self.db.update('stores',
+            {'id': store_id}, {'$set': {'password': hashed_password}})
+        if not flag:
+            return '', 500
+
+        if not result:
+            return self.error_msg(self.ERR['not_found'])
+
+        return jsonify({'id': store_id}), 200

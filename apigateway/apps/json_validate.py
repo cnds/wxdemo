@@ -30,15 +30,13 @@ store_sessions_post = {
     "additionalProperties": False
 }
 
-stores_reset_password = {
+wechat_sessions_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "newPassword": {"type": "string", "minLength": 8},
-        "code": {"type": "string"},
-        "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"}
+        "code": {"type": "string"}
     },
-    "required": ["mobile", "newPassword", "code"],
+    "required": ["code"],
     "additionalProperties": False
 }
 
@@ -47,5 +45,5 @@ SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
-    'stores_reset_password': stores_reset_password,
+    'wechat_sessions_post': wechat_sessions_post,
 }

@@ -3,9 +3,9 @@ monkey.patch_all()
 
 from flask import Flask
 from gevent.pywsgi import WSGIServer
-from accounts.apps.stores import Stores, Store
-from accounts.apps.store_sessions import StoreSessions
-from accounts.config import config
+from apps.stores import Stores, Store, StoresResetPassword
+from apps.store_sessions import StoreSessions
+from config import config
 
 def create_app(config):
     app = Flask(__name__)
@@ -13,7 +13,10 @@ def create_app(config):
     app.config['TESTING'] = config['testing']
     app.add_url_rule('/stores', view_func=Stores.as_view('stores'))
     app.add_url_rule('/stores/<store_id>', view_func=Store.as_view('store'))
-    app.add_url_rule('/stores/sessions', view_func=StoreSessions.as_view('sessions'))
+    app.add_url_rule('/stores/sessions',
+                     view_func=StoreSessions.as_view('sessions'))
+    app.add_url_rule('/stores/reset-password',
+                     view_func=StoresResetPassword.as_view('reset-password'))
     return app
 
 
