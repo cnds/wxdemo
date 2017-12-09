@@ -1,8 +1,8 @@
 import requests
-from flask import request, json, jsonify
+from flask import request, jsonify
 
-from authorization.apps.base import BaseHandler
-from authorization.apps.json_validate import SCHEMA
+from apps.base import BaseHandler
+from apps.json_validate import SCHEMA
 
 
 class StoreSessionsHandler(BaseHandler):

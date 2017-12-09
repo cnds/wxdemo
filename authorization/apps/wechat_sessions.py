@@ -3,9 +3,9 @@ import requests
 from flask import request
 from wxbase.utils import create_jwt
 
-from authorization.apps.base import BaseHandler
-from authorization.apps.json_validate import SCHEMA
-from authorization.config import config
+from apps.base import BaseHandler
+from apps.json_validate import SCHEMA
+from config import config
 
 
 class WechatSessionsHandler(BaseHandler):

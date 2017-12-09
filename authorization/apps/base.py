@@ -1,7 +1,7 @@
 from flask.views import MethodView
 from wxbase import RedisBase
 from wxbase.utils import UtilBase, RequestEndpoint
-from authorization.config import config
+from config import config
 
 
 class BaseHandler(MethodView, UtilBase):
