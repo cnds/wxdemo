@@ -13,9 +13,10 @@ stores_post = {
     "type": "object",
     "properties": {
         "password": {"type": "string", "minLength": 8},
-        "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"}
+        "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"},
+        "code": {"type": "string"}
     },
-    "required": ["mobile", "password"],
+    "required": ["mobile", "password", "code"],
     "additionalProperties": False
 }
 
@@ -53,6 +54,17 @@ sms_post = {
     "additionalProperties": False
 }
 
+store_reset_password = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "newPassword": {"type": "string", "minLength": 8},
+        "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"},
+        "code": {"type": "string"}
+    },
+    "required": ["mobile", "newPassword", "code"],
+    "additionalProperties": False
+}
 
 SCHEMA = {
     'stores_get': stores_get,
@@ -60,4 +72,5 @@ SCHEMA = {
     'store_sessions_post': store_sessions_post,
     'wechat_sessions_post': wechat_sessions_post,
     'sms_post': sms_post,
+    'store_reset_password': store_reset_password,
 }

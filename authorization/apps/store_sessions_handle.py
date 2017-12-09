@@ -14,7 +14,7 @@ class StoreSessionsHandler(BaseHandler):
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
         api_resp = requests.post(
-            '{0}/stores/sessions'.format(self.endpoint['accounts']),
+            '{0}/accounts/store-sessions'.format(self.endpoint['accounts']),
             json=data)
         resp_status = api_resp.status_code
         if resp_status != 201 and resp_status != 400:

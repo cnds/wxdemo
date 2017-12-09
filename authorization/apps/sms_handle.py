@@ -15,6 +15,7 @@ class SmsHandler(BaseHandler):
         code = generate_verification_code(include_letter=False,
                                           include_upper=False)
         text = self.sms_info.get(verify_type) % code
+        print(text)
         redis_key = verify_type + ':' + mobile + ':'
         self.redis.set_value(redis_key, code)
         # TODO: send sms via sms service

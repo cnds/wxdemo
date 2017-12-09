@@ -6,6 +6,7 @@ from gevent.pywsgi import WSGIServer
 from config import config
 from apps.store_sessions_handle import StoreSessionsHandler
 from apps.sms_handle import SmsHandler
+from apps.stores_handle import StoresHandler, StoreResetPasswordHandler
 
 
 def create_app(config):
@@ -16,6 +17,11 @@ def create_app(config):
                      view_func=StoreSessionsHandler.as_view('session'))
     app.add_url_rule('/authorization/sms',
                      view_func=SmsHandler.as_view('sms'))
+    app.add_url_rule('/authorization/stores',
+                     view_func=StoresHandler.as_view('stores'))
+    app.add_url_rule('/authorization/stores/reset-password',
+                     view_func=StoreResetPasswordHandler.as_view(
+                         'store-reset-password'))
     return app
 
 
