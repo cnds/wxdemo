@@ -1,16 +1,16 @@
 from gevent import monkey
-monkey.patch_all()
-
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from apps.stores import Stores, Store, StoreResetPassword
 from apps.store_sessions import StoreSessions
 from config import config
+monkey.patch_all()
 
-def create_app(config):
+
+def create_app(setting):
     app = Flask(__name__)
-    app.config['DEBUG'] = config['debug']
-    app.config['TESTING'] = config['testing']
+    app.config['DEBUG'] = setting['debug']
+    app.config['TESTING'] = setting['testing']
     app.add_url_rule('/accounts/stores', view_func=Stores.as_view('stores'))
     app.add_url_rule('/accounts/stores/<store_id>', view_func=Store.as_view('store'))
     app.add_url_rule('/accounts/store-sessions',

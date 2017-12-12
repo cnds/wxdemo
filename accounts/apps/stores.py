@@ -29,7 +29,7 @@ class Stores(Base):
 
         mobile = data['mobile']
         password = data['password']
-        sms_code = data['code']
+        sms_code = data.pop('code', None)
 
         redis_key = self.redis.REDIS_STRING['ssu'] + mobile + ':'
         code_from_redis = self.redis.get_value(redis_key)

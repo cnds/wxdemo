@@ -1,16 +1,15 @@
 from gevent import monkey
-monkey.patch_all()
-
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from config import config
-from apps.promotions import Promotions
+from apps import Promotions
+monkey.patch_all()
 
 
-def create_app(config):
+def create_app(setting):
     app = Flask(__name__)
-    app.config['TESTING'] = config['testing']
-    app.config['DEBUG'] = config['debug']
+    app.config['TESTING'] = setting['testing']
+    app.config['DEBUG'] = setting['debug']
     app.add_url_rule('/promotions',
                      view_func=Promotions.as_view('session'))
     return app

@@ -2,7 +2,6 @@ from flask import jsonify, logging
 from jsonschema import validate, ValidationError
 
 
-
 class UtilBase(object):
 
     _error_msg = {
@@ -15,12 +14,12 @@ class UtilBase(object):
         'sms_code_verification_failed': 'SMS_CODE_VERIFICATION_FAILED',
     }
 
-
     def __init__(self):
         self.ERR = self._error_msg
         self.logger = logging.getLogger(__name__)
 
-    def error_msg(self, msg, detail=None, status=400):
+    @staticmethod
+    def error_msg(msg, detail=None, status=400):
         result = {'error': msg}
         if detail:
             result.update({'detail': detail})
@@ -39,8 +38,8 @@ class UtilBase(object):
     def get_params_from_request(self, data, schema):
         try:
             params = data.get_json()
-        except Exception:
-            return False, 'parse json failed'
+        except Exception as ex:
+            return False, 'parse json failed: %s' % ex
         else:
             if params is None:
                 return False, 'json required'
