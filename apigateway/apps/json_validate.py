@@ -40,10 +40,21 @@ wechat_sessions_post = {
     "additionalProperties": False
 }
 
+store_transactions_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "skip": {"type": "integer", "minimum": 0, "excludeMinimum": False},
+        "limit": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+    },
+    "additionalProperties": False
+}
+
 
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
     'wechat_sessions_post': wechat_sessions_post,
+    'store_transactions_get': store_transactions_get,
 }

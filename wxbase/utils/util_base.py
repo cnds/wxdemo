@@ -48,3 +48,18 @@ class UtilBase(object):
                 return False, tag
 
             return True, params
+
+    def str_to_int(data, raise_value_error=False):
+        if not isinstance(data, dict):
+            return False, '<%s> is not dict type' % type(data)
+
+        for k, v in data.items():
+            try:
+                data[k] = int(v)
+            except ValueError:
+                if raise_value_error:
+                    return False, '%s type <%s> can not convert to <int>' % (data, type(data))
+                else:
+                    pass
+
+        return True, None
