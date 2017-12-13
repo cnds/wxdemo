@@ -79,7 +79,8 @@ class MongoBase(object):
             data.update({'$set': {'lastModifiedDate': datetime.utcnow()}})
 
         try:
-            result = self.db[collection].update_one(filter_query, data, upsert)
+            result = self.db[collection].update_one(filter_query, data,
+                                                    upsert=upsert)
         except Exception as ex:
             self.logger.error(ex)
             return False, None

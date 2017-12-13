@@ -3,32 +3,26 @@ promotions_put = {
     "type": "object",
     "properties": {
         "storeId": {"type": "string"},
-        "promotions": {
+        "discount": {
             "type": "object",
             "properties": {
-                "discount": {
-                    "type": "object",
-                    "properties": {
-                        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-                        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
-                    },
-                    "required": ["base", "minus"],
-                    "additionalProperties": False
-                },
-                "coupon": {
-                    "type": "object",
-                    "properties": {
-                        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-                        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
-                    },
-                    "required": ["base", "minus"],
-                    "additionalProperties": False
-                }
+                "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+                "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
             },
-            "minProperties": 1
+            "required": ["base", "minus"],
+            "additionalProperties": False
+        },
+        "coupon": {
+            "type": "object",
+            "properties": {
+                "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+                "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+            },
+            "required": ["base", "minus"],
+            "additionalProperties": False
         },
     },
-    "required": ["storeId", "promotions"],
+    "required": ["storeId"],
     "additionalProperties": False
 }
 
@@ -38,6 +32,7 @@ promotions_get = {
     "properties": {
         "storeId": {"type": "string"}
     },
+    "required": ["storeId"],
     "additionalProperties": False
 }
 

@@ -7,8 +7,8 @@ class Promotions(Base):
 
     def get(self):
         params = request.args.to_dict()
-        is_valid, tag = self.validate_dict_with_schema(params,
-                                                       SCHEMA['promotions_get'])
+        is_valid, tag = self.validate_dict_with_schema(
+            params, SCHEMA['promotions_get'])
         if not is_valid:
             return self.error_msg(self.ERR['invalid_query_params'], tag)
 
@@ -16,15 +16,16 @@ class Promotions(Base):
         if not flag:
             return '', 500
 
-        if not promotions:
+        if promotions:
+            promotions = promotions[0]
+        else:
             promotions = {
                 "discount": {"base": 0, "minus": 0},
-                "coupon": {"base": 0, "minus": 0}
+                "coupon": {"base": 0, "minus": 0},
+                "storeId": params["storeId"]
             }
-            if params.get("storeId"):
-                promotions.update({'storeId': params['storeId']})
 
-        return jsonify({'promotions': promotions})
+        return jsonify(promotions)
 
     def put(self):
         is_valid, data = self.get_params_from_request(request,
@@ -34,7 +35,7 @@ class Promotions(Base):
 
         store_id = data['storeId']
         flag, tag = self.db.update(
-            'promotions', {'storeId': store_id}, data, True)
+            'promotions', {'storeId': store_id}, {'$set': data}, True)
         if not flag:
             return '', 500
 

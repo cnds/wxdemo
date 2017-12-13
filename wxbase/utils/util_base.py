@@ -49,6 +49,7 @@ class UtilBase(object):
 
             return True, params
 
+    @staticmethod
     def str_to_int(data, raise_value_error=False):
         if not isinstance(data, dict):
             return False, '<%s> is not dict type' % type(data)
