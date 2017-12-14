@@ -2,9 +2,9 @@
   "pages": [
     "pages/sign-in/sign-in",
     "pages/logs/logs",
-    "pages/demo/demo",
     "pages/sign-up/sign-up",
-    "pages/reset-pwd/reset-pwd"
+    "pages/reset-pwd/reset-pwd",
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

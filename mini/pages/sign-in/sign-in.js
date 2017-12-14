@@ -18,11 +18,13 @@ Page({
       },
       success: function(res) {
         status = res.statusCode
-        if (status === '201') {
+        if (res.statusCode === 201) {
+          app.globalData.userInfo = res.data
+          console.log(app.globalData)
           wx.redirectTo({
-            url: '../demo/demo',
+            url: '../index/index',
           })
-        } else if (status === '400') {
+        } else if (res.statusCode === 400) {
           // TODO
           console.log(res.data.error)
         } else {

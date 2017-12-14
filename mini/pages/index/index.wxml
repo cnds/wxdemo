@@ -1,0 +1,10 @@
+<!--pages/index/index.wxml-->
+<view class='container'>
+  <view class='name'>
+    <text>交易记录</text>
+  </view>
+  <view class='transactions' wx:for="{{transactions}}">
+    {{index}}: {{item}}
+    <view class='transaction' bindtap='transactionClick'></view>
+  </view>
+</view>
