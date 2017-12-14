@@ -4,7 +4,9 @@
     <text>交易记录</text>
   </view>
   <view class='transactions' wx:for="{{transactions}}">
-    {{index}}: {{item}}
+    <text>用户:{{item.id}}</text>
+    <text>金额:{{item.amount}}</text>
+    <text>时间:{{item.createdDate}}</text>
     <view class='transaction' bindtap='transactionClick'></view>
   </view>
 </view>
