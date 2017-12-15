@@ -2,11 +2,18 @@ import requests
 from flask import request, jsonify
 from apps.base import BaseHandler
 from apps.json_validate import SCHEMA
+from wxbase.utils import create_md5_key
+from config import config
 
 
 class StoreTransactionsHandler(BaseHandler):
 
     def get(self, store_id):
+        flag, tag = self.authenticate(request, store_id,
+                                      create_md5_key(config['secret']))
+        if not flag:
+            return self.error_msg(tag)
+
         params = request.args.to_dict()
         flag, tag = self.str_to_int(params)
         if not flag:
@@ -32,6 +39,11 @@ class StoreTransactionsHandler(BaseHandler):
 class StoreTransactionHandler(BaseHandler):
 
     def get(self, store_id, transaction_id):
+        flag, tag = self.authenticate(request, store_id,
+                                      create_md5_key(config['secret']))
+        if not flag:
+            return self.error_msg(tag)
+
         params = {'storeId': store_id}
         api_resp = requests.get(
             '{0}/transactions/{1}'.format(

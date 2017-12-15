@@ -5,7 +5,6 @@ from apps.base import Base
 from apps.json_validate import SCHEMA
 
 
-
 class Stores(Base):
 
     def get(self):
@@ -23,7 +22,7 @@ class Stores(Base):
 
     def post(self):
         is_valid, data = self.get_params_from_request(request,
-                                                     SCHEMA['stores_post'])
+                                                      SCHEMA['stores_post'])
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
@@ -86,7 +85,7 @@ class StoreResetPassword(Base):
 
     def post(self):
         is_valid, data = self.get_params_from_request(
-            request, SCHEMA['store_reset_password'])
+            request, SCHEMA['store_reset_password_post'])
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'], data)
 

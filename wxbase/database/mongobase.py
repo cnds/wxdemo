@@ -55,8 +55,6 @@ class MongoBase(object):
         result['id'] = str(result.pop('_id'))
         return True, result
 
-
-
     def create(self, collection, data):
         data['createdDate'] = datetime.utcnow()
         data['lastModifiedDate'] = datetime.utcnow()
@@ -85,6 +83,11 @@ class MongoBase(object):
             self.logger.error(ex)
             return False, None
         else:
-            return (True,
-                    result.modified_count if result.modified_count else None)
+            modified_count = result.modified_count
+            upserted_id = result.upserted_id
+            if modified_count:
+                return True, {'id': modified_count}
+
+            if upserted_id:
+                return True, {'id': str(upserted_id)}
 

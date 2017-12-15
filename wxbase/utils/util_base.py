@@ -16,6 +16,7 @@ class UtilBase(object):
         'authentication_info_required': 'AUTHENTICATION_INFO_REQUIRED',
         'authentication_info_illegal': 'AUTHENTICATION_INFO_ILLEGAL',
         'permission_denied': 'PERMISSION_DENIED',
+        'operation_failed': 'OPERATION_FAILED',
     }
 
     def __init__(self):
@@ -70,3 +71,21 @@ class UtilBase(object):
                     pass
 
         return True, None
+
+    @staticmethod
+    def get_data_with_keys(data, keys=None, additional_data=None):
+        if additional_data and not isinstance(additional_data, dict):
+            raise Exception
+
+        if keys:
+            if not isinstance(keys, tuple):
+                raise Exception
+
+            result = {key: data[key] for key in keys if key in data}
+        else:
+            result = data
+
+        if additional_data:
+            result.update(additional_data)
+
+        return result

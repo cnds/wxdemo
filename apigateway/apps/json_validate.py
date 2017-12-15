@@ -30,16 +30,6 @@ store_sessions_post = {
     "additionalProperties": False
 }
 
-wechat_sessions_post = {
-    "$schema": "http://json-schema.org/schema#",
-    "type": "object",
-    "properties": {
-        "code": {"type": "string"}
-    },
-    "required": ["code"],
-    "additionalProperties": False
-}
-
 store_transactions_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
@@ -50,11 +40,21 @@ store_transactions_get = {
     "additionalProperties": False
 }
 
+store_profile_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "address": {"type": "string"},
+        "name": {"type": "string"},
+    },
+    "minProperties": 1,
+    "additionalProperties": False
+}
 
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
-    'wechat_sessions_post': wechat_sessions_post,
+    'store_profile_put': store_profile_put,
     'store_transactions_get': store_transactions_get,
 }

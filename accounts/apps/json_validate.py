@@ -31,7 +31,7 @@ store_sessions_post = {
     "additionalProperties": False
 }
 
-store_reset_password = {
+store_reset_password_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -43,10 +43,35 @@ store_reset_password = {
     "additionalProperties": False
 }
 
+store_profile_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"}
+    },
+    "required": ["storeId"],
+    "additionalProperties": False
+}
+
+store_profile_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "address": {"type": "string"},
+        "name": {"type": "string"},
+        "storeId": {"type": "string"},
+    },
+    "required": ["storeId"],
+    "minProperties": 2,
+    "additionalProperties": False
+}
+
 
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
-    'store_reset_password': store_reset_password,
+    'store_reset_password_post': store_reset_password_post,
+    'store_profile_get': store_profile_get,
+    'store_profile_put': store_profile_put,
 }

@@ -1,7 +1,7 @@
 from flask import request, jsonify
 
-from apps.base import Base
-from apps.json_validate import SCHEMA
+from .base import Base
+from .json_validate import SCHEMA
 from wxbase.utils import validate_hash_key, create_md5_key
 from config import config
 

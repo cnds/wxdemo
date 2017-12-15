@@ -5,6 +5,7 @@ from config import config
 from apps.promotions_handle import PromotionsHandler
 from apps.store_transactions_handle import (StoreTransactionsHandler,
                                             StoreTransactionHandler)
+from apps.store_profile_handle import StoreProfileHandler
 monkey.patch_all()
 
 
@@ -18,6 +19,8 @@ def create_app(setting):
                      view_func=StoreTransactionsHandler.as_view('transactions'))
     app.add_url_rule('/gateway/stores/<store_id>/transactions/<transaction_id>',
                      view_func=StoreTransactionHandler.as_view('transaction'))
+    app.add_url_rule('/gateway/stores/<store_id>/profile',
+                     view_func=StoreProfileHandler.as_view('store-profile'))
     return app
 
 
