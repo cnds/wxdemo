@@ -2,11 +2,18 @@ import requests
 from flask import request, jsonify
 from apps.base import BaseHandler
 from apps.json_validate import SCHEMA
+from config import config
+from wxbase.utils import create_md5_key
 
 
 class PromotionsHandler(BaseHandler):
 
     def get(self, store_id):
+        flag, tag = self.authenticate(request, store_id,
+                                      create_md5_key(config['secret']))
+        if not flag:
+            return self.error_msg(tag)
+
         api_resp = requests.get(
             '{0}/promotions'.format(self.endpoint['promotions']),
             params={'storeId': store_id})
@@ -33,5 +40,3 @@ class PromotionsHandler(BaseHandler):
             return '', 500
 
         return jsonify(api_resp.json()), resp_status
-
-

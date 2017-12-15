@@ -31,6 +31,14 @@ class RedisBase(object):
         else:
             return True if result == 1 else False
 
+    def check_if_block(self, remote_ip, times=5):
+        key = 'ip_block:%s' % remote_ip
+        result = self.get_value(key)
+        if result:
+            return True if int(result) >= times else False
+        else:
+            return False
+
     def set_value(self, name, value, time=300):
         try:
             self._redis.setex(name, value, time)

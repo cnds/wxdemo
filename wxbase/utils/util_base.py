@@ -12,11 +12,15 @@ class UtilBase(object):
         'not_found': 'NOT_FOUND',
         'password_verification_failed': 'PASSWORD_VERIFICATION_FAILED',
         'sms_code_verification_failed': 'SMS_CODE_VERIFICATION_FAILED',
+        'attempt_too_many_times': 'ATTEMPT_TOO_MANY_TIMES',
+        'authentication_info_required': 'AUTHENTICATION_INFO_REQUIRED',
+        'authentication_info_illegal': 'AUTHENTICATION_INFO_ILLEGAL',
+        'permission_denied': 'PERMISSION_DENIED',
     }
 
     def __init__(self):
-        self.ERR = self._error_msg
         self.logger = logging.getLogger(__name__)
+        self.ERR = self._error_msg
 
     @staticmethod
     def error_msg(msg, detail=None, status=400):
@@ -59,7 +63,9 @@ class UtilBase(object):
                 data[k] = int(v)
             except ValueError:
                 if raise_value_error:
-                    return False, '%s type <%s> can not convert to <int>' % (data, type(data))
+                    return False, \
+                           '%s type <%s> can not convert to <int>' % (
+                               data, type(data))
                 else:
                     pass
 

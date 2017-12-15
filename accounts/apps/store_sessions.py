@@ -2,7 +2,8 @@ from flask import request, jsonify
 
 from apps.base import Base
 from apps.json_validate import SCHEMA
-from wxbase.utils import validate_hash_key, create_md5_key, create_jwt
+from wxbase.utils import validate_hash_key, create_md5_key
+from config import config
 
 
 class StoreSessions(Base):
@@ -28,11 +29,10 @@ class StoreSessions(Base):
         store = store[0]
         store_id = store['id']
         password_from_db = store['password']
-        salt = create_md5_key(store_id)
+        salt = create_md5_key(config['secret'])
         if not validate_hash_key(password, password_from_db, salt):
-            # TODO: add remote ip block
             return self.error_msg(self.ERR['password_verification_failed'])
 
-        token = create_jwt({'accountId': store_id}, salt)
+        token = self.create_jwt({'accountId': store_id}, salt)
         return jsonify({
             'mobile': mobile, 'id': store_id, 'token': token.decode()}), 201

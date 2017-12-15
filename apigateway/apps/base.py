@@ -1,10 +1,10 @@
 from flask.views import MethodView
-from wxbase import RedisBase
-from wxbase.utils import UtilBase, RequestEndpoint
+from wxbase import RedisBase, AuthenticationBase
+from wxbase.utils import RequestEndpoint
 from config import config
 
 
-class BaseHandler(MethodView, UtilBase):
+class BaseHandler(MethodView, AuthenticationBase):
 
     def __init__(self):
         super(BaseHandler, self).__init__()
