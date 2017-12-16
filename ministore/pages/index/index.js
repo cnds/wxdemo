@@ -12,7 +12,7 @@ Page({
     var that = this
     wx.request({
       url: 'http://localhost:10000/gateway/stores/' + app.globalData.userInfo.id + '/transactions',
-      header: 'Bearer ' + app.globalData.userInfo.token,
+      header: {'Authorization': 'Bearer ' + app.globalData.userInfo.token},
       success: function(res) {
         if (res.statusCode === 200) {
           that.setData({
