@@ -66,6 +66,26 @@ store_profile_put = {
     "additionalProperties": False
 }
 
+users_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "openId": {"type": "string"}
+    },
+    "additionalProperties": False
+}
+
+users_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "code": {"type": "string"},
+        "iv": {"type": "string"},
+        "encryptedData": {"type": "string"}
+    },
+    "required": ["code", "iv", "encryptedData"],
+    "additionalProperties": False
+}
 
 SCHEMA = {
     'stores_get': stores_get,
@@ -74,4 +94,6 @@ SCHEMA = {
     'store_reset_password_post': store_reset_password_post,
     'store_profile_get': store_profile_get,
     'store_profile_put': store_profile_put,
+    'users_get': users_get,
+    'users_post': users_post,
 }

@@ -1,11 +1,12 @@
 from gevent import monkey
+monkey.patch_all()
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from apps.stores import Stores, Store, StoreResetPassword
 from apps.store_sessions import StoreSessions
 from apps.store_profile import StoreProfile
+from apps.users import Users
 from config import config
-monkey.patch_all()
 
 
 app = Flask(__name__)
@@ -22,6 +23,8 @@ def create_app(setting):
                      view_func=StoreResetPassword.as_view('reset-password'))
     app.add_url_rule('/accounts/stores/profile',
                      view_func=StoreProfile.as_view('store-profile'))
+    app.add_url_rule('/accounts/users',
+                     view_func=Users.as_view('users'))
     return app
 
 
