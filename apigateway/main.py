@@ -8,6 +8,8 @@ from apps.promotions_handle import PromotionsHandler
 from apps.store_transactions_handle import (StoreTransactionsHandler,
                                             StoreTransactionHandler)
 from apps.store_profile_handle import StoreProfileHandler
+from apps.user_transactions_handle import (UserTransactionsHandler,
+                                           UserTransactionHandler)
 
 
 def create_app(setting):
@@ -17,11 +19,15 @@ def create_app(setting):
     app.add_url_rule('/gateway/stores/<store_id>/promotions',
                      view_func=PromotionsHandler.as_view('promotions'))
     app.add_url_rule('/gateway/stores/<store_id>/transactions',
-                     view_func=StoreTransactionsHandler.as_view('transactions'))
+                     view_func=StoreTransactionsHandler.as_view('store-transactions'))
     app.add_url_rule('/gateway/stores/<store_id>/transactions/<transaction_id>',
-                     view_func=StoreTransactionHandler.as_view('transaction'))
+                     view_func=StoreTransactionHandler.as_view('store-transaction'))
     app.add_url_rule('/gateway/stores/<store_id>/profile',
                      view_func=StoreProfileHandler.as_view('store-profile'))
+    app.add_url_rule('/gateway/users/<user_id>/transactions',
+                     view_func=UserTransactionsHandler.as_view('user-transactions'))
+    app.add_url_rule('/gateway/users/<user_id>/transactions/<transaction_id>',
+                     view_func=UserTransactionHandler.as_view('user-transaction'))
     return app
 
 

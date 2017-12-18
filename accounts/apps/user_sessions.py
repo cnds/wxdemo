@@ -18,10 +18,11 @@ class UserSessions(Base):
         if not flag:
             return '', 500
 
-        if not user:
-            return self.error_msg(self.ERR['user_not_exist'])
+        if len(user) == 0:
+            return self.error_msg(self.ERR['user_not_found'])
 
-        user_id = user[0]['id']
+        user = user[0]
+        user_id = user['id']
         salt = create_md5_key(config['secret'])
         token = self.create_jwt({'accountId': user_id}, salt)
-        return jsonify({'id': user_id, token: token.decode()}), 201
+        return jsonify({'id': user_id, 'token': token.decode()}), 201
