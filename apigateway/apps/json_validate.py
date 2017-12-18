@@ -51,10 +51,21 @@ store_profile_put = {
     "additionalProperties": False
 }
 
+user_transactions_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "skip": {"type": "integer", "minimum": 0, "excludeMinimum": False},
+        "limit": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+    },
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
     'store_profile_put': store_profile_put,
     'store_transactions_get': store_transactions_get,
+    'user_transactions_get': user_transactions_get,
 }
