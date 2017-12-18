@@ -9,13 +9,18 @@ App({
   },
 
   login: function (openId) {
+    var that = this
     wx.request({
       url: 'http://localhost:20000/authorization/user-sessions',
       data: {openId: openId},
       method: 'POST',
       success: function(res) {
         if (res.statusCode === 201) {
-          app.globalData.token = res.data.token
+          that.globalData.token = res.data.token
+          that.globalData.userId = res.data.id
+          // wx.navigateTo({
+            // url: '../transactions/transactions',
+          // })
         } else {
           console.log(res)
           return;
@@ -31,7 +36,6 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         var code = res.code
-        console.log(code)
         wx.getSetting({
           success: res => {
             if (res.authSetting['scope.userInfo']) {
@@ -40,13 +44,11 @@ App({
                 success: res => {
                   // 可以将 res 发送给后台解码出 unionId
                   this.globalData.userInfo = res.userInfo
-                  console.log(res)
 
+                  // 查看用户注册状态，如果未注册，创建用户后登录，如已注册则直接登录
                   wx.request({
                     url: 'http://localhost:20000/authorization/users/register-status',
-                    data: {
-                      code: code
-                    },
+                    data: {code: code},
                     method: 'POST',
                     success: function (res) {
                       if (res.statusCode === 201) {
@@ -56,7 +58,11 @@ App({
                         var encryptedData = res.encryptedData
                         wx.request({
                           url: 'http://localhost:20000/authorization/users',
-                          data: { code: code, iv: iv, encryptedData: encryptedData },
+                          data: {
+                            code: code, 
+                            iv: iv, 
+                            encryptedData: encryptedData
+                          },
                           method: 'POST',
                           success: function (res) {
                             wx.hideLoading();
@@ -82,6 +88,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    token: null
+    token: null,
+    userId: null
   }
 })
