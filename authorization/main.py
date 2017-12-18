@@ -6,6 +6,7 @@ from apps.store_sessions_handle import StoreSessionsHandler
 from apps.sms_handle import SmsHandler
 from apps.stores_handle import StoresHandler, StoreResetPasswordHandler
 from apps.users_handle import UserRegisterStatus
+from apps.user_sessions_handle import UserSessionsHandler
 monkey.patch_all()
 
 
@@ -14,7 +15,7 @@ def create_app(setting):
     app.config['TESTING'] = setting['testing']
     app.config['DEBUG'] = setting['debug']
     app.add_url_rule('/authorization/store-sessions',
-                     view_func=StoreSessionsHandler.as_view('session'))
+                     view_func=StoreSessionsHandler.as_view('store-session'))
     app.add_url_rule('/authorization/sms',
                      view_func=SmsHandler.as_view('sms'))
     app.add_url_rule('/authorization/stores',
@@ -25,6 +26,8 @@ def create_app(setting):
     app.add_url_rule('/authorization/users/register-status',
                      view_func=UserRegisterStatus.as_view(
                          'user-register-status'))
+    app.add_url_rule('/authorization/user-sessions',
+                     view_func=UserSessionsHandler.as_view('user-session'))
     return app
 
 
