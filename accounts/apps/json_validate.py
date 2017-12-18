@@ -87,6 +87,15 @@ users_post = {
     "additionalProperties": False
 }
 
+user_register_status_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "openId": {"type": "string"}
+    },
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -96,4 +105,5 @@ SCHEMA = {
     'store_profile_put': store_profile_put,
     'users_get': users_get,
     'users_post': users_post,
+    'user_register_status_post': user_register_status_post,
 }

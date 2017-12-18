@@ -5,6 +5,7 @@ from config import config
 from apps.store_sessions_handle import StoreSessionsHandler
 from apps.sms_handle import SmsHandler
 from apps.stores_handle import StoresHandler, StoreResetPasswordHandler
+from apps.users_handle import UserRegisterStatus
 monkey.patch_all()
 
 
@@ -21,6 +22,9 @@ def create_app(setting):
     app.add_url_rule('/authorization/stores/reset-password',
                      view_func=StoreResetPasswordHandler.as_view(
                          'store-reset-password'))
+    app.add_url_rule('/authorization/users/register-status',
+                     view_func=UserRegisterStatus.as_view(
+                         'user-register-status'))
     return app
 
 

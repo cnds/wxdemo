@@ -17,6 +17,7 @@ class UtilBase(object):
         'authentication_info_illegal': 'AUTHENTICATION_INFO_ILLEGAL',
         'permission_denied': 'PERMISSION_DENIED',
         'operation_failed': 'OPERATION_FAILED',
+        'invalid_wx_code': 'INVALID_WX_CODE',
     }
 
     def __init__(self):

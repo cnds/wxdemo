@@ -1,4 +1,3 @@
-import requests
 from flask import request, jsonify
 from wxbase.utils import WXBizDataCrypt
 from .base import Base
@@ -30,21 +29,13 @@ class Users(Base):
         code = data['code']
         iv = data['iv']
         encrypted_data = data['encryptedData']
-        query_params = {
-            'appid': config['wechat']['appId'],
-            'secret': config['wechat']['appSecret'],
-            'js_code': code,
-            'grant_type': 'authorization_code'
-        }
-        api_resp = requests.get(
-            'https://api.weixin.qq.com/sns/jscode2session',
-            params=query_params)
-        resp_status = api_resp.status_code
-        if resp_status != 200:
-            self.logger('request wechat server failed')
+        flag, data_from_wx = self.get_data_from_wx(code)
+        if not flag:
             return '', 500
 
-        data_from_wx = api_resp.json()
+        if not data_from_wx:
+            self.error_msg(self.ERR['invalid_wx_code'])
+
         open_id = data_from_wx['openid']
         session_key = data_from_wx['session_key']
 
@@ -64,3 +55,30 @@ class Users(Base):
             return '', 500
 
         return jsonify(result), 201
+
+
+class UserRegisterStatus(Base):
+
+    def post(self):
+        is_valid, data = self.get_params_from_request(
+            request, SCHEMA['user_register_status_post'])
+        if not is_valid:
+            return self.error_msg(self.ERR['invalid_body_content'], data)
+
+        code = data['code']
+        flag, data_from_wx = self.get_data_from_wx(code)
+        if not flag:
+            return '', 500
+
+        if not data_from_wx:
+            self.error_msg(self.ERR['invalid_wx_code'])
+
+        open_id = data_from_wx['openid']
+        flag, user = self.db.find_by_condition('users', {'openId': open_id})
+        if not flag:
+            return '', 500
+
+        if not user:
+            return self.error_msg(self.ERR['user_not_exist'])
+
+        return jsonify({'openid': open_id}), 201

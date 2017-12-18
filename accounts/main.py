@@ -5,7 +5,7 @@ from gevent.pywsgi import WSGIServer
 from apps.stores import Stores, Store, StoreResetPassword
 from apps.store_sessions import StoreSessions
 from apps.store_profile import StoreProfile
-from apps.users import Users
+from apps.users import Users, UserRegisterStatus
 from config import config
 
 
@@ -25,6 +25,8 @@ def create_app(setting):
                      view_func=StoreProfile.as_view('store-profile'))
     app.add_url_rule('/accounts/users',
                      view_func=Users.as_view('users'))
+    app.add_url_rule('/accounts/users/register-status',
+                     view_func=UserRegisterStatus.as_view('user-register-status'))
     return app
 
 

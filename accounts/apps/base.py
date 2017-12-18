@@ -1,3 +1,4 @@
+import requests
 from flask.views import MethodView
 
 from wxbase import MongoBase, RedisBase
@@ -11,3 +12,25 @@ class Base(MethodView, JWTBase):
         super().__init__()
         self.db = MongoBase(config)
         self.redis = RedisBase(config)
+
+    def get_data_from_wx(self, code):
+        query_params = {
+            'appid': config['wechat']['appId'],
+            'secret': config['wechat']['appSecret'],
+            'js_code': code,
+            'grant_type': 'authorization_code'
+        }
+        api_resp = requests.get(
+            'https://api.weixin.qq.com/sns/jscode2session',
+            params=query_params)
+        resp_status = api_resp.status_code
+        if resp_status != 200:
+            self.logger('request wechat server failed')
+            return False, None
+
+        data_from_wx = api_resp.json()
+        if not data_from_wx.get('openid') \
+                and not data_from_wx.get('session_key'):
+            return True, None
+
+        return True, data_from_wx
