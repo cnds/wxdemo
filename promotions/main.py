@@ -1,9 +1,10 @@
 from gevent import monkey
+monkey.patch_all()
+
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from config import config
 from apps import Promotions
-monkey.patch_all()
 
 
 def create_app(setting):

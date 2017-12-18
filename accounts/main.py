@@ -1,5 +1,6 @@
 from gevent import monkey
 monkey.patch_all()
+
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from apps.stores import Stores, Store, StoreResetPassword

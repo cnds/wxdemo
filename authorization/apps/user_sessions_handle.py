@@ -5,7 +5,7 @@ from .base import BaseHandler
 from .json_validate import SCHEMA
 
 
-class StoreSessionsHandler(BaseHandler):
+class UserSessionsHandler(BaseHandler):
 
     def post(self):
         remote_ip = request.environ['REMOTE_ADDR']

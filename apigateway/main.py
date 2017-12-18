@@ -1,4 +1,6 @@
 from gevent import monkey
+monkey.patch_all()
+
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from config import config
@@ -6,7 +8,6 @@ from apps.promotions_handle import PromotionsHandler
 from apps.store_transactions_handle import (StoreTransactionsHandler,
                                             StoreTransactionHandler)
 from apps.store_profile_handle import StoreProfileHandler
-monkey.patch_all()
 
 
 def create_app(setting):

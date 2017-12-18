@@ -1,4 +1,6 @@
 from gevent import monkey
+monkey.patch_all()
+
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from config import config
@@ -7,7 +9,6 @@ from apps.sms_handle import SmsHandler
 from apps.stores_handle import StoresHandler, StoreResetPasswordHandler
 from apps.users_handle import UserRegisterStatus
 from apps.user_sessions_handle import UserSessionsHandler
-monkey.patch_all()
 
 
 def create_app(setting):
