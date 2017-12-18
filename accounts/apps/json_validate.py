@@ -91,7 +91,7 @@ user_register_status_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "openId": {"type": "string"}
+        "code": {"type": "string"}
     },
     "additionalProperties": False
 }

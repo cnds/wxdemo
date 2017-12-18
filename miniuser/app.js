@@ -8,10 +8,10 @@ App({
     this.registerUser()
   },
 
-  login: function (openId) {
+  login: function (openid) {
     wx.request({
       url: 'http://localhost:20000/authorizatin/user-sessions',
-      data: {token: token},
+      data: {openid: openid},
       method: 'POST',
       success: function(res) {
         if (res.statusCode === 201) {
@@ -43,14 +43,14 @@ App({
                   console.log(res)
 
                   wx.request({
-                    url: 'http://localhost:20000/authorization/register-status',
+                    url: 'http://localhost:20000/authorization/users/register-status',
                     data: {
                       code: code
                     },
                     method: 'POST',
                     success: function (res) {
                       if (res.statusCode === 201) {
-                        that.login(res.data.openId)
+                        that.login(res.data.openid)
                       } else {
                         var iv = res.iv
                         var encryptedData = res.encryptedData
