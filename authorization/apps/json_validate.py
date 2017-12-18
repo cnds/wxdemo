@@ -31,7 +31,7 @@ store_sessions_post = {
     "additionalProperties": False
 }
 
-wechat_sessions_post = {
+user_register_status_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -70,7 +70,7 @@ SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
-    'wechat_sessions_post': wechat_sessions_post,
+    'user_register_status_post': user_register_status_post,
     'sms_post': sms_post,
     'store_reset_password': store_reset_password,
 }
