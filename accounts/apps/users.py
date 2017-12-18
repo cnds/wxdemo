@@ -81,4 +81,4 @@ class UserRegisterStatus(Base):
         if not user:
             return self.error_msg(self.ERR['user_not_exist'])
 
-        return jsonify({'openid': open_id}), 201
+        return jsonify({'openId': open_id}), 201

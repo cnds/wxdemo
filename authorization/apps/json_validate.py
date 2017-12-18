@@ -66,6 +66,16 @@ store_reset_password = {
     "additionalProperties": False
 }
 
+user_sessions_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "openId": {"type": "string"},
+    },
+    "required": ["openId"],
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -73,4 +83,5 @@ SCHEMA = {
     'user_register_status_post': user_register_status_post,
     'sms_post': sms_post,
     'store_reset_password': store_reset_password,
+    'user_sessions_post': user_sessions_post,
 }

@@ -93,6 +93,17 @@ user_register_status_post = {
     "properties": {
         "code": {"type": "string"}
     },
+    "required": ["code"],
+    "additionalProperties": False
+}
+
+users_sessions_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "openId": {"type": "string"}
+    },
+    "required": ["openId"],
     "additionalProperties": False
 }
 
@@ -106,4 +117,5 @@ SCHEMA = {
     'users_get': users_get,
     'users_post': users_post,
     'user_register_status_post': user_register_status_post,
+    'user_sessions_post': users_sessions_post,
 }

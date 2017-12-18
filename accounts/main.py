@@ -6,6 +6,7 @@ from apps.stores import Stores, Store, StoreResetPassword
 from apps.store_sessions import StoreSessions
 from apps.store_profile import StoreProfile
 from apps.users import Users, UserRegisterStatus
+from apps.user_sessions import UserSessions
 from config import config
 
 
@@ -27,6 +28,8 @@ def create_app(setting):
                      view_func=Users.as_view('users'))
     app.add_url_rule('/accounts/users/register-status',
                      view_func=UserRegisterStatus.as_view('user-register-status'))
+    app.add_url_rule('/accounts/user-sessions',
+                     view_func=UserSessions.as_view('user-sessions'))
     return app
 
 
