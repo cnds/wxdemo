@@ -43,13 +43,17 @@ store_reset_password_post = {
     "additionalProperties": False
 }
 
-store_profile_get = {
+store_profiles_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "storeId": {"type": "string"}
+        "storeId": {
+            "oneOf": [
+                {"type": "string"},
+                {"type": "array"}
+            ]
+        }
     },
-    "required": ["storeId"],
     "additionalProperties": False
 }
 
@@ -70,7 +74,13 @@ users_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "openId": {"type": "string"}
+        "openId": {"type": "string"},
+        "id": {
+            "oneOf": [
+                {"type": "string"},
+                {"type": "array"}
+            ]
+        }
     },
     "additionalProperties": False
 }
@@ -112,7 +122,7 @@ SCHEMA = {
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
     'store_reset_password_post': store_reset_password_post,
-    'store_profile_get': store_profile_get,
+    'store_profiles_get': store_profiles_get,
     'store_profile_put': store_profile_put,
     'users_get': users_get,
     'users_post': users_post,

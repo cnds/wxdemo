@@ -5,7 +5,7 @@ from flask import Flask
 from gevent.pywsgi import WSGIServer
 from apps.stores import Stores, Store, StoreResetPassword
 from apps.store_sessions import StoreSessions
-from apps.store_profile import StoreProfile
+from apps.store_profile import StoreProfile, StoreProfiles
 from apps.users import Users, UserRegisterStatus
 from apps.user_sessions import UserSessions
 from config import config
@@ -23,8 +23,10 @@ def create_app(setting):
                      view_func=StoreSessions.as_view('store-sessions'))
     app.add_url_rule('/accounts/stores/reset-password',
                      view_func=StoreResetPassword.as_view('reset-password'))
-    app.add_url_rule('/accounts/stores/profile',
+    app.add_url_rule('/accounts/stores/<store_id>/profile',
                      view_func=StoreProfile.as_view('store-profile'))
+    app.add_url_rule('/accounts/stores/profile',
+                     view_func=StoreProfiles.as_view('store-profiles'))
     app.add_url_rule('/accounts/users',
                      view_func=Users.as_view('users'))
     app.add_url_rule('/accounts/users/register-status',
