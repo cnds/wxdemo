@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    transactions: null
+    orders: null
   },
 
   /**
@@ -15,21 +15,32 @@ Page({
    */
 
   onLoad: function (options) {
-    this.getTransactions()
+    this.getOrders
+    ()
   },
 
-  getTransactions: function () {
+  getOrders: function () {
     var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/users/' + app.globalData.userId + '/transactions',
+      url: 'http://localhost:10000/gateway/users/' + app.globalData.userId + '/orders',
       header: { 'Authorization': 'Bearer ' + app.globalData.token },
       success: function(res) {
         if (res.statusCode === 200) {
           that.setData({
-            transactions: res.data.transactions
+            orders: res.data.orders
+          })
+        } else if (res.statusCode === 400) {
+          wx.showModal({
+            title: '错误',
+            content: res.data,
+            showCancel: false
           })
         } else {
-          console.log(res.data)
+          wx.showModal({
+            title: '错误',
+            content: '服务器内部错误',
+            showCancel: false
+          })
         }
       }
     })

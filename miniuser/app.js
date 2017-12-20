@@ -18,11 +18,12 @@ App({
         if (res.statusCode === 201) {
           that.globalData.token = res.data.token
           that.globalData.userId = res.data.id
-          // wx.navigateTo({
-            // url: '../transactions/transactions',
-          // })
-        } else {
-          console.log(res)
+        } else if (res.statusCode === 400) {
+          wx.showModal({
+            title: '错误',
+            content: '登录失败',
+            showCancel: false
+          })
           return;
         }
       }

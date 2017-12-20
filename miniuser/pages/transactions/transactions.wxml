@@ -9,7 +9,7 @@
       <view class="th">金额</view>
       <view class="th">时间</view>
     </view>
-    <view class="tr" wx:for="{{transactions}}" wx:key="storeId">
+    <view class="tr" wx:for="{{orders}}" wx:key="storeName">
       <view class="td">{{item.storeName}}</view>
       <view class="td">{{item.amount}}</view>
       <view class="td">{{item.createdDate}}</view>
