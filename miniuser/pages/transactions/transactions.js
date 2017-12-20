@@ -17,6 +17,7 @@ Page({
   onLoad: function (options) {
     this.getTransactions()
   },
+
   getTransactions: function () {
     var that = this
     wx.request({

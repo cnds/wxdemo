@@ -10,7 +10,7 @@
           <view class="th">时间</view>
       </view>
       <view class="tr" wx:for="{{transactions}}">
-          <view class="td">{{item.id}}</view>
+          <view class="td">{{item.userId}}</view>
           <view class="td">{{item.amount}}</view>
           <view class="td">{{item.createdDate}}</view>
       </view>

@@ -1,2 +1,19 @@
 <!--pages/transactions/transactions.wxml-->
-<text>pages/transactions/transactions.wxml</text>
+<view class='container'>
+  <view class='name'>
+    <text>交易记录</text>
+  </view>
+  <view class="table">
+    <view class="tr">
+      <view class="th">店铺</view>
+      <view class="th">金额</view>
+      <view class="th">时间</view>
+    </view>
+    <view class="tr" wx:for="{{transactions}}" wx:key="storeId">
+      <view class="td">{{item.storeName}}</view>
+      <view class="td">{{item.amount}}</view>
+      <view class="td">{{item.createdDate}}</view>
+    </view>
+    <view class='transaction' bindtap='transactionClick'></view>
+  </view>
+</view>
