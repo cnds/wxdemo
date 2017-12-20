@@ -1,3 +1,4 @@
+import requests
 from flask import request, jsonify
 from apps.base import Base
 from apps.json_validate import SCHEMA
@@ -23,7 +24,51 @@ class Transactions(Base):
         if not flag:
             return '', 500
 
-        return jsonify({'transactions': transactions})
+        user_id_list = set()
+        store_id_list = set()
+        for transaction in transactions:
+            user_id_list.add(transaction['userId'])
+            store_id_list.add(transaction['storeId'])
+
+        api_resp = requests.get(
+            '{0}/accounts/users'.format(self.endpoint['accounts']),
+            params={'id': list(user_id_list)})
+        resp_status = api_resp.status_code
+        if resp_status != 200:
+            if resp_status == 400:
+                return self.error_msg(api_resp.json())
+
+            return '', 500
+
+        users = api_resp.json()['users']
+
+        api_resp = requests.get(
+            '{0}/accounts/stores/profile'.format(self.endpoint['accounts']),
+            params={'storeId': list(store_id_list)})
+        resp_status = api_resp.status_code
+        if resp_status != 200:
+            if resp_status == 400:
+                return self.error_msg(api_resp.json())
+
+            return '', 500
+
+        stores = api_resp.json()['storeProfiles']
+        result = list()
+        for transaction in transactions:
+            store_id = transaction['storeId']
+            for store in stores:
+                if store_id == store['storeId']:
+                    transaction['storeName'] = store['storeName']
+
+            user_id = transaction['userId']
+            for user in users:
+                if user_id == user['id']:
+                    transaction['nickName'] = user['nickName']
+
+            transaction_result = self.get_data_with_keys(transaction, (
+                'storeName', 'nickName', 'address', 'amount', 'createdDate'))
+            result.append(transaction_result)
+        return jsonify({'transactions': result})
 
     def post(self):
         is_valid, data = self.get_params_from_request(

@@ -15,8 +15,8 @@ class StoreProfileHandler(BaseHandler):
             return self.error_msg(tag)
 
         api_resp = requests.get(
-            '{0}/accounts/stores/profile'.format(self.endpoint['accounts']),
-            params={'storeId': store_id})
+            '{0}/accounts/stores/{1}/profile'.format(
+                self.endpoint['accounts'], store_id))
         resp_status = api_resp.status_code
         if resp_status != 200 and resp_status != 400:
             self.logger.error('request accounts server failed')
@@ -35,9 +35,9 @@ class StoreProfileHandler(BaseHandler):
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
-        data['storeId'] = store_id
         api_resp = requests.put(
-            '{0}/accounts/stores/profile'.format(self.endpoint['accounts']),
+            '{0}/accounts/stores/{1}/profile'.format(
+                self.endpoint['accounts'], store_id),
             json=data)
         resp_status = api_resp.status_code
         if resp_status != 200 and resp_status != 400:

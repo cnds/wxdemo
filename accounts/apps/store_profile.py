@@ -1,4 +1,5 @@
 from flask import request, jsonify
+from bson import ObjectId
 from .base import Base
 from .json_validate import SCHEMA
 
@@ -49,6 +50,9 @@ class StoreProfile(Base):
 class StoreProfiles(Base):
 
     def get(self):
+
+        # TODO: need optimize the way of checking query params
+
         params = request.args.to_dict()
         is_valid, tag = self.validate_dict_with_schema(
             params, SCHEMA['store_profiles_get'])
@@ -56,23 +60,22 @@ class StoreProfiles(Base):
             return self.error_msg(self.ERR['invalid_query_params'], tag)
 
         store_id = params.get('storeId')
-        condition = {'storeId': store_id} if store_id else dict()
+        if store_id:
+            store_id = request.args.getlist('storeId')
+        condition = {'storeId': {'$in': store_id}} if store_id else dict()
         flag, profiles = self.db.find_by_condition('storeProfile', condition)
         if not flag:
             return '', 500
 
-        condition = {'id': store_id} if store_id else dict()
+        store_id = [ObjectId(store) for store in store_id]
+        condition = {'_id': {'$in': store_id}} if store_id else dict()
         flag, stores = self.db.find_by_condition('stores', condition)
         if not flag:
             return '', 500
 
-        result = list()
         for profile in profiles:
             for store in stores:
                 if store['id'] == profile['storeId']:
-                    store.pop('id')
-                    profile.update(store)
-                    result.append(self.get_data_with_keys(
-                        profile, ('mobile', 'address', 'name')))
+                    profile['mobile'] = store['mobile']
 
-        return jsonify({'storeProfiles': result}), 200
+        return jsonify({'storeProfiles': profiles}), 200

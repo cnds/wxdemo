@@ -62,7 +62,7 @@ store_profile_put = {
     "type": "object",
     "properties": {
         "address": {"type": "string"},
-        "name": {"type": "string"},
+        "storeName": {"type": "string"},
         "storeId": {"type": "string"},
     },
     "required": ["storeId"],

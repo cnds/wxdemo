@@ -1,4 +1,5 @@
 from flask import request, jsonify
+from bson import ObjectId
 from wxbase.utils import WXBizDataCrypt
 from .base import Base
 from .json_validate import SCHEMA
@@ -8,12 +9,22 @@ from config import config
 class Users(Base):
 
     def get(self):
+
+        # TODO: need to optimize the way of checking query params
+
         params = request.args.to_dict()
         is_valid, tag = self.validate_dict_with_schema(params,
                                                        SCHEMA['users_get'])
         if not is_valid:
             return self.error_msg(self.ERR['invalid_query_params'], tag)
 
+        ids = params.pop('id', None)
+
+        if ids:
+            params['_id'] = {
+                '$in': [ObjectId(i) for i in request.args.getlist('id')]}
+
+        print(params)
         flag, users = self.db.find_by_condition('users', params)
         if not flag:
             return '', 500
