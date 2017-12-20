@@ -3,12 +3,10 @@ monkey.patch_all()
 
 from flask import Flask
 from gevent.pywsgi import WSGIServer
-from apps.stores import Stores, Store, StoreResetPassword
-from apps.store_sessions import StoreSessions
-from apps.store_profile import StoreProfile, StoreProfiles
-from apps.users import Users, UserRegisterStatus
-from apps.user_sessions import UserSessions
-from config import config
+from .apps import Stores, Store, StoreResetPassword, \
+    StoreSessions, StoreProfile, StoreProfiles, \
+    Users, UserRegisterStatus, UserSessions
+from .config import config
 
 
 app = Flask(__name__)

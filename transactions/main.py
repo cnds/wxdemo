@@ -4,7 +4,7 @@ monkey.patch_all()
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from config import config
-from apps import Transactions, Transaction
+from apps import Transactions, Transaction, Promotions
 
 
 def create_app(config):
@@ -15,6 +15,8 @@ def create_app(config):
                      view_func=Transactions.as_view('transactions'))
     app.add_url_rule('/transactions/<transaction_id>',
                      view_func=Transaction.as_view('transaction'))
+    app.add_url_rule('/promotions',
+                     view_func=Promotions.as_view('session'))
     return app
 
 

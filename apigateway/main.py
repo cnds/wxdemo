@@ -3,13 +3,10 @@ monkey.patch_all()
 
 from flask import Flask
 from gevent.pywsgi import WSGIServer
-from config import config
-from apps.promotions_handle import PromotionsHandler
-from apps.store_transactions_handle import (StoreTransactionsHandler,
-                                            StoreTransactionHandler)
-from apps.store_profile_handle import StoreProfileHandler
-from apps.user_transactions_handle import (UserTransactionsHandler,
-                                           UserTransactionHandler)
+from .config import config
+from .apps import PromotionsHandler, StoreTransactionsHandler, \
+    StoreTransactionHandler, StoreProfileHandler, \
+    UserTransactionsHandler, UserTransactionHandler
 
 
 def create_app(setting):

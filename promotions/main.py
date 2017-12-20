@@ -4,7 +4,7 @@ monkey.patch_all()
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from config import config
-from apps import Promotions
+from apps import Promotions, Transactions
 
 
 def create_app(setting):

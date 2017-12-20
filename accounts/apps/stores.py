@@ -1,8 +1,8 @@
 from flask import jsonify, request
 
 from wxbase.utils import create_md5_key, create_hash_key
-from apps.base import Base
-from apps.json_validate import SCHEMA
+from .base import Base
+from .json_validate import SCHEMA
 
 
 class Stores(Base):
