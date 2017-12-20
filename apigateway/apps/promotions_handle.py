@@ -1,8 +1,8 @@
 import requests
 from flask import request, jsonify
-from apps.base import BaseHandler
-from apps.json_validate import SCHEMA
 from config import config
+from .base import BaseHandler
+from .json_validate import SCHEMA
 from wxbase.utils import create_md5_key
 
 
@@ -15,7 +15,8 @@ class PromotionsHandler(BaseHandler):
             return self.error_msg(tag)
 
         api_resp = requests.get(
-            '{0}/promotions'.format(self.endpoint['promotions']),
+            '{0}/transactions/promotions'.format(
+                self.endpoint['transactions']),
             params={'storeId': store_id})
         resp_status = api_resp.status_code
         if resp_status != 200 and resp_status != 400:
@@ -37,7 +38,8 @@ class PromotionsHandler(BaseHandler):
 
         data['storeId'] = store_id
         api_resp = requests.put(
-            '{0}/promotions'.format(self.endpoint['promotions']),
+            '{0}/transactions/promotions'.format(
+                self.endpoint['transactions']),
             json=data)
         resp_status = api_resp.status_code
         if resp_status != 201 and resp_status != 400:

@@ -3,8 +3,8 @@ monkey.patch_all()
 
 from flask import Flask
 from gevent.pywsgi import WSGIServer
-from .config import config
-from .apps import StoreSessionsHandler, SmsHandler, \
+from config import config
+from apps import StoreSessionsHandler, SmsHandler, \
     StoresHandler, StoreResetPasswordHandler, \
     UserRegisterStatus, UserSessionsHandler
 
@@ -32,6 +32,6 @@ def create_app(setting):
 
 if __name__ == '__main__':
     api_port = config['api_port']
-    app = create_app(config)
+    application = create_app(config)
     print('Start liston on %s' % api_port)
-    WSGIServer(('', api_port), app).serve_forever()
+    WSGIServer(('', api_port), application).serve_forever()

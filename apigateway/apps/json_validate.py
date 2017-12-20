@@ -30,7 +30,7 @@ store_sessions_post = {
     "additionalProperties": False
 }
 
-store_transactions_get = {
+store_orders_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -51,7 +51,7 @@ store_profile_put = {
     "additionalProperties": False
 }
 
-user_transactions_get = {
+user_orders_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -66,6 +66,6 @@ SCHEMA = {
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
     'store_profile_put': store_profile_put,
-    'store_transactions_get': store_transactions_get,
-    'user_transactions_get': user_transactions_get,
+    'store_orders_get': store_orders_get,
+    'user_orders_get': user_orders_get,
 }

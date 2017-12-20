@@ -1,2 +1,2 @@
-from .transactions import Transactions, Transaction
+from .orders import Orders, Order
 from .promotions import Promotions

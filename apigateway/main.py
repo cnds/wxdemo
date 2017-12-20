@@ -3,10 +3,10 @@ monkey.patch_all()
 
 from flask import Flask
 from gevent.pywsgi import WSGIServer
-from .config import config
-from .apps import PromotionsHandler, StoreTransactionsHandler, \
-    StoreTransactionHandler, StoreProfileHandler, \
-    UserTransactionsHandler, UserTransactionHandler
+from config import config
+from apps import PromotionsHandler, StoreOrdersHandler, \
+    StoreOrderHandler, StoreProfileHandler, \
+    UserOrdersHandler, UserOrderHandler
 
 
 def create_app(setting):
@@ -15,21 +15,21 @@ def create_app(setting):
     app.config['DEBUG'] = setting['debug']
     app.add_url_rule('/gateway/stores/<store_id>/promotions',
                      view_func=PromotionsHandler.as_view('promotions'))
-    app.add_url_rule('/gateway/stores/<store_id>/transactions',
-                     view_func=StoreTransactionsHandler.as_view('store-transactions'))
-    app.add_url_rule('/gateway/stores/<store_id>/transactions/<transaction_id>',
-                     view_func=StoreTransactionHandler.as_view('store-transaction'))
+    app.add_url_rule('/gateway/stores/<store_id>/orders',
+                     view_func=StoreOrdersHandler.as_view('store-orders'))
+    app.add_url_rule('/gateway/stores/<store_id>/orders`/<order_id>',
+                     view_func=StoreOrderHandler.as_view('store-order'))
     app.add_url_rule('/gateway/stores/<store_id>/profile',
                      view_func=StoreProfileHandler.as_view('store-profile'))
-    app.add_url_rule('/gateway/users/<user_id>/transactions',
-                     view_func=UserTransactionsHandler.as_view('user-transactions'))
-    app.add_url_rule('/gateway/users/<user_id>/transactions/<transaction_id>',
-                     view_func=UserTransactionHandler.as_view('user-transaction'))
+    app.add_url_rule('/gateway/users/<user_id>/orders',
+                     view_func=UserOrdersHandler.as_view('user-orders'))
+    app.add_url_rule('/gateway/users/<user_id>/orders/<order_id>',
+                     view_func=UserOrderHandler.as_view('user-order'))
     return app
 
 
 if __name__ == '__main__':
     api_port = config['api_port']
-    app = create_app(config)
+    application = create_app(config)
     print('Start liston on %s' % api_port)
-    WSGIServer(('', api_port), app).serve_forever()
+    WSGIServer(('', api_port), application).serve_forever()

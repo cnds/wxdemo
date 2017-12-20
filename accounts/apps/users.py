@@ -24,7 +24,6 @@ class Users(Base):
             params['_id'] = {
                 '$in': [ObjectId(i) for i in request.args.getlist('id')]}
 
-        print(params)
         flag, users = self.db.find_by_condition('users', params)
         if not flag:
             return '', 500

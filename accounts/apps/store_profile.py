@@ -1,3 +1,5 @@
+# NOTE: deprecated
+
 from flask import request, jsonify
 from bson import ObjectId
 from .base import Base

@@ -1,4 +1,4 @@
-transactions_post = {
+orders_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -10,7 +10,7 @@ transactions_post = {
     "additionalProperties": False
 }
 
-transactions_get = {
+orders_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -22,7 +22,7 @@ transactions_get = {
     "additionalProperties": False
 }
 
-transaction_get = {
+order_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -72,9 +72,9 @@ promotions_get = {
 
 
 SCHEMA = {
-    'transactions_post': transactions_post,
-    'transactions_get': transactions_get,
-    'transaction_get': transaction_get,
+    'orders_post': orders_post,
+    'orders_get': orders_get,
+    'order_get': order_get,
     'promotions_put': promotions_put,
     'promotions_get': promotions_get,
 }

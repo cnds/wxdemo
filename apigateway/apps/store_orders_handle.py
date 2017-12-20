@@ -1,15 +1,15 @@
 import requests
 from flask import request, jsonify
-from wxbase.utils import create_md5_key
 from .base import BaseHandler
 from .json_validate import SCHEMA
+from wxbase.utils import create_md5_key
 from config import config
 
 
-class UserTransactionsHandler(BaseHandler):
+class StoreOrdersHandler(BaseHandler):
 
-    def get(self, user_id):
-        flag, tag = self.authenticate(request, user_id,
+    def get(self, store_id):
+        flag, tag = self.authenticate(request, store_id,
                                       create_md5_key(config['secret']))
         if not flag:
             return self.error_msg(tag)
@@ -24,9 +24,9 @@ class UserTransactionsHandler(BaseHandler):
         if not is_valid:
             return self.error_msg(self.ERR['invalid_query_params'], tag)
 
-        params['userId'] = user_id
+        params['storeId'] = store_id
         api_resp = requests.get(
-            '{0}/transactions'.format(self.endpoint['transactions']),
+            '{0}/transactions/orders'.format(self.endpoint['transactions']),
             params=params)
         resp_status = api_resp.status_code
         if resp_status != 200 and resp_status != 400:
@@ -36,18 +36,18 @@ class UserTransactionsHandler(BaseHandler):
         return jsonify(api_resp.json()), resp_status
 
 
-class UserTransactionHandler(BaseHandler):
+class StoreOrderHandler(BaseHandler):
 
-    def get(self, user_id, transaction_id):
-        flag, tag = self.authenticate(request, user_id,
+    def get(self, store_id, order_id):
+        flag, tag = self.authenticate(request, store_id,
                                       create_md5_key(config['secret']))
         if not flag:
             return self.error_msg(tag)
 
-        params = {'userId': user_id}
+        params = {'storeId': store_id}
         api_resp = requests.get(
-            '{0}/transactions/{1}'.format(
-                self.endpoint['transactions'], transaction_id),
+            '{0}/transactions/orders/{1}'.format(
+                self.endpoint['transactions'], order_id),
             params=params)
         resp_status = api_resp.status_code
         if resp_status != 200 and resp_status != 400:
