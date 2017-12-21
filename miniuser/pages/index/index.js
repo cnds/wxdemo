@@ -51,15 +51,31 @@ Page({
       hasUserInfo: true
     })
   },
-  
+
   scanQRCode: function(e) {
     wx.scanCode({
-      scanType: 'qrCode',
+      scanType: ['qrCode'],
       success: function(res) {
         console.log(res.result)
         // TODO: 解析扫码内容，调用API找到商家，返回用户拥有的商家优惠
       }
     })
-  }
+  },
+
+  relogin: function () {
+    var that = this;
+    app.globalData.token = null;
+    app.registerUser();
+    wx.showModal({
+      title: '提示',
+      content: '重新登陆成功',
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+          that.onShow();
+        }
+      }
+    })
+  },
 
 })
