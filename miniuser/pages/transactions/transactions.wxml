@@ -14,6 +14,5 @@
       <view class="td">{{item.amount}}</view>
       <view class="td">{{item.createdDate}}</view>
     </view>
-    <view class='transaction' bindtap='transactionClick'></view>
   </view>
 </view>

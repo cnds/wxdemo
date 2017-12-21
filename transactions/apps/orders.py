@@ -53,7 +53,6 @@ class Orders(Base):
             return '', 500
 
         stores = api_resp.json()['stores']
-        print(users, '\n', stores, '\n', orders)
         result = list()
         for order in orders:
             store_id = order['storeId']

@@ -32,7 +32,7 @@ Page({
         } else if (res.statusCode === 400) {
           wx.showModal({
             title: '错误',
-            content: res.data,
+            content: res.data.error,
             showCancel: false
           })
         } else {

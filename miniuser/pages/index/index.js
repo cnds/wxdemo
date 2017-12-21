@@ -50,6 +50,16 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  
+  scanQRCode: function(e) {
+    wx.scanCode({
+      scanType: 'qrCode',
+      success: function(res) {
+        console.log(res.result)
+        // TODO: 解析扫码内容，调用API找到商家，返回用户拥有的商家优惠
+      }
+    })
   }
 
 })
