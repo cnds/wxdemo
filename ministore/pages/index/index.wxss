@@ -1,1 +1,36 @@
 /* pages/index/index.wxss */
+.container{
+  height: 100%;
+  padding: 20px
+}
+
+.storeinfo {
+  height: 100rpx;
+	display: flex;
+	flex-direction: column;
+	padding: 50rpx 0;
+	align-items: center;
+	background: #e85654;
+  width: 750rpx;
+}
+
+.storeinfo-storename {
+  margin-top: 10rpx;
+  color: #FFF;
+}
+
+.storeinfo-mobile {
+  margin-top: 10rpx;
+  color: #FFF;
+}
+
+.my-item{
+    width: 100%;
+    background: 750rpx center;
+    background-size: 16rpx auto,750rpx auto;
+    margin: 10rpx 0; 
+    border-bottom: 1px solid #eee;
+    height: 100rpx;
+    line-height: 75rpx;
+    padding-left: 100rpx;
+}

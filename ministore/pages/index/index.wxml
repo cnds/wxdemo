@@ -1,2 +1,22 @@
 <!--pages/index/index.wxml-->
-<text>pages/index/index.wxml</text>
+<view class="container">
+
+  <view class="storeinfo">
+    <image wx:if="{{storeInfo}}" background-size="cover"></image>
+    <text class="storeinfo-storename">{{ storeInfo.storeName }}</text>
+    <text class="storeinfo-mobile">{{ storeInfo.mobile }}</text>
+
+  </view>
+  <view style="height:50rpx;width:100%;"></view>
+  <view class="my-item" style='background:none;display:flex;flex-direction:column;height:auto;'>
+  </view>
+  <view class="my-item">
+    <navigator url="/pages/transactions/transactions" hover-class="navigator-hover">消费记录</navigator>
+  </view>
+  <view class="my-item">
+    <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">店铺优惠</navigator>
+  </view>
+  <view class="my-item">
+    <text bindtap='bindQRCode'>绑定二维码</text>
+  </view>
+</view>

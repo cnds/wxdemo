@@ -17,10 +17,8 @@ Page({
         password: this.data.password
       },
       success: function(res) {
-        status = res.statusCode
         if (res.statusCode === 201) {
-          app.globalData.userInfo = res.data
-          console.log(app.globalData)
+          app.globalData.storeInfo = res.data
           wx.redirectTo({
             url: '../index/index',
           })

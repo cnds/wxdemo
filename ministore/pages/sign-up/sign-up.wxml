@@ -22,6 +22,20 @@
     </view>
 
     <view class='sign-up-item'>
+      <view class='sign-up-item-info'>店铺名称</view>
+      <view>
+        <input bindinput='storeNameInput' />
+      </view>
+    </view>
+
+    <view class='sign-up-item'>
+      <view class='sign-up-item-info'>地址</view>
+      <view>
+        <input bindinput='addressInput' />
+      </view>
+    </view>
+
+    <view class='sign-up-item'>
       <view class='sign-up-item-info'>验证码</view>
       <view class='sign-up-sms'>
         <input style='flex-grow:1' bindinput='smsInput'></input>

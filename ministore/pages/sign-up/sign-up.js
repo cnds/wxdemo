@@ -7,7 +7,9 @@ Page({
   data: {
     mobile: null,
     password: null,
-    code: null,
+    smsCode: null,
+    address: null,
+    storeName: null
   },
   signupClick: function(event) {
     wx.request({
@@ -15,7 +17,9 @@ Page({
       data: {
         mobile: this.data.mobile,
         password: this.data.password,
-        code: this.data.code
+        smsCode: this.data.smsCode,
+        address: this.data.address,
+        storeName: this.data.storeName
       },
       method: 'POST',
       success: function(res) {
@@ -42,7 +46,7 @@ Page({
   },
   smsInput: function(event) {
     this.setData({
-      code: event.detail.value
+      smsCode: event.detail.value
     })
   },
   sendSmsClick: function(event) {
@@ -59,6 +63,18 @@ Page({
           console.log(res.data.error)
         }
       }
+    })
+  },
+
+  storeNameInput: function(event) {
+    this.setData({
+      storeName: event.detail.value
+    })
+  },
+
+  addressInput: function(event) {
+    this.setData({
+      address: event.detail.value
     })
   }
 
