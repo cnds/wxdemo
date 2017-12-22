@@ -29,10 +29,12 @@ class StoreSessions(Base):
         store = store[0]
         store_id = store['id']
         password_from_db = store['password']
-        salt = create_md5_key(config['secret'])
+        salt = create_md5_key(store_id + config['secret'])
         if not validate_hash_key(password, password_from_db, salt):
             return self.error_msg(self.ERR['password_verification_failed'])
 
         token = self.create_jwt({'accountId': store_id}, salt)
-        return jsonify({
-            'mobile': mobile, 'id': store_id, 'token': token.decode()}), 201
+        result = self.get_data_with_keys(
+                store, ('mobile', 'id', 'address', 'storeName'),
+                {'token': token.decode()})
+        return jsonify(result), 201

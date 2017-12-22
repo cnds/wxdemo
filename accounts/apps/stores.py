@@ -3,6 +3,7 @@ from flask import jsonify, request
 from wxbase.utils import create_md5_key, create_hash_key
 from .base import Base
 from .json_validate import SCHEMA
+from config import config
 
 
 class Stores(Base):
@@ -54,7 +55,7 @@ class Stores(Base):
             return self.error_msg(self.ERR['conflict_user_exist'])
 
         flag, store_by_mobile = self.db.find_by_condition('stores',
-                                                        {'mobile': mobile})
+                                                          {'mobile': mobile})
         if not flag:
             return '', 500
 
@@ -73,7 +74,7 @@ class Stores(Base):
 
             store_id = store_by_address['id']
 
-        salt = create_md5_key(store_id)
+        salt = create_md5_key(store_id + config['secret'])
         hashed_password = create_hash_key(password, salt)
         flag, result = self.db.update(
             'stores', {'id': store_id},

@@ -12,11 +12,13 @@ stores_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "password": {"type": "string", "minLength": 8},
+        "password": {"type": "string"},
         "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"},
-        "code": {"type": "string"}
+        "smsCode": {"type": "string"},
+        "address": {"type": "string"},
+        "storeName": {"type": "string"}
     },
-    "required": ["mobile", "password", "code"],
+    "required": ["mobile", "password", "smsCode", "address", "storeName"],
     "additionalProperties": False
 }
 
@@ -24,7 +26,7 @@ store_sessions_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "password": {"type": "string", "minLength": 8},
+        "password": {"type": "string"},
         "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"}
     },
     "required": ["mobile", "password"],
