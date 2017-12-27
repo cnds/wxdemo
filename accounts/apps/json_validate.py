@@ -125,6 +125,17 @@ users_sessions_post = {
     "additionalProperties": False
 }
 
+qr_code_bind_store_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "QRCode": {"type": "string"},
+        "storeId": {"type": "string"}
+    },
+    "required": ["QRCode", "storeId"],
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -136,4 +147,5 @@ SCHEMA = {
     'users_post': users_post,
     'user_register_status_post': user_register_status_post,
     'user_sessions_post': users_sessions_post,
+    'qr_code_bind_store_post': qr_code_bind_store_post,
 }

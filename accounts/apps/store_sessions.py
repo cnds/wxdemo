@@ -2,7 +2,7 @@ from flask import request, jsonify
 
 from .base import Base
 from .json_validate import SCHEMA
-from wxbase.utils import validate_hash_key, create_md5_key
+from wxbase.utils import validate_hash_key, create_md5_key, create_hash_key
 from config import config
 
 
@@ -29,7 +29,7 @@ class StoreSessions(Base):
         store = store[0]
         store_id = store['id']
         password_from_db = store['password']
-        salt = create_md5_key(store_id + config['secret'])
+        salt = create_md5_key(config['secret'])
         if not validate_hash_key(password, password_from_db, salt):
             return self.error_msg(self.ERR['password_verification_failed'])
 

@@ -125,3 +125,30 @@ class StoreResetPassword(Base):
             return self.error_msg(self.ERR['not_found'])
 
         return jsonify({'id': store_id}), 201
+
+
+"""
+class Store(Base):
+
+    def put(self, store_id):
+        is_valid, data = self.get_params_from_request(
+            request, SCHEMA['store_put'])
+        if not is_valid:
+            return self.error_msg(self.ERR['invalid_body_content'], data)
+
+        qr_code = data.get('QRCode')
+        if qr_code:
+            flag, code_from_db = self.db.find_by_condition('QRCode',
+                                                           {'code': qr_code})
+            if not flag:
+                return '', 500
+
+            if not code_from_db:
+                return self.error_msg(self.ERR['qr_code_not_exist'])
+
+        result = self.db.update('stores', {'id': store_id}, data)
+        if not result:
+            return '', 500
+
+        return jsonify({'id': store_id}), 200
+"""
