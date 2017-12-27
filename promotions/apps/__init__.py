@@ -1,1 +1,0 @@
-from .promotions import Promotions
