@@ -70,6 +70,18 @@ promotions_get = {
     "additionalProperties": False
 }
 
+actual_amount_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "userId": {"type": "string"},
+        "amount": {"type": "integer"}
+    },
+    "required": ["storeId", "userId", "amount"],
+    "additionalProperties": False
+}
+
 
 SCHEMA = {
     'orders_post': orders_post,
@@ -77,4 +89,5 @@ SCHEMA = {
     'order_get': order_get,
     'promotions_put': promotions_put,
     'promotions_get': promotions_get,
+    'actual_amount_post': actual_amount_post,
 }

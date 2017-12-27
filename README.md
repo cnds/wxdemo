@@ -10,10 +10,7 @@ Wechat micro program backend created by flask.
 
 # TODO
 ### backend
-* store profile on accounts service (location, store name)
-* authenticate before request
 * QR code generator
-* bind store with QR code
 
 ### mini program
 #### store

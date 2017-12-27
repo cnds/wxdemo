@@ -6,8 +6,8 @@ from .json_validate import SCHEMA
 class ActualAmount(Base):
 
     def post(self):
-        is_valid, data = self.get_params_from_request(request,
-                                                      SCHEMA['actual_amount'])
+        is_valid, data = self.get_params_from_request(
+            request, SCHEMA['actual_amount_post'])
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'])
 
@@ -16,7 +16,7 @@ class ActualAmount(Base):
         amount = data['amount']
 
         flag, promotion = self.db.find_by_condition('promotions',
-                                                     {'storeId', store_id})
+                                                    {'storeId', store_id})
         if not flag:
             return '', 500
 

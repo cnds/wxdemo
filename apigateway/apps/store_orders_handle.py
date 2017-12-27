@@ -20,7 +20,7 @@ class StoreOrdersHandler(BaseHandler):
             return self.error_msg(self.ERR['invalid_query_params'], tag)
 
         is_valid, tag = self.validate_dict_with_schema(
-            params, SCHEMA['store_transactions_get'])
+            params, SCHEMA['store_orders_get'])
         if not is_valid:
             return self.error_msg(self.ERR['invalid_query_params'], tag)
 

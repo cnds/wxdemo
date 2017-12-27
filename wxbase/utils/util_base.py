@@ -18,6 +18,9 @@ class UtilBase(object):
         'permission_denied': 'PERMISSION_DENIED',
         'operation_failed': 'OPERATION_FAILED',
         'invalid_wx_code': 'INVALID_WX_CODE',
+        'qr_code_not_exist': 'QR_CODE_NOT_EXIST',
+        'store_not_exist': 'STORE_NOT_EXIST',
+        'qr_code_already_been_bound': 'QR_CODE_ALREADY_BEEN_BOUND',
     }
 
     def __init__(self):
