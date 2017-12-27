@@ -82,6 +82,34 @@ user_actual_amount_post = {
     "additionalProperties": False
 }
 
+promotions_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "discount": {
+            "type": "object",
+            "properties": {
+                "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+                "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+            },
+            "required": ["base", "minus"],
+            "additionalProperties": False
+        },
+        "coupon": {
+            "type": "object",
+            "properties": {
+                "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+                "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+            },
+            "required": ["base", "minus"],
+            "additionalProperties": False
+        },
+    },
+    "minProperties": 1,
+    "additionalProperties": False
+}
+
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -91,4 +119,5 @@ SCHEMA = {
     'user_orders_get': user_orders_get,
     'store_bind_qr_code_post': store_bind_qr_code_post,
     'user_actual_amount_post': user_actual_amount_post,
+    'promotions_put': promotions_put,
 }

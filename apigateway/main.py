@@ -14,6 +14,8 @@ def create_app(setting):
     app = Flask(__name__)
     app.config['TESTING'] = setting['testing']
     app.config['DEBUG'] = setting['debug']
+
+    #NOTE: stores
     app.add_url_rule('/gateway/stores/<store_id>/promotions',
                      view_func=PromotionsHandler.as_view('promotions'))
     app.add_url_rule('/gateway/stores/<store_id>/orders',
@@ -22,14 +24,18 @@ def create_app(setting):
                      view_func=StoreOrderHandler.as_view('store-order'))
     app.add_url_rule('/gateway/stores/<store_id>/profile',
                      view_func=StoreProfileHandler.as_view('store-profile'))
+    app.add_url_rule('/gateway/stores/<store_id>/bind-qr-code',
+                     view_func=StoreBindQRCodeHandler.as_view('store-bind-qr-code'))
+
+    #NOTE: users
     app.add_url_rule('/gateway/users/<user_id>/orders',
                      view_func=UserOrdersHandler.as_view('user-orders'))
     app.add_url_rule('/gateway/users/<user_id>/orders/<order_id>',
                      view_func=UserOrderHandler.as_view('user-order'))
-    app.add_url_rule('/gateway/stores/<store_id>/bind-qr-code',
-                     view_func=StoreBindQRCodeHandler.as_view('store-bind-qr-code'))
     app.add_url_rule('/gateway/users/<user_id>/actual-amount',
                      view_func=UserActualAmountHandler.as_view('actual-amount'))
+    app.add_url_rule('/gateway/users/<user_id>/promotions',
+                     view_func=)
     return app
 
 
