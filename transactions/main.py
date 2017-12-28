@@ -4,7 +4,7 @@ monkey.patch_all()
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from config import config
-from apps import Orders, Order, Promotions, ActualAmount
+from apps import Orders, Order, Promotions, ActualAmount, Coupons
 
 
 def create_app(config):
@@ -19,6 +19,8 @@ def create_app(config):
                      view_func=Promotions.as_view('promotions'))
     app.add_url_rule('/transactions/actual-amount',
                      view_func=ActualAmount.as_view('actual-amount'))
+    app.add_url_rule('/transactions/coupons',
+                     view_func=Coupons.as_view('coupons'))
     return app
 
 
