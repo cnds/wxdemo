@@ -7,9 +7,18 @@ Page({
   data: {
     mobile: null,
     newPassword: null,
+    newPassword2: null,
     code: null,
   },
   resetPwdClick: function (event) {
+    if (this.data.newPassword != this.data.newPassword2) {
+      wx.showModal({
+        title: '提示',
+        content: '两次输入的密码不一致，请重新输入',
+        showCancel: false
+      })
+      return;
+    }
     wx.request({
       url: 'http://localhost:20000/authorization/stores/reset-password',
       data: {
@@ -40,6 +49,13 @@ Page({
       newPassword: event.detail.value
     })
   },
+
+  passwordInput2: function(event) {
+    this.setData({
+      newPassword2: event.detail.value
+    })
+  },
+
   smsInput: function (event) {
     this.setData({
       code: event.detail.value

@@ -14,7 +14,7 @@
     <navigator url="/pages/transactions/transactions" hover-class="navigator-hover">消费记录</navigator>
   </view>
   <view class="my-item">
-    <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">店铺优惠</navigator>
+    <navigator url="/pages/promotions/promotions" hover-class="navigator-hover">店铺优惠</navigator>
   </view>
   <view class="my-item">
     <text bindtap='bindQRCode'>绑定二维码</text>

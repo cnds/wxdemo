@@ -24,7 +24,7 @@
     <view class='reset-pwd-item'>
       <view class='reset-pwd-item-info'>重新输入</view>
       <view class='new-password'>
-        <input style='flex-grow:1' password='true'></input>
+        <input style='flex-grow:1' password='true' bindinput='passwordInput2'></input>
       </view>
     </view>
 

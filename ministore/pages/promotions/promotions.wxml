@@ -1,0 +1,55 @@
+<!--pages/promotions/promotions.wxml-->
+<view class='container'>
+
+  <view class='name'>
+    <text>优惠设置</text>
+  </view>
+
+  <view class='promotions'>
+
+    <view class='promotions-item'>
+      <view class='promotions-modify' wx:if="{{modifyPromotions === true}}">
+        消费满
+        <input bindinput='discountBase' value='{{discountBase}}'></input>元减
+        <input bindinput='discountMinus' value='{{discountMinus}}'></input>元
+      </view>
+      <view class='promotions-modify' wx:else>
+        消费满
+        <text>{{discountBase}}</text>元减
+        <text>{{discountMinus}}</text>元
+      </view>
+    </view>
+
+    <view class='promotions-item'>
+      <block wx:if="{{modifyPromotions === true}}">
+        <view class='promotions-modify'>消费满
+          <input bindinput='couponPay' value='{{couponPay}}'></input>元
+        </view>
+        <view class='promotions-modify'>赠送满
+          <input bindinput='couponBase' value='{{couponBase}}'></input>元减
+          <input bindinput='couponMinus' value='{{couponMinus}}'></input>元优惠券
+        </view>
+      </block>
+      <block wx:else>
+        <view class='promotions-modify'>
+          消费满
+          <text>{{couponPay}}</text>元
+        </view>
+        <view class='promotions-modify'>赠送满
+          <text>{{couponBase}}</text>元减
+          <text>{{couponMinus}}</text>元优惠券
+        </view>
+      </block>
+    </view>
+
+  </view>
+
+  <block wx:if="{{modifyPromotions === true}}">
+    <button class='promotions-btn' bindtap='determine'>确定</button>
+    <button class='promotions-btn-cancel' bindtap='cancel'>取消</button>
+  </block>
+  <block wx:else>
+    <button class='promotions-btn' bindtap='modifyPromotions'>修改优惠信息</button>
+  </block>
+
+</view>
