@@ -98,6 +98,7 @@ promotions_put = {
         "coupon": {
             "type": "object",
             "properties": {
+                "pay": {"type": "integer", "minimum": 0, "excludeMinimum": True},
                 "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
                 "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
             },

@@ -34,8 +34,6 @@ def create_app(setting):
                      view_func=UserOrderHandler.as_view('user-order'))
     app.add_url_rule('/gateway/users/<user_id>/actual-amount',
                      view_func=UserActualAmountHandler.as_view('actual-amount'))
-    app.add_url_rule('/gateway/users/<user_id>/promotions',
-                     view_func=)
     return app
 
 

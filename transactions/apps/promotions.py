@@ -21,7 +21,7 @@ class Promotions(Base):
         else:
             promotions = {
                 "discount": {"base": 0, "minus": 0},
-                "coupon": {"base": 0, "minus": 0},
+                "coupon": {"pay": 0, "base": 0, "minus": 0},
                 "storeId": params["storeId"]
             }
 
