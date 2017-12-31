@@ -51,30 +51,41 @@ store_reset_password_post = {
     "additionalProperties": False
 }
 
-store_profiles_get = {
-    "$schema": "http://json-schema.org/schema#",
-    "type": "object",
-    "properties": {
-        "storeId": {
-            "oneOf": [
-                {"type": "string"},
-                {"type": "array"}
-            ]
-        }
-    },
-    "additionalProperties": False
-}
+# store_profiles_get = {
+#     "$schema": "http://json-schema.org/schema#",
+#     "type": "object",
+#     "properties": {
+#         "storeId": {
+#             "oneOf": [
+#                 {"type": "string"},
+#                 {"type": "array"}
+#             ]
+#         }
+#     },
+#     "additionalProperties": False
+# }
+#
+# store_profile_put = {
+#     "$schema": "http://json-schema.org/schema#",
+#     "type": "object",
+#     "properties": {
+#         "address": {"type": "string"},
+#         "storeName": {"type": "string"},
+#         "storeId": {"type": "string"},
+#     },
+#     "required": ["storeId"],
+#     "minProperties": 2,
+#     "additionalProperties": False
+# }
 
-store_profile_put = {
+store_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
         "address": {"type": "string"},
         "storeName": {"type": "string"},
-        "storeId": {"type": "string"},
     },
-    "required": ["storeId"],
-    "minProperties": 2,
+    "minProperties": 1,
     "additionalProperties": False
 }
 
@@ -141,11 +152,10 @@ SCHEMA = {
     'stores_post': stores_post,
     'store_sessions_post': store_sessions_post,
     'store_reset_password_post': store_reset_password_post,
-    'store_profiles_get': store_profiles_get,
-    'store_profile_put': store_profile_put,
     'users_get': users_get,
     'users_post': users_post,
     'user_register_status_post': user_register_status_post,
     'user_sessions_post': users_sessions_post,
     'qr_code_bind_store_post': qr_code_bind_store_post,
+    'store_put': store_put,
 }

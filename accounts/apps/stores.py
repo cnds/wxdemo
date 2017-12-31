@@ -127,7 +127,6 @@ class StoreResetPassword(Base):
         return jsonify({'id': store_id}), 201
 
 
-"""
 class Store(Base):
 
     def put(self, store_id):
@@ -136,19 +135,18 @@ class Store(Base):
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
-        qr_code = data.get('QRCode')
-        if qr_code:
-            flag, code_from_db = self.db.find_by_condition('QRCode',
-                                                           {'code': qr_code})
-            if not flag:
-                return '', 500
-
-            if not code_from_db:
-                return self.error_msg(self.ERR['qr_code_not_exist'])
-
-        result = self.db.update('stores', {'id': store_id}, data)
-        if not result:
+        flag, result = self.db.update('stores', {'id': store_id}, {'$set': data})
+        if not flag:
             return '', 500
 
-        return jsonify({'id': store_id}), 200
-"""
+        return jsonify(result), 200
+
+    def get(self, store_id):
+        flag, store = self.db.find_by_id('stores', store_id)
+        if not flag:
+            return '', 500
+
+        if store is None:
+            return self.error_msg(self.ERR['store_not_exist'])
+
+        return jsonify(store)

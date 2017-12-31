@@ -1,3 +1,4 @@
+# deprecated
 import requests
 from flask import request, jsonify
 from .base import BaseHandler

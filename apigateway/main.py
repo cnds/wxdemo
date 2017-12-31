@@ -5,9 +5,8 @@ from flask import Flask
 from gevent.pywsgi import WSGIServer
 from config import config
 from apps import PromotionsHandler, StoreOrdersHandler, \
-    StoreOrderHandler, StoreProfileHandler, \
-    UserOrdersHandler, UserOrderHandler, StoreBindQRCodeHandler, \
-    UserActualAmountHandler
+    StoreOrderHandler, UserOrdersHandler, UserOrderHandler, \
+    StoreBindQRCodeHandler, UserActualAmountHandler, StoreHandler
 
 
 def create_app(setting):
@@ -22,8 +21,8 @@ def create_app(setting):
                      view_func=StoreOrdersHandler.as_view('store-orders'))
     app.add_url_rule('/gateway/stores/<store_id>/orders`/<order_id>',
                      view_func=StoreOrderHandler.as_view('store-order'))
-    app.add_url_rule('/gateway/stores/<store_id>/profile',
-                     view_func=StoreProfileHandler.as_view('store-profile'))
+    app.add_url_rule('/gateway/stores/<store_id>',
+                     view_func=StoreHandler.as_view('store'))
     app.add_url_rule('/gateway/stores/<store_id>/bind-qr-code',
                      view_func=StoreBindQRCodeHandler.as_view('store-bind-qr-code'))
 
