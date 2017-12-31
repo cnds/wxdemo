@@ -33,6 +33,7 @@
   border-right: 0;
   border-bottom: 0;
   width: 85%;
+  font-size: 30rpx;
 }
 
 .tr {

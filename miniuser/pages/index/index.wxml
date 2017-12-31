@@ -12,7 +12,7 @@
     <navigator url="/pages/transactions/transactions" hover-class="navigator-hover">消费记录</navigator>
   </view>
   <view class="my-item">
-    <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">我的优惠券</navigator>
+    <navigator url="/pages/promotions/promotions" hover-class="navigator-hover">我的优惠券</navigator>
   </view>
   <view class="my-item">
     <text bindtap='scanQRCode'>扫码支付</text>

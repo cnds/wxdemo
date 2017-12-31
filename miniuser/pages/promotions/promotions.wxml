@@ -1,0 +1,12 @@
+<!--pages/promotions/promotions.wxml-->
+<view class='container'>
+  <view class="promotions">
+    <view class="promotions-item" wx:for="{{promotions}}" wx:key="id">
+      <view style="font-size: 35rpx"> ￥ {{item.moneyMax}}元 </view>
+      <view> {{item.name}} </view>
+      <view> 满 {{item.moneyHreshold}} 元使用 </view>
+      <view wx:if="{{item.dateEndType == 0}}"> {{item.dateEnd}} 前有效 </view>
+      <view wx:if="{{item.dateEndType == 1}}"> 领取 {{item.dateEndDays}} 天内有效 </view>
+    </view>
+  </view>
+</view>

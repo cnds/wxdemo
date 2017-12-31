@@ -16,23 +16,12 @@
   padding-bottom: 20px;
 }
 
-.transactions {
-  flex-grow: 1;
-  height: 250rpx;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: column;
-  width: 80%;
-  margin: 4px;
-
-}
-
 .table {
   border:1px solid #dadada;
   border-right: 0;
   border-bottom: 0;
-  width: 90%;
+  width: 85%;
+  font-size: 30rpx;
 }
 
 .tr {
@@ -46,7 +35,10 @@
   border-bottom: 1px solid #dadada;
   border-right: 1px solid #dadada;
   text-align: center;
-  width:100%
+  width:100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .th {

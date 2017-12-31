@@ -3,16 +3,9 @@ const app = getApp()
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     orders: null
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
 
   onLoad: function (options) {
     this.getOrders
@@ -26,6 +19,10 @@ Page({
       header: { 'Authorization': 'Bearer ' + app.globalData.token },
       success: function(res) {
         if (res.statusCode === 200) {
+          var orders = res.data.orders
+          for (var order of orders) {
+            order['createdDate'] = new Date(order.createdDate).toLocaleString()
+          }
           that.setData({
             orders: res.data.orders
           })
