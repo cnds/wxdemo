@@ -1,5 +1,6 @@
 // pages/transactions/transactions.js
 const app = getApp()
+var time = require('../../utils/util.js')
 
 Page({
   data: {
@@ -16,10 +17,25 @@ Page({
       header: {'Authorization': 'Bearer ' + app.globalData.storeInfo.token},
       success: function(res) {
         if (res.statusCode === 200) {
+          var orders = res.data.orders
+          for (var order of orders) {
+            order['createdDate'] = new Date(order.createdDate).toLocaleString()
+          }
           that.setData({
-            orders: res.data.orders
+            orders: orders
           })
-          console.log(that.data)
+        } else if (res.statusCode === 400) {
+          wx.showModal({
+            title: '错误',
+            content: res.data.error,
+            showCancel: false
+          })
+        } else {
+          wx.showModal({
+            title: '错误',
+            content: '服务器内部错误',
+            showCancel: false
+          })
         }
       }
     })
