@@ -6,7 +6,8 @@
     "pages/reset-pwd/reset-pwd",
     "pages/index/index",
     "pages/promotions/promotions",
-    "pages/transactions/transactions"
+    "pages/transactions/transactions",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",

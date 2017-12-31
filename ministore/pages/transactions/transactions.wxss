@@ -16,7 +16,7 @@
   padding-bottom: 20px;
 }
 
-.transactions {
+/* .transactions {
   flex-grow: 1;
   height: 250rpx;
   display: flex;
@@ -26,13 +26,13 @@
   width: 80%;
   margin: 4px;
 
-}
+} */
 
 .table {
   border:1px solid #dadada;
   border-right: 0;
   border-bottom: 0;
-  width: 98%;
+  width: 85%;
 }
 
 .tr {

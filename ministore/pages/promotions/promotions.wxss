@@ -31,12 +31,6 @@
   margin-top: 30rpx;
 }
 
-/* 
-.promotions-item text {
-  font-size: 20px;
-  color: orange;
-} */
-
 .promotions-modify {
   border-bottom: 0;
   color: orange;

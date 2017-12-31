@@ -24,7 +24,7 @@
   color: #FFF;
 }
 
-.my-item{
+.index {
     width: 100%;
     background: 750rpx center;
     background-size: 16rpx auto,750rpx auto;
