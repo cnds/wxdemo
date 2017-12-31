@@ -16,7 +16,7 @@ orders_get = {
     "properties": {
         "storeId": {"type": "string"},
         "userId": {"type": "string"},
-        "skip": {"type": "integer", "minimum": 0, "excludeMinimum": False},
+        "page": {"type": "integer", "minimum": 0, "excludeMinimum": True},
         "limit": {"type": "integer", "minimum": 0, "excludeMinimum": True}
     },
     "additionalProperties": False

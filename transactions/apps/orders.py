@@ -17,10 +17,10 @@ class Orders(Base):
         if not is_valid:
             return self.error_msg(self.ERR['invalid_query_params'], tag)
 
-        skip = params.pop('skip', 0)
+        page = params.pop('page', 1)
         limit = params.pop('limit', 20)
         flag, orders = self.db.find_by_condition(
-            'orders', params, skip, limit)
+            'orders', params, page, limit)
         if not flag:
             return '', 500
 

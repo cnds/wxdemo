@@ -34,7 +34,7 @@ store_orders_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "skip": {"type": "integer", "minimum": 0, "excludeMinimum": False},
+        "page": {"type": "integer", "minimum": 0, "excludeMinimum": True},
         "limit": {"type": "integer", "minimum": 0, "excludeMinimum": True},
     },
     "additionalProperties": False
@@ -55,7 +55,7 @@ user_orders_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "skip": {"type": "integer", "minimum": 0, "excludeMinimum": False},
+        "page": {"type": "integer", "minimum": 0, "excludeMinimum": True},
         "limit": {"type": "integer", "minimum": 0, "excludeMinimum": True},
     },
     "additionalProperties": False

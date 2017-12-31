@@ -19,7 +19,8 @@ class MongoBase(object):
         self._db = client[config['db']['database']]
         return self._db
 
-    def find_by_condition(self, collection, condition, skip=0, limit=0):
+    def find_by_condition(self, collection, condition, page=1, limit=0):
+        skip = (page - 1) * limit
         try:
             cursor = self.db[collection].find(condition,
                                               skip=skip, limit=limit)
@@ -34,7 +35,8 @@ class MongoBase(object):
 
             return True, result
 
-    def find_by_id(self, collection, entity_id, skip=0, limit=0):
+    def find_by_id(self, collection, entity_id, page=1, limit=0):
+        skip = (page - 1) * limit
         try:
             entity_id = ObjectId(entity_id)
         except Exception as ex:
