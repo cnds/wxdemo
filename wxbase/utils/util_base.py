@@ -24,6 +24,9 @@ class UtilBase(object):
         'conflict_coupon': 'CONFLICT_COUPON',
         'promotion_not_exist': 'PROMOTION_NOT_EXIST',
         'db_bulk_update_error': 'DB_BULK_UPDATE_ERROR',
+        'conflict_discount': 'CONFLICT_DISCOUNT',
+        'discount_not_exist': 'DISCOUNT_NOT_EXIST',
+        'discount_has_been_removed': 'DISCOUNT_HAS_BEEN_REMOVED',
     }
 
     def __init__(self):

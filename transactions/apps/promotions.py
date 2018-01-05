@@ -79,3 +79,13 @@ class Promotion(Base):
             return self.error_msg(self.ERR['promotion_not_exist'])
 
         return jsonify(promotion)
+
+    def delete(self, promotion_id):
+        flag, result = self.db.remove('promotions', promotion_id)
+        if not flag:
+            return '', 500
+
+        if not result:
+            return self.error_msg(self.ERR['promotion_not_exist'])
+
+        return jsonify(result)

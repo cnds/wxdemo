@@ -121,6 +121,64 @@ coupons_post = {
     "additionalProperties": False
 }
 
+reductions_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+    },
+    "additionalProperties": False
+}
+
+reductions_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "percent": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "excludeMinimum": True
+        },
+    },
+    "required": ["storeId", "percent"],
+    "additionalProperties": False
+}
+
+discounts_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+    },
+    "additionalProperties": False
+}
+
+discounts_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "base": {"type": "integer", "minimum": 0},
+        "minus": {"type": "integer", "minimum": 0}
+    },
+    "required": ["storeId", "base", "minus"],
+    "additionalProperties": False
+}
+
+discount_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "base": {"type": "integer", "minimum": 0},
+        "minus": {"type": "integer", "minimum": 0}
+    },
+    "required": ["storeId", "base", "minus"],
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'orders_post': orders_post,
     'orders_get': orders_get,
@@ -130,4 +188,8 @@ SCHEMA = {
     'actual_amount_post': actual_amount_post,
     'coupons_get': coupons_get,
     'coupons_post': coupons_post,
+    'reductions_put': reductions_put,
+    'reductions_get': reductions_get,
+    'discounts_get': discounts_get,
+    'discount_put': discount_put,
 }

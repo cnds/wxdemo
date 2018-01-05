@@ -71,7 +71,6 @@ class MongoBase(object):
 
     def update(self, collection, filter_query, data, upsert=False):
         if filter_query.get('id'):
-            from bson import ObjectId
             filter_query['_id'] = ObjectId(filter_query.pop('id'))
 
         if data.get('$set'):
@@ -94,6 +93,24 @@ class MongoBase(object):
             if upserted_id:
                 return True, {'id': str(upserted_id)}
 
+    def remove(self, collection, entity_id):
+        try:
+            entity_id = ObjectId(entity_id)
+        except Exception as ex:
+            self.logger.error(ex)
+            return False, None
+
+        try:
+            result = self.mongo[collection].delete_one({'_id': entity_id})
+        except Exception as ex:
+            self.logger.error(ex)
+            return False, None
+        else:
+            if result.deleted_count == 1:
+                return True, {'id': str(entity_id)}
+            else:
+                return True, None
+
     def bulk_update(self, collection, data):
         try:
             result = self.mongo[collection].bulk_write(data)
@@ -104,6 +121,11 @@ class MongoBase(object):
             self.logger.error(ex)
             return False, None
         else:
+            upserted = result.bulk_api_result.get('upserted')
+            if upserted:
+                for i in upserted:
+                    i['_id'] = str(i['_id'])
+
             return True, result.bulk_api_result
 
 

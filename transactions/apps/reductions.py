@@ -28,7 +28,8 @@ class Reductions(Base):
         reduction = data['percent']
         flag, result = self.db.update(
             'reductions',
-            {'storeId': store_id}, {'$set': {'percent': reduction}},
+            {'storeId': store_id},
+            {'$set': {'percent': reduction}},
             upsert=True)
 
         if not flag:
