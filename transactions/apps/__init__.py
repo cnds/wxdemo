@@ -3,3 +3,4 @@ from .promotions import Promotions, Promotion
 from .actual_amount import ActualAmount
 from .coupons import Coupons
 from .reductions import Reductions
+from .discounts import Discount, Discounts
