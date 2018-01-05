@@ -17,3 +17,19 @@ class Coupons(Base):
             return '', 500
 
         return jsonify({'coupons': coupons})
+
+    def post(self):
+        is_valid, data =self.get_params_from_request(request,
+                                                     SCHEMA['coupons_post'])
+        if not is_valid:
+            return self.error_msg(self.ERR['invalid_body_content'], data)
+
+        condition = self.get_data_with_keys(data,
+                                            ('storeId', 'pay', 'base', 'minus'))
+        flag, coupon = self.db.find_by_condition('coupons', condition)
+        if not flag:
+            return '', 500
+
+        if coupon:
+            return self.error_msg(self.ERR['conflict_coupon'])
+

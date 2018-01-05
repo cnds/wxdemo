@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from pymongo.errors import BulkWriteError
 from flask import logging
 from datetime import datetime
 from bson import ObjectId
@@ -7,7 +8,7 @@ from bson import ObjectId
 class MongoBase(object):
 
     def __init__(self, config):
-        self.db = self.init_db(config)
+        self.mongo = self.init_db(config)
         self.logger = logging.getLogger(__name__)
 
     def init_db(self, config):
@@ -22,8 +23,8 @@ class MongoBase(object):
     def find_by_condition(self, collection, condition, page=1, limit=0):
         skip = (page - 1) * limit
         try:
-            cursor = self.db[collection].find(condition,
-                                              skip=skip, limit=limit)
+            cursor = self.mongo[collection].find(condition,
+                                                 skip=skip, limit=limit)
         except Exception as ex:
             self.logger.error(ex)
             return False, None
@@ -44,8 +45,8 @@ class MongoBase(object):
             return False, None
 
         try:
-            cursor = self.db[collection].find_one({'_id': entity_id},
-                                                  skip=skip, limit=limit)
+            cursor = self.mongo[collection].find_one({'_id': entity_id},
+                                                     skip=skip, limit=limit)
         except Exception as ex:
             self.logger.error(ex)
             return False, None
@@ -61,7 +62,7 @@ class MongoBase(object):
         data['createdDate'] = datetime.utcnow()
         data['lastModifiedDate'] = datetime.utcnow()
         try:
-            result = self.db[collection].insert_one(data)
+            result = self.mongo[collection].insert_one(data)
         except Exception as ex:
             self.logger.error(ex)
             return False
@@ -79,8 +80,8 @@ class MongoBase(object):
             data.update({'$set': {'lastModifiedDate': datetime.utcnow()}})
 
         try:
-            result = self.db[collection].update_one(filter_query, data,
-                                                    upsert=upsert)
+            result = self.mongo[collection].update_one(filter_query, data,
+                                                       upsert=upsert)
         except Exception as ex:
             self.logger.error(ex)
             return False, None
@@ -92,4 +93,17 @@ class MongoBase(object):
 
             if upserted_id:
                 return True, {'id': str(upserted_id)}
+
+    def bulk_update(self, collection, data):
+        try:
+            result = self.mongo[collection].bulk_write(data)
+        except BulkWriteError as bwe:
+            self.logger.error(bwe.details)
+            return True, None
+        except Exception as ex:
+            self.logger.error(ex)
+            return False, None
+        else:
+            return True, result.bulk_api_result
+
 

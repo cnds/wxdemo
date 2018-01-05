@@ -1,4 +1,5 @@
 from flask import request, jsonify
+from pymongo import UpdateOne
 from .base import Base
 from .json_validate import SCHEMA
 
@@ -22,7 +23,7 @@ class Promotions(Base):
             promotions = {
                 "reduction": 100,
                 "discount": {"base": 0, "minus": 0},
-                "coupon": {"pay": 0, "base": 0, "minus": 0},
+                "coupons": [{"pay": 0, "base": 0, "minus": 0}],
                 "storeId": params["storeId"]
             }
 
@@ -35,15 +36,36 @@ class Promotions(Base):
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
         store_id = data['storeId']
-        flag, tag = self.db.update(
-            'promotions', {'storeId': store_id}, {'$set': data}, True)
+        reduction = data.get('reduction')
+        discount = data.get('discount')
+        coupons = data.get('coupons')
+        data_to_update = list()
+        if reduction:
+            data_to_update.append(
+                UpdateOne(
+                    {'storeId': store_id, 'reduction': {'$exists': True}},
+                    {'$set': {'reduction': reduction}}, upsert=True))
+
+        if discount:
+            data_to_update.append(
+                UpdateOne(
+                    {'storeId': store_id, 'discount': {'$exists': True}},
+                    {'$set': {'discount': discount}}, upsert=True))
+        if coupons:
+            for coupon in coupons:
+                data_to_update.append(
+                    UpdateOne(
+                        {'storeId': store_id, 'coupon': coupon},
+                        {'$set': {'coupon': coupon}}, upsert=True))
+
+        flag, result = self.db.bulk_update('promotions', data_to_update)
         if not flag:
             return '', 500
 
-        if tag is None:
-            return self.error_msg(self.ERR['not_found'])
+        if result is None:
+            return self.error_msg(self.ERR['db_bulk_update_error'])
 
-        return jsonify({'result': tag}), 200
+        return jsonify({'result': result}), 200
 
 
 class Promotion(Base):

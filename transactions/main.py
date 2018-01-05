@@ -3,8 +3,8 @@ monkey.patch_all()
 
 from flask import Flask
 from gevent.pywsgi import WSGIServer
-from config import config
-from apps import Orders, Order, Promotions, ActualAmount, Coupons, Promotion
+from transactions.config import config
+from transactions.apps import Orders, Order, Promotions, ActualAmount, Coupons, Promotion
 
 
 def create_app(config):

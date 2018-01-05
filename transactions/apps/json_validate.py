@@ -37,27 +37,42 @@ promotions_put = {
     "type": "object",
     "properties": {
         "storeId": {"type": "string"},
+        "reduction": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "excludeMinimum": True
+        },
         "discount": {
             "type": "object",
             "properties": {
-                "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-                "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+                "base": {
+                    "type": "integer", "minimum": 0, "excludeMinimum": True},
+                "minus": {
+                    "type": "integer", "minimum": 0, "excludeMinimum": False}
             },
             "required": ["base", "minus"],
             "additionalProperties": False
         },
-        "coupon": {
-            "type": "object",
-            "properties": {
-                "pay": {"type": "integer", "minimum": 0, "excludeMinimum": False},
-                "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-                "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+        "coupons": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "pay": {
+                        "type": "integer", "minimum": 0, "excludeMinimum": False},
+                    "base": {
+                        "type": "integer", "minimum": 0, "excludeMinimum": True},
+                    "minus": {
+                        "type": "integer", "minimum": 0, "excludeMinimum": False}
+                },
+                "required": ["pay", "base", "minus"],
+                "additionalProperties": False
             },
-            "required": ["base", "minus"],
-            "additionalProperties": False
         },
     },
     "required": ["storeId"],
+    "minProperties": 2,
     "additionalProperties": False
 }
 
@@ -65,7 +80,7 @@ promotions_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "storeId": {"type": "string"}
+        "storeId": {"type": "string"},
     },
     "required": ["storeId"],
     "additionalProperties": False
@@ -87,12 +102,24 @@ coupons_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "userId": {"type": "string"}
+        "storeId": {"type": "string"}
     },
-    "required": ["userId"],
+    "required": ["storeId"],
     "additionalProperties": False
 }
 
+coupons_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "pay": {"type": "integer", "minimum": 0, "excludeMinimum": False},
+        "base": {"type": "integer", "minimum": 0, "excludeMinimum": False},
+        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False},
+    },
+    "required": ["storeId", "pay", "base", "minus"],
+    "additionalProperties": False
+}
 
 SCHEMA = {
     'orders_post': orders_post,
@@ -102,4 +129,5 @@ SCHEMA = {
     'promotions_get': promotions_get,
     'actual_amount_post': actual_amount_post,
     'coupons_get': coupons_get,
+    'coupons_post': coupons_post,
 }

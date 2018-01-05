@@ -21,6 +21,9 @@ class UtilBase(object):
         'qr_code_not_exist': 'QR_CODE_NOT_EXIST',
         'store_not_exist': 'STORE_NOT_EXIST',
         'qr_code_already_been_bound': 'QR_CODE_ALREADY_BEEN_BOUND',
+        'conflict_coupon': 'CONFLICT_COUPON',
+        'promotion_not_exist': 'PROMOTION_NOT_EXIST',
+        'db_bulk_update_error': 'DB_BULK_UPDATE_ERROR',
     }
 
     def __init__(self):
