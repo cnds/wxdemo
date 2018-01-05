@@ -20,6 +20,7 @@ class Promotions(Base):
             promotions = promotions[0]
         else:
             promotions = {
+                "reduction": 100,
                 "discount": {"base": 0, "minus": 0},
                 "coupon": {"pay": 0, "base": 0, "minus": 0},
                 "storeId": params["storeId"]
@@ -43,3 +44,16 @@ class Promotions(Base):
             return self.error_msg(self.ERR['not_found'])
 
         return jsonify({'result': tag}), 200
+
+
+class Promotion(Base):
+
+    def get(self, promotion_id):
+        flag, promotion = self.db.find_by_id('promotions', promotion_id)
+        if not flag:
+            return '', 500
+
+        if not promotion:
+            return self.error_msg(self.ERR['promotion_not_exist'])
+
+        return jsonify(promotion)
