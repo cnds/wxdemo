@@ -36,3 +36,16 @@ class Reductions(Base):
             return '', 500
 
         return jsonify(result)
+
+
+class Reduction(Base):
+
+    def delete(self, reduction_id):
+        flag, result = self.db.remove('reductions', reduction_id)
+        if not flag:
+            return '', 500
+
+        if result is None:
+            return self.error_msg(self.ERR['reduction_has_been_removed'])
+
+        return jsonify(result)

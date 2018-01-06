@@ -4,7 +4,9 @@ from .json_validate import SCHEMA
 
 
 class ActualAmount(Base):
-
+    """
+    先查店铺优惠(discounts, reductions)，再查自己的优惠券(userCoupons)，然后叠加生成实际金额。
+    """
     def post(self):
         is_valid, data = self.get_params_from_request(
             request, SCHEMA['actual_amount_post'])
