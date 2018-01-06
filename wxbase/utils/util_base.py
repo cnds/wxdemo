@@ -29,6 +29,7 @@ class UtilBase(object):
         'conflict_discount': 'CONFLICT_DISCOUNT',
         'discount_not_exist': 'DISCOUNT_NOT_EXIST',
         'discount_has_been_removed': 'DISCOUNT_HAS_BEEN_REMOVED',
+        'reduction_has_been_removed': 'REDUCTION_HAS_BEEN_REMOVED',
     }
 
     def __init__(self):
