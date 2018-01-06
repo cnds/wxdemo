@@ -59,7 +59,8 @@ class Discount(Base):
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
-        flag, result = self.db.update('discounts', discount_id)
+        flag, result = self.db.update('discounts', {'id': discount_id},
+                                      {'$set': data})
         if not flag:
             return '', 500
 

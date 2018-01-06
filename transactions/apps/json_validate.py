@@ -104,7 +104,6 @@ coupons_get = {
     "properties": {
         "storeId": {"type": "string"}
     },
-    "required": ["storeId"],
     "additionalProperties": False
 }
 
@@ -113,11 +112,23 @@ coupons_post = {
     "type": "object",
     "properties": {
         "storeId": {"type": "string"},
-        "pay": {"type": "integer", "minimum": 0, "excludeMinimum": False},
-        "base": {"type": "integer", "minimum": 0, "excludeMinimum": False},
-        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False},
+        "pay": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": True},
     },
     "required": ["storeId", "pay", "base", "minus"],
+    "additionalProperties": False
+}
+
+coupon_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "pay": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+    },
+    "required": ["pay", "base", "minus"],
     "additionalProperties": False
 }
 
@@ -160,8 +171,8 @@ discounts_post = {
     "type": "object",
     "properties": {
         "storeId": {"type": "string"},
-        "base": {"type": "integer", "minimum": 0},
-        "minus": {"type": "integer", "minimum": 0}
+        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": True}
     },
     "required": ["storeId", "base", "minus"],
     "additionalProperties": False
@@ -171,11 +182,10 @@ discount_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "storeId": {"type": "string"},
         "base": {"type": "integer", "minimum": 0},
         "minus": {"type": "integer", "minimum": 0}
     },
-    "required": ["storeId", "base", "minus"],
+    "required": ["base", "minus"],
     "additionalProperties": False
 }
 
@@ -188,8 +198,10 @@ SCHEMA = {
     'actual_amount_post': actual_amount_post,
     'coupons_get': coupons_get,
     'coupons_post': coupons_post,
+    'coupon_put': coupon_put,
     'reductions_put': reductions_put,
     'reductions_get': reductions_get,
+    'discounts_post': discounts_post,
     'discounts_get': discounts_get,
     'discount_put': discount_put,
 }

@@ -22,6 +22,8 @@ class UtilBase(object):
         'store_not_exist': 'STORE_NOT_EXIST',
         'qr_code_already_been_bound': 'QR_CODE_ALREADY_BEEN_BOUND',
         'conflict_coupon': 'CONFLICT_COUPON',
+        'coupon_not_exist': 'COUPON_NOT_EXIST',
+        'coupon_has_been_removed': 'COUPON_HAS_BEEN_REMOVED',
         'promotion_not_exist': 'PROMOTION_NOT_EXIST',
         'db_bulk_update_error': 'DB_BULK_UPDATE_ERROR',
         'conflict_discount': 'CONFLICT_DISCOUNT',
