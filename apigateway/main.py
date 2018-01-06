@@ -6,7 +6,8 @@ from gevent.pywsgi import WSGIServer
 from config import config
 from apps import PromotionsHandler, StoreOrdersHandler, \
     StoreOrderHandler, UserOrdersHandler, UserOrderHandler, \
-    StoreBindQRCodeHandler, UserActualAmountHandler, StoreHandler
+    StoreBindQRCodeHandler, UserActualAmountHandler, StoreHandler, \
+    StoreCouponsHandler, StoreCouponHandler
 
 
 def create_app(setting):
@@ -25,6 +26,10 @@ def create_app(setting):
                      view_func=StoreHandler.as_view('store'))
     app.add_url_rule('/gateway/stores/<store_id>/bind-qr-code',
                      view_func=StoreBindQRCodeHandler.as_view('store-bind-qr-code'))
+    app.add_url_rule('/gateway/stores/<store_id>/coupons',
+                     view_func=StoreCouponsHandler.as_view('store-coupons'))
+    app.add_url_rule('/gateway/stores/<store_id>/coupons/<coupon_id>',
+                     view_func=StoreCouponHandler.as_view('store-coupon'))
 
     #NOTE: users
     app.add_url_rule('/gateway/users/<user_id>/orders',

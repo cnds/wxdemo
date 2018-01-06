@@ -43,12 +43,20 @@ class Coupons(Base):
 class Coupon(Base):
 
     def get(self, coupon_id):
+        params = request.args.to_dict()
+        store_id = params.get('storeId')
+
         flag, coupon = self.db.find_by_id('coupons', coupon_id)
         if not flag:
             return '', 500
 
         if coupon is None:
             return self.error_msg(self.ERR['coupon_not_exist'])
+
+        if store_id:
+            store_id_from_db = coupon['storeId']
+            if store_id != store_id_from_db:
+                return self.error_msg(self.ERR['permission_denied'])
 
         return jsonify(coupon)
 
@@ -66,6 +74,21 @@ class Coupon(Base):
         return jsonify(result)
 
     def delete(self, coupon_id):
+        params = request.args.to_dict()
+        store_id = params.get('storeId')
+
+        flag, coupon = self.db.find_by_id('coupons', coupon_id)
+        if not flag:
+            return '', 500
+
+        if coupon is None:
+            return self.error_msg(self.ERR['coupon_not_exist'])
+
+        if store_id:
+            store_id_from_db = coupon['storeId']
+            if store_id_from_db != store_id:
+                return self.error_msg(self.ERR['permission_denied'])
+
         flag, result = self.db.remove('coupons', coupon_id)
         if not flag:
             return '', 500
