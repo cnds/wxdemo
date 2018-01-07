@@ -44,12 +44,19 @@ class Discounts(Base):
 class Discount(Base):
 
     def get(self, discount_id):
+        params = request.args.to_dict()
+        store_id = params.get('storeId')
         flag, discount = self.db.find_by_id('discounts', discount_id)
         if not flag:
             return '', 500
 
         if not discount:
             return self.error_msg(self.ERR['discount_not_exist'])
+
+        if store_id:
+            store_id_from_db = discount['storeId']
+            if store_id != store_id_from_db:
+                return self.error_msg(self.ERR['permission_denied'])
 
         return jsonify(discount)
 
@@ -67,6 +74,20 @@ class Discount(Base):
         return jsonify(result)
 
     def delete(self, discount_id):
+        params = request.args.to_dict()
+        store_id = params.get('storeId')
+        flag, discount = self.db.find_by_id('discounts', discount_id)
+        if not flag:
+            return '', 500
+
+        if not discount:
+            return self.error_msg(self.ERR['discount_not_exist'])
+
+        if store_id:
+            store_id_from_db = discount['storeId']
+            if store_id != store_id_from_db:
+                return self.error_msg(self.ERR['permission_denied'])
+
         flag, result = self.db.remove('discounts', discount_id)
         if not flag:
             return '', 500

@@ -7,7 +7,8 @@ from config import config
 from apps import PromotionsHandler, StoreOrdersHandler, \
     StoreOrderHandler, UserOrdersHandler, UserOrderHandler, \
     StoreBindQRCodeHandler, UserActualAmountHandler, StoreHandler, \
-    StoreCouponsHandler, StoreCouponHandler
+    StoreCouponsHandler, StoreCouponHandler, \
+    StoreDiscountsHandler, StoreDiscountHandler
 
 
 def create_app(setting):
@@ -30,6 +31,10 @@ def create_app(setting):
                      view_func=StoreCouponsHandler.as_view('store-coupons'))
     app.add_url_rule('/gateway/stores/<store_id>/coupons/<coupon_id>',
                      view_func=StoreCouponHandler.as_view('store-coupon'))
+    app.add_url_rule('/gateway/stores/<store_id>/discounts',
+                     view_func=StoreDiscountsHandler.as_view('store-discounts'))
+    app.add_url_rule('/gateway/stores/<store_id>/discounts/<discount_id>',
+                     view_func=StoreDiscountHandler.as_view('store-discount'))
 
     #NOTE: users
     app.add_url_rule('/gateway/users/<user_id>/orders',

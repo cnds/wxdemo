@@ -110,7 +110,7 @@ promotions_put = {
     "additionalProperties": False
 }
 
-coupons_post = {
+store_coupons_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -122,7 +122,7 @@ coupons_post = {
     "additionalProperties": False
 }
 
-coupon_put = {
+store_coupon_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -131,6 +131,28 @@ coupon_put = {
         "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
     },
     "required": ["pay", "minus", "base"],
+    "additionalProperties": False
+}
+
+store_discounts_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+    },
+    "required": ["minus", "base"],
+    "additionalProperties": False
+}
+
+store_discount_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+    },
+    "required": ["minus", "base"],
     "additionalProperties": False
 }
 
@@ -144,6 +166,8 @@ SCHEMA = {
     'store_bind_qr_code_post': store_bind_qr_code_post,
     'user_actual_amount_post': user_actual_amount_post,
     'promotions_put': promotions_put,
-    'coupons_post': coupons_post,
-    'coupon_put': coupon_put,
+    'store_coupons_post': store_coupons_post,
+    'store_coupon_put': store_coupon_put,
+    'store_discounts_post': store_discounts_post,
+    'store_discount_put': store_discount_put,
 }
