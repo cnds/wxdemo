@@ -5,7 +5,6 @@ Wechat micro program backend created by flask.
 * apigateway: 10000
 * authorization: 20000
 * accounts: 10001
-* promotions: 10002
 * transactions: 10003
 
 # TODO
@@ -16,11 +15,10 @@ Wechat micro program backend created by flask.
 #### store
 * promotions
 * transactions
-* modify profile
 * bind QR code
 
 #### user
 * scan QR code
 * transactions
-* promotions
+* coupons
 * stores near by

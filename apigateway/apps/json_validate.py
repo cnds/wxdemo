@@ -71,7 +71,7 @@ store_bind_qr_code_post = {
     "additionalProperties": False
 }
 
-user_actual_amount_post = {
+user_payment_detail_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -164,7 +164,7 @@ SCHEMA = {
     'store_orders_get': store_orders_get,
     'user_orders_get': user_orders_get,
     'store_bind_qr_code_post': store_bind_qr_code_post,
-    'user_actual_amount_post': user_actual_amount_post,
+    'user_payment_detail_post': user_payment_detail_post,
     'promotions_put': promotions_put,
     'store_coupons_post': store_coupons_post,
     'store_coupon_put': store_coupon_put,

@@ -86,7 +86,7 @@ promotions_get = {
     "additionalProperties": False
 }
 
-actual_amount_post = {
+payment_detail_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
@@ -195,7 +195,7 @@ SCHEMA = {
     'order_get': order_get,
     'promotions_put': promotions_put,
     'promotions_get': promotions_get,
-    'actual_amount_post': actual_amount_post,
+    'payment_detail_post': payment_detail_post,
     'coupons_get': coupons_get,
     'coupons_post': coupons_post,
     'coupon_put': coupon_put,

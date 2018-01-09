@@ -6,7 +6,7 @@ from gevent.pywsgi import WSGIServer
 from config import config
 from apps import PromotionsHandler, StoreOrdersHandler, \
     StoreOrderHandler, UserOrdersHandler, UserOrderHandler, \
-    StoreBindQRCodeHandler, UserActualAmountHandler, StoreHandler, \
+    StoreBindQRCodeHandler, UserPaymentDetailHandler, StoreHandler, \
     StoreCouponsHandler, StoreCouponHandler, \
     StoreDiscountsHandler, StoreDiscountHandler, \
     StoreReductionsHandler, StoreReductionHandler
@@ -46,8 +46,8 @@ def create_app(setting):
                      view_func=UserOrdersHandler.as_view('user-orders'))
     app.add_url_rule('/gateway/users/<user_id>/orders/<order_id>',
                      view_func=UserOrderHandler.as_view('user-order'))
-    app.add_url_rule('/gateway/users/<user_id>/actual-amount',
-                     view_func=UserActualAmountHandler.as_view('actual-amount'))
+    app.add_url_rule('/gateway/users/<user_id>/payment-detail',
+                     view_func=UserPaymentDetailHandler.as_view('payment-detail'))
     return app
 
 
