@@ -6,3 +6,4 @@ from .stores_handle import StoreBindQRCodeHandler, StoreHandler
 from .users_handle import UserActualAmountHandler
 from .store_coupons_handle import StoreCouponHandler, StoreCouponsHandler
 from .store_discounts_handle import StoreDiscountHandler, StoreDiscountsHandler
+from .store_reductions_handle import StoreReductionHandler, StoreReductionsHandler

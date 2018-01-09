@@ -41,6 +41,20 @@ class Reductions(Base):
 class Reduction(Base):
 
     def delete(self, reduction_id):
+        params = request.args.to_dict()
+        store_id = params.get('storeId')
+        flag, reduction = self.db.find_by_id('reductions', reduction_id)
+        if not flag:
+            return '', 500
+
+        if not reduction:
+            return self.error_msg(self.ERR['reduction_not_exist'])
+
+        if store_id:
+            store_id_from_db = reduction['storeId']
+            if store_id != store_id_from_db:
+                return self.error_msg(self.ERR['permission_denied'])
+
         flag, result = self.db.remove('reductions', reduction_id)
         if not flag:
             return '', 500
