@@ -17,7 +17,7 @@ def create_app(setting):
     app.config['TESTING'] = setting['testing']
     app.config['DEBUG'] = setting['debug']
 
-    #NOTE: stores
+    # NOTE: stores
     app.add_url_rule('/gateway/stores/<store_id>/promotions',
                      view_func=PromotionsHandler.as_view('promotions'))
     app.add_url_rule('/gateway/stores/<store_id>/orders',
@@ -41,7 +41,7 @@ def create_app(setting):
     app.add_url_rule('/gateway/stores/<store_id>/reductions/<reduction_id>',
                      view_func=StoreReductionHandler.as_view('store-reduction'))
 
-    #NOTE: users
+    # NOTE: users
     app.add_url_rule('/gateway/users/<user_id>/orders',
                      view_func=UserOrdersHandler.as_view('user-orders'))
     app.add_url_rule('/gateway/users/<user_id>/orders/<order_id>',

@@ -4,9 +4,7 @@ from .json_validate import SCHEMA
 
 
 class PaymentDetail(Base):
-    """
-    先查店铺优惠(discounts, reductions)，再查自己的优惠券(userCoupons)，然后叠加生成实际金额。
-    """
+
     def post(self):
         is_valid, data = self.get_params_from_request(
             request, SCHEMA['payment_detail_post'])
@@ -29,7 +27,6 @@ class PaymentDetail(Base):
             result.update({'reduction': reduction})
             actual_amount = actual_amount * reduction['percent'] / 100
 
-
         flag, discount = self.db.find_by_condition('discounts',
                                                    {'storeId': store_id})
         if not flag:
@@ -49,19 +46,19 @@ class PaymentDetail(Base):
             return '', 500
 
         if user_coupons:
-            # NOTE: compare amount and coupons base, get nearest nearest base and use it.
-            coupons_can_use = [coupon for coupon in user_coupons['coupons']
-                               if coupon['base'] <= amount]
-            for i, coupon in enumerate(coupons_can_use):
-                if i == 0:
-                    result.update({'coupon': coupon})
-                else:
-                    if coupon['base'] < result['coupon']['base']:
-                        result.update({'coupon': coupon})
+            coupon_id_list = user_coupons['coupons']
+            flag, coupons = self.db.find_by_condition('coupons', {'id': {
+                '$in': coupon_id_list}, 'base': {'$lte': amount}})
+            if not flag:
+                return '', 500
 
-            coupon_base = result['coupon']['base']
-            coupon_minus = result['coupon']['minus']
-            if amount >= coupon_base:
+            if coupons:
+                result.update({'coupons': coupons[0]})
+                for coupon in coupons:
+                    if coupon['base'] > result['coupons']['base']:
+                        result['coupons'].update(coupon)
+
+                coupon_minus = result['coupon']['minus']
                 actual_amount = actual_amount - coupon_minus
 
         result.update({'actualAmount': actual_amount})
