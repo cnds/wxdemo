@@ -88,7 +88,10 @@ class MongoBase(object):
             modified_count = result.modified_count
             upserted_id = result.upserted_id
             if modified_count:
-                return True, {'id': modified_count}
+                if modified_count == 1:
+                    return True, {'id': modified_count}
+                else:
+                    return True, None
 
             if upserted_id:
                 return True, {'id': str(upserted_id)}

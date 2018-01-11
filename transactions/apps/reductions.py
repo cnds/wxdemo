@@ -26,6 +26,10 @@ class Reductions(Base):
 
         store_id = data['storeId']
         reduction = data['percent']
+
+        # need to set storeId index in mongodb
+        # prevent inserting duplicate data
+        # see mongodb docs
         flag, result = self.db.update(
             'reductions',
             {'storeId': store_id},

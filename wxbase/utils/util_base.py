@@ -31,6 +31,7 @@ class UtilBase(object):
         'discount_has_been_removed': 'DISCOUNT_HAS_BEEN_REMOVED',
         'reduction_has_been_removed': 'REDUCTION_HAS_BEEN_REMOVED',
         'reduction_not_exist': 'REDUCTION_NOT_EXIST',
+        'user_coupon_not_exist': 'USER_COUPON_NOT_EXIST',
     }
 
     def __init__(self):

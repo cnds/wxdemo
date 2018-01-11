@@ -4,3 +4,4 @@ from .payment_detail import PaymentDetail
 from .coupons import Coupons, Coupon
 from .reductions import Reductions, Reduction
 from .discounts import Discount, Discounts
+from .user_coupons import UserCoupons, UserCouponRemover

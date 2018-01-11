@@ -5,7 +5,8 @@ from flask import Flask
 from gevent.pywsgi import WSGIServer
 from config import config
 from apps import Coupons, Coupon, Promotion, Reductions, Reduction, \
-    Discounts, Discount, Orders, Order, Promotions, PaymentDetail
+    Discounts, Discount, Orders, Order, Promotions, PaymentDetail, \
+    UserCoupons, UserCouponRemover
 
 
 def create_app(config):
@@ -34,6 +35,10 @@ def create_app(config):
                      view_func=Reduction.as_view('reduction'))
     app.add_url_rule('/transactions/payment-detail',
                      view_func=PaymentDetail.as_view('actual-amount'))
+    app.add_url_rule('/transactions/user-coupons',
+                     view_func=UserCoupons.as_view('user-coupons'))
+    app.add_url_rule('/transactions/user-coupons/remove',
+                     view_func=UserCouponRemover.as_view('user-coupon-remover'))
     return app
 
 

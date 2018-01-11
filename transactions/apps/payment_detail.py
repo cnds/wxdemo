@@ -46,7 +46,9 @@ class PaymentDetail(Base):
             return '', 500
 
         if user_coupons:
-            coupon_id_list = user_coupons['coupons']
+            from bson import ObjectId
+            coupon_id_list = [ObjectId(coupon_id) for coupon_id
+                              in user_coupons['coupons']]
             flag, coupons = self.db.find_by_condition('coupons', {'id': {
                 '$in': coupon_id_list}, 'base': {'$lte': amount}})
             if not flag:
