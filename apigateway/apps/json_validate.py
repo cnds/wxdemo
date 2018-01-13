@@ -61,6 +61,17 @@ user_orders_get = {
     "additionalProperties": False
 }
 
+user_orders_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "amount": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+    },
+    "required": ["storeId", "amount"],
+    "additionalProperties": False
+}
+
 store_bind_qr_code_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
@@ -163,6 +174,7 @@ SCHEMA = {
     'store_put': store_put,
     'store_orders_get': store_orders_get,
     'user_orders_get': user_orders_get,
+    'user_orders_post': user_orders_post,
     'store_bind_qr_code_post': store_bind_qr_code_post,
     'user_payment_detail_post': user_payment_detail_post,
     'promotions_put': promotions_put,

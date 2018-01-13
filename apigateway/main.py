@@ -22,7 +22,7 @@ def create_app(setting):
                      view_func=PromotionsHandler.as_view('promotions'))
     app.add_url_rule('/gateway/stores/<store_id>/orders',
                      view_func=StoreOrdersHandler.as_view('store-orders'))
-    app.add_url_rule('/gateway/stores/<store_id>/orders`/<order_id>',
+    app.add_url_rule('/gateway/stores/<store_id>/orders/<order_id>',
                      view_func=StoreOrderHandler.as_view('store-order'))
     app.add_url_rule('/gateway/stores/<store_id>',
                      view_func=StoreHandler.as_view('store'))
