@@ -167,6 +167,28 @@ store_discount_put = {
     "additionalProperties": False
 }
 
+user_coupons_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "amount": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+    },
+    "required": ["storeId", "amount"],
+    "additionalProperties": False
+}
+
+user_coupon_remover_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "amount": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+    },
+    "required": ["storeId", "amount"],
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -182,4 +204,6 @@ SCHEMA = {
     'store_coupon_put': store_coupon_put,
     'store_discounts_post': store_discounts_post,
     'store_discount_put': store_discount_put,
+    'user_coupons_put': user_coupons_put,
+    'user_coupon_remover_post': user_coupon_remover_post,
 }

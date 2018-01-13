@@ -9,7 +9,8 @@ from apps import PromotionsHandler, StoreOrdersHandler, \
     StoreBindQRCodeHandler, UserPaymentDetailHandler, StoreHandler, \
     StoreCouponsHandler, StoreCouponHandler, \
     StoreDiscountsHandler, StoreDiscountHandler, \
-    StoreReductionsHandler, StoreReductionHandler
+    StoreReductionsHandler, StoreReductionHandler, \
+    UserCouponsHandler, UserCouponRemoverHandler
 
 
 def create_app(setting):
@@ -48,6 +49,10 @@ def create_app(setting):
                      view_func=UserOrderHandler.as_view('user-order'))
     app.add_url_rule('/gateway/users/<user_id>/payment-detail',
                      view_func=UserPaymentDetailHandler.as_view('payment-detail'))
+    app.add_url_rule('/gateway/users/<user_id>/coupons',
+                     view_func=UserCouponsHandler.as_view('user-coupons'))
+    app.add_url_rule('/gateway/users/<user_id>/coupons/remove',
+                     view_func=UserCouponRemoverHandler.as_view('user-coupon-remover'))
     return app
 
 

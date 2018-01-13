@@ -7,3 +7,4 @@ from .users_handle import UserPaymentDetailHandler
 from .store_coupons_handle import StoreCouponHandler, StoreCouponsHandler
 from .store_discounts_handle import StoreDiscountHandler, StoreDiscountsHandler
 from .store_reductions_handle import StoreReductionHandler, StoreReductionsHandler
+from .user_coupons_handle import UserCouponRemoverHandler, UserCouponsHandler
