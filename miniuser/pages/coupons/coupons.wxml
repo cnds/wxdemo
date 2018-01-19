@@ -1,7 +1,7 @@
-<!--pages/promotions/promotions.wxml-->
+<!--pages/coupons/coupons.wxml-->
 <view class='container'>
-  <view class="promotions">
-    <view class="promotions-item" wx:for="{{promotions}}" wx:key="id">
+  <view class="coupons">
+    <view class="coupons-item" wx:for="{{coupons}}" wx:key="id">
       <view style="font-size: 35rpx"> ￥ {{item.moneyMax}}元 </view>
       <view> {{item.name}} </view>
       <view> 满 {{item.moneyHreshold}} 元使用 </view>

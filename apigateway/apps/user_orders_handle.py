@@ -3,7 +3,7 @@ from flask import request, jsonify
 from wxbase.utils import create_md5_key
 from .base import BaseHandler
 from .json_validate import SCHEMA
-from ..config import config
+from config import config
 
 
 class UserOrdersHandler(BaseHandler):

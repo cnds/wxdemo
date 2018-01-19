@@ -3,7 +3,7 @@
     "pages/index/index",
     "pages/transactions/transactions",
     "pages/logs/logs",
-    "pages/promotions/promotions"
+    "pages/coupons/coupons"
   ],
   "window": {
     "backgroundTextStyle": "light",

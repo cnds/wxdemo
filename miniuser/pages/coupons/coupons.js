@@ -1,4 +1,4 @@
-// pages/promotions/promotions.js
+// pages/coupons/coupons.js
 const app = getApp()
 
 Page({
@@ -7,18 +7,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    promotions: []
+    coupons: []
   },
 
   onLoad: function() {
+    var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/users/' + app.globalData.userId + '/promotions',
+      url: 'http://localhost:10000/gateway/users/' + app.globalData.userId + '/coupons',
       header: {'Authorization': 'Bearer ' + app.globalData.token},
       success: function(res) {
         console.log(res)
         if (res.statusCode === 200) {
-          this.setData({
-            promotions: res.data.promotions
+          that.setData({
+            coupons: res.data.userCoupons
           }) 
         } else if (res.statusCode === 400) {
           wx.showModal({

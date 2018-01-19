@@ -7,43 +7,68 @@ Page({
    * 页面的初始数据
    */
   data: {
-    discountBase: 0,
-    discountMinus: 0,
+    reductionPercent: 0,
     couponPay: 0,
     couponBase: 0,
     couponMinus: 0,
-    modifyPromotions: false
+    modifyReductions: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    this.getPromotions()
+    this.getReductions()
   },
 
-  getPromotions: function () {
+  getReductions: function () {
     var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/promotions',
+      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/reductions',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
           that.setData({
-            discountBase: res.data.discount.base,
-            discountMinus: res.data.discount.minus,
-            couponPay: res.data.coupon.pay,
-            couponBase: res.data.coupon.base,
-            couponzMinus: res.data.coupon.minus
+            reductionPercent: res.data.reductions.percent
           })
+        } else if (res.statusCode === 400) {
+          that.status400(res.data.error)
+        } else {
+          that.status500()
         }
       }
     })
   },
 
-  modifyPromotions: function () {
+  modifyReductions: function () {
     this.setData({
-      modifyPromotions: true
+      modifyReductions: true
+    })
+  },
+
+  reductionPercent: function(e) {
+    this.setData({
+      reductionPercent: parseInt(e.detail.value)
+    })
+  },
+
+  getDiscounts: function(e) {
+    var that = this
+    wx.request({
+      url: 'localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + 'discounts',
+      header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
+      success: function(res) {
+        if (res.statusCode === 200) {
+          that.setData({
+            discountBase: res.data.discounts.base,
+            discountMinus: res.data.discounts.minus
+          })
+        } else if (res.statusCode === 400) {
+          that.status400(res.data.error)
+        } else {
+          that.status500()
+        }
+      }
     })
   },
 
@@ -56,6 +81,27 @@ Page({
   discountMinus: function (e) {
     this.setData({
       discountMinus: parseInt(e.detail.value)
+    })
+  },
+
+  getCoupons: function(e) {
+    var that = this
+    wx.request({
+      url: 'localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + 'coupons',
+      header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
+      success: function(res) {
+        if (res.statusCode === 200) {
+          that.setData({
+            couponPay: res.data.coupons.pay,
+            couponBase: res.data.coupons.base,
+            couponMinus: res.data.coupons.minus
+          })
+        } else if (res.statusCode === 400) {
+          that.status400(res.data.error)
+        } else {
+          that.status500()
+        }
+      }
     })
   },
 
@@ -97,20 +143,12 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           that.setData({
-            modifyPromotions: false,
+            modifyReductions: false,
           })
         } else if (res.statusCode === 400) {
-          wx.showModal({
-            title: '错误',
-            content: res.data.error,
-            showCancel: false
-          })
+            that.status400(res.data.error)
         } else {
-          wx.showModal({
-            title: '错误',
-            content: '服务器内部错误',
-            showCancel: false
-          })
+          that.status500()
         }
       }
     })
@@ -118,7 +156,23 @@ Page({
 
   cancel: function () {
     this.setData({
-      modifyPromotions: false
+      modifyReductions: false
+    })
+  },
+
+  status400: function(e) {
+    wx.showModal({
+      title: '错误',
+      content: e,
+      showCancel: false
+    })
+  },
+
+  status500: function(e) {
+    wx.showModal({
+      title: '错误',
+      content: '服务器内部错误',
+      showCancel: false
     })
   }
 })
