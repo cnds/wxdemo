@@ -9,14 +9,12 @@
 
     <view class='promotions-item'>
       <view class='promotions-modify' wx:if="{{modifyPromotions === true}}">
-        消费满
-        <input bindinput='discountBase' value='{{discountBase}}'></input>元减
-        <input bindinput='discountMinus' value='{{discountMinus}}'></input>元
+        折扣额度：
+        <input bindinput='reductionPercent' value='{{reductionPercent}}'></input>
       </view>
       <view class='promotions-modify' wx:else>
-        消费满
-        <text>{{discountBase}}</text>元减
-        <text>{{discountMinus}}</text>元
+        折扣额度：
+        <text>{{reductionPercent}}</text>
       </view>
     </view>
 

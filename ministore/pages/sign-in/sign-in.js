@@ -7,6 +7,17 @@ Page({
     mobile: null,
     password: null
   },
+
+  onLoad: function() {
+    var storeInfo = wx.getStorageSync('storeInfo')
+    if (storeInfo) {
+      app.globalData.storeInfo = storeInfo
+      wx.redirectTo({
+        url: '../index/index',
+      })
+    }
+  },
+
   //事件处理函数
   loginClick: function() {
     wx.request({
@@ -19,6 +30,10 @@ Page({
       success: function(res) {
         if (res.statusCode === 201) {
           app.globalData.storeInfo = res.data
+          wx.setStorage({
+            key: 'storeInfo',
+            data: res.data,
+          })
           wx.redirectTo({
             url: '../index/index',
           })

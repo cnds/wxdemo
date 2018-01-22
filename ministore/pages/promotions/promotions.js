@@ -19,6 +19,7 @@ Page({
    */
   onLoad: function () {
     this.getReductions()
+    console.log(this.data)
   },
 
   getReductions: function () {
@@ -28,6 +29,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
+          console.log(res)
           that.setData({
             reductionPercent: res.data.reductions.percent
           })
