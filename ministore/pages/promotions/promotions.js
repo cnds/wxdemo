@@ -1,5 +1,6 @@
 // pages/promotions/promotions.js
 const app = getApp()
+var status = require('../../utils/error.js')
 
 Page({
 
@@ -34,9 +35,9 @@ Page({
             reductionPercent: res.data.reductions.percent
           })
         } else if (res.statusCode === 400) {
-          that.status400(res.data.error)
+          status.status400(res.data.error)
         } else {
-          that.status500()
+          status.status500()
         }
       }
     })
@@ -66,9 +67,9 @@ Page({
             discountMinus: res.data.discounts.minus
           })
         } else if (res.statusCode === 400) {
-          that.status400(res.data.error)
+          status.status400(res.data.error)
         } else {
-          that.status500()
+          status.status500()
         }
       }
     })
@@ -99,9 +100,9 @@ Page({
             couponMinus: res.data.coupons.minus
           })
         } else if (res.statusCode === 400) {
-          that.status400(res.data.error)
+          status.status400(res.data.error)
         } else {
-          that.status500()
+          status.status500()
         }
       }
     })
@@ -148,9 +149,9 @@ Page({
             modifyReductions: false,
           })
         } else if (res.statusCode === 400) {
-            that.status400(res.data.error)
+            status.status400(res.data.error)
         } else {
-          that.status500()
+          status.status500()
         }
       }
     })
@@ -162,19 +163,19 @@ Page({
     })
   },
 
-  status400: function(e) {
-    wx.showModal({
-      title: '错误',
-      content: e,
-      showCancel: false
-    })
-  },
+  // status400: function(e) {
+  //   wx.showModal({
+  //     title: '错误',
+  //     content: e,
+  //     showCancel: false
+  //   })
+  // },
 
-  status500: function(e) {
-    wx.showModal({
-      title: '错误',
-      content: '服务器内部错误',
-      showCancel: false
-    })
-  }
+  // status500: function(e) {
+  //   wx.showModal({
+  //     title: '错误',
+  //     content: '服务器内部错误',
+  //     showCancel: false
+  //   })
+  // }
 })

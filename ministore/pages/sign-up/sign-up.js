@@ -1,9 +1,7 @@
 // pages/sign-up/sign-up.js
+var status = require('../../utils/error.js')
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     mobile: null,
     password: null,
@@ -23,13 +21,14 @@ Page({
       },
       method: 'POST',
       success: function(res) {
-        status = res.statusCode
-        if (status === '201') {
+        if (res.statusCode === 201) {
           wx.redirectTo({
             url: '../sign-in/sign-in',
           })
+        } else if (res.statusCode === 400) {
+          status.status400(res.data.error)
         } else {
-          console.log(res.data.error)
+          status.status500()
         }
       }
     })
@@ -58,9 +57,12 @@ Page({
       },
       method: 'POST',
       success: function(res) {
-        status = res.statusCode
-        if (status !== '201') {
-          console.log(res.data.error)
+        if (res.statusCode !== 201) {
+          if (res.statusCode === 400) {
+            status.status400(res.data.error)
+          } else {
+            status.status500()
+          }
         }
       }
     })

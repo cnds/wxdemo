@@ -1,6 +1,6 @@
 // pages/transactions/transactions.js
 const app = getApp()
-var time = require('../../utils/util.js')
+var status = require('../../utils/error.js')
 
 Page({
   data: {
@@ -25,17 +25,9 @@ Page({
             orders: orders
           })
         } else if (res.statusCode === 400) {
-          wx.showModal({
-            title: '错误',
-            content: res.data.error,
-            showCancel: false
-          })
+          status.status400(res.data.error)
         } else {
-          wx.showModal({
-            title: '错误',
-            content: '服务器内部错误',
-            showCancel: false
-          })
+          status.status500()
         }
       }
     })

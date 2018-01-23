@@ -9,15 +9,15 @@ Page({
     password: null
   },
 
-  // onLoad: function() {
-  //   var storeInfo = wx.getStorageSync('storeInfo')
-  //   if (storeInfo) {
-  //     app.globalData.storeInfo = storeInfo
-  //     wx.redirectTo({
-  //       url: '../index/index',
-  //     })
-  //   }
-  // },
+  onLoad: function() {
+    var storeInfo = wx.getStorageSync('storeInfo')
+    if (storeInfo) {
+      app.globalData.storeInfo = storeInfo
+      wx.redirectTo({
+        url: '../index/index',
+      })
+    }
+  },
 
   //事件处理函数
   loginClick: function() {
@@ -39,7 +39,6 @@ Page({
             url: '../index/index',
           })
         } else if (res.statusCode === 400) {
-          console.log(res.data.error)
           status.status400(res.data.error)
         } else {
           status.status500()
