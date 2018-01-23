@@ -29,10 +29,13 @@ const errMsg = {
 }
 
 function status400(e) {
-  console.log(e)
+  var content = '未知错误'
+  if (e in errMsg) {
+    content = errMsg[e]
+  }
   wx.showModal({
     title: '错误',
-    content: errMsg[e],
+    content: content,
     showCancel: false
   })
 }
