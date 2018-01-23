@@ -1,6 +1,7 @@
 //sign-in.js
 //获取应用实例
 const app = getApp()
+var status = require('../../utils/error.js')
 
 Page({
   data: {
@@ -8,15 +9,15 @@ Page({
     password: null
   },
 
-  onLoad: function() {
-    var storeInfo = wx.getStorageSync('storeInfo')
-    if (storeInfo) {
-      app.globalData.storeInfo = storeInfo
-      wx.redirectTo({
-        url: '../index/index',
-      })
-    }
-  },
+  // onLoad: function() {
+  //   var storeInfo = wx.getStorageSync('storeInfo')
+  //   if (storeInfo) {
+  //     app.globalData.storeInfo = storeInfo
+  //     wx.redirectTo({
+  //       url: '../index/index',
+  //     })
+  //   }
+  // },
 
   //事件处理函数
   loginClick: function() {
@@ -38,20 +39,13 @@ Page({
             url: '../index/index',
           })
         } else if (res.statusCode === 400) {
-          // TODO
           console.log(res.data.error)
+          status.status400(res.data.error)
         } else {
-          // TODO
-          console.log(res.data.error)
+          status.status500()
         }
       }
     })
-    // wx.navigateTo({
-    //   url: '../sign-up/sign-up',
-    //   success: function(res) {},
-    //   fail: function(res) {},
-    //   complete: function(res) {},
-    // })
   },
 
   mobileInput: function(event) {
