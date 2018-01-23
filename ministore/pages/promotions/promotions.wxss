@@ -50,21 +50,35 @@
 }
 
 .promotions-btn {
+  display: flex;
+}
+
+.promotions-btn-modify {
   margin-top: 30rpx;
   border-bottom: 0;
-  width: 80%;
+  width: 100%;
   color: white;
   background-color: green;
   border-radius: 0;
-  font-size: 14px;
+  font-size: 35rpx;
+}
+
+.promotions-btn-determine {
+  margin-top: 30rpx;
+  border-bottom: 0;
+  width: 45%;
+  color: white;
+  background-color: green;
+  border-radius: 0;
+  font-size: 35rpx;
 }
 
 .promotions-btn-cancel {
   margin-top: 30rpx;
   border-bottom: 0;
-  width: 80%;
+  width: 45%;
   color: white;
   background-color: #bfc2c2;
   border-radius: 0;
-  font-size: 14px;
+  font-size: 35rpx;
 }

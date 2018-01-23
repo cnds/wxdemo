@@ -8,14 +8,23 @@
   <view class='promotions'>
 
     <view class='promotions-item'>
-      <view class='promotions-modify' wx:if="{{modifyPromotions === true}}">
-        折扣额度：
-        <input bindinput='reductionPercent' value='{{reductionPercent}}'></input>
-      </view>
-      <view class='promotions-modify' wx:else>
-        折扣额度：
-        <text>{{reductionPercent}}</text>
-      </view>
+      <block wx:if="{{modifyReductions === true }}">
+        <view class='promotions-modify'>
+          折扣额度：
+          <input bindinput='reductionPercent' value='{{reductionPercent}}'></input>
+        </view>
+        <view class='promotions-btn'>
+        <button class='promotions-btn-determine' bindtap='determineReduction'>确定</button>
+        <button class='promotions-btn-cancel' bindtap='cancelReduction'>取消</button>
+        </view>
+      </block>
+      <block wx:else>
+        <view class='promotions-modify'>
+          折扣额度：
+          <text>{{reductionPercent}}</text>
+        </view>
+        <button class='promotions-btn-modify' bindtap='modifyReductions'>修改折扣信息</button>
+      </block>
     </view>
 
     <view class='promotions-item'>

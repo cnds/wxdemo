@@ -8,11 +8,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    reductionPercent: 0,
+    reductionPercent: 100,
+    discountBase: 0,
+    discountMinus: 0,
     couponPay: 0,
     couponBase: 0,
     couponMinus: 0,
-    modifyReductions: false
+    modifyReductions: false,
+    modifyDiscounts: false,
+    modifyCoupons: false
   },
 
   /**
@@ -30,9 +34,8 @@ Page({
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
-          console.log(res)
           that.setData({
-            reductionPercent: res.data.reductions.percent
+            reductionPercent: res.data.reductions[0].percent
           })
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
@@ -55,10 +58,39 @@ Page({
     })
   },
 
+  determineReduction: function(e) {
+    var that = this
+    wx.request({
+      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/reductions',
+      header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
+      data: {
+        percent: this.data.reductionPercent
+      },
+      method: 'PUT',
+      success: function (res) {
+        if (res.statusCode === 200) {
+          that.setData({
+            modifyReductions: false,
+          })
+        } else if (res.statusCode === 400) {
+          status.status400(res.data.error)
+        } else {
+          status.status500()
+        }
+      }
+    })
+  },
+
+  cancelReduction: function(e) {
+    this.setData({
+      modifyReductions: false
+    })
+  },
+
   getDiscounts: function(e) {
     var that = this
     wx.request({
-      url: 'localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + 'discounts',
+      url: 'localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function(res) {
         if (res.statusCode === 200) {
@@ -90,7 +122,7 @@ Page({
   getCoupons: function(e) {
     var that = this
     wx.request({
-      url: 'localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + 'coupons',
+      url: 'localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function(res) {
         if (res.statusCode === 200) {

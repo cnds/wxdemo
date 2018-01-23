@@ -189,6 +189,16 @@ user_coupon_remover_post = {
     "additionalProperties": False
 }
 
+store_reductions_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "percent": {"type": "integer", "minimum": 0, "maximum": 100, "excludeMinimum": True},
+    },
+    "required": ["percent"],
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -200,6 +210,7 @@ SCHEMA = {
     'store_bind_qr_code_post': store_bind_qr_code_post,
     'user_payment_detail_post': user_payment_detail_post,
     'promotions_put': promotions_put,
+    'store_reductions_put': store_reductions_put,
     'store_coupons_post': store_coupons_post,
     'store_coupon_put': store_coupon_put,
     'store_discounts_post': store_discounts_post,
