@@ -1,5 +1,6 @@
 // pages/coupons/coupons.js
 const app = getApp()
+var status = require('../../utils/error.js')
 
 Page({
 
@@ -22,17 +23,9 @@ Page({
             coupons: res.data.userCoupons
           }) 
         } else if (res.statusCode === 400) {
-          wx.showModal({
-            title: '错误',
-            content: res.data.error,
-            showCancel: false
-          })
+          status.status400(res.data.error)
         } else {
-          wx.showModal({
-            title: '错误',
-            content: '服务器内部错误',
-            showCancel: false
-          })
+          status.status500()
         }
       }
 
