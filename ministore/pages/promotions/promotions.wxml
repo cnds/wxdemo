@@ -7,42 +7,66 @@
 
   <view class='promotions'>
 
+    <!--折扣  -->
     <view class='promotions-item'>
-      <block wx:if="{{modifyReductions === true }}">
-        <view class='promotions-modify'>
+      <view class='promotions-item-nav'>
+        <view class='label'>折扣</view>
+        <view class='edit-btn' hidden='{{editReductionHidden}}' bindtap='reductionEdit'>编辑</view>
+        <view class='edit-btn' hidden='{{!editReductionHidden}}' bindtap='reductionDone'>完成</view>
+      </view>
+      <block wx:if="{{editReduction}}">
+        <view class='promotions-edit'>
           折扣额度：
-          <input bindinput='reductionPercent' value='{{reductionPercent}}'></input>
-        </view>
-        <view class='promotions-btn'>
-        <button class='promotions-btn-determine' bindtap='determineReduction'>确定</button>
-        <button class='promotions-btn-cancel' bindtap='cancelReduction'>取消</button>
+          <input bindinput='reductionPercentInput' value='{{reductionPercent}}' type='number' focus='true'></input>%
         </view>
       </block>
       <block wx:else>
-        <view class='promotions-modify'>
+        <view class='promotions-edit'>
           折扣额度：
-          <text>{{reductionPercent}}</text>
+          <text>{{reductionPercent}}</text>%
         </view>
-        <button class='promotions-btn-modify' bindtap='modifyReductions'>修改折扣信息</button>
       </block>
     </view>
 
+    <!--满减  -->
+    <view class='promotions-item'>
+      <view class='promotions-item-nav'>
+        <view class='label'>满减</view>
+        <view class='edit-btn' hidden='{{editDiscountHidden}}' bindtap='discountEdit'>编辑</view>
+        <view class='edit-btn' hidden='{{!editDiscountHidden}}' bindtap='discountDone'>完成</view>
+      </view>
+      <view wx:for='{{discountsArray}}' wx:for-item='discount' wx:key='base'>
+        <block wx:if='{{editDiscount && createDiscount}}'>
+          <view class='promotions-edit'>消费满
+            <text>{{discount.base}}</text>元 减免
+            <text>{{discount.minus}}</text>元</view>
+
+        </block>
+        <block wx:else>
+          <view class='promotions-edit'>消费满
+            <input bindinput='discountBase'></input>元减免
+            <input bindinput='discountMinus'></input>元</view>
+        </block>
+      </view>
+    </view>
+
+    <!--优惠券  -->
     <view class='promotions-item'>
       <block wx:if="{{modifyPromotions === true}}">
-        <view class='promotions-modify'>消费满
+        <view class='promotions-edit'>消费满
           <input bindinput='couponPay' value='{{couponPay}}'></input>元
         </view>
-        <view class='promotions-modify'>赠送满
+        <view class='promotions-edit'>赠送满
           <input bindinput='couponBase' value='{{couponBase}}'></input>元减
           <input bindinput='couponMinus' value='{{couponMinus}}'></input>元优惠券
         </view>
       </block>
       <block wx:else>
-        <view class='promotions-modify'>
+        <view class='promotions-edit'>
           消费满
           <text>{{couponPay}}</text>元
         </view>
-        <view class='promotions-modify'>赠送满
+        <view class='promotions-edit'>赠送满
           <text>{{couponBase}}</text>元减
           <text>{{couponMinus}}</text>元优惠券
         </view>

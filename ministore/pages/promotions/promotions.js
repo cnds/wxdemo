@@ -8,15 +8,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    reductionPercent: 100,
+    reductionPercent: null,
+    reductionPercentInput: null,
+    discountsArray: [{discountBase: 100, discountMinus: 5}, {discountBase: 50, discountMinus: 3}],
     discountBase: 0,
     discountMinus: 0,
     couponPay: 0,
     couponBase: 0,
     couponMinus: 0,
-    modifyReductions: false,
-    modifyDiscounts: false,
-    modifyCoupons: false
+    editReduction: false,
+    editDiscount: true,
+    createDiscount: true,
+    editCoupon: false,
+    createCoupon: false,
+    editReductionHidden: false,
+    editDiscountHidden: false,
   },
 
   /**
@@ -24,6 +30,7 @@ Page({
    */
   onLoad: function () {
     this.getReductions()
+    this.getDiscounts()
     console.log(this.data)
   },
 
@@ -46,31 +53,34 @@ Page({
     })
   },
 
-  modifyReductions: function () {
+  reductionEdit: function () {
     this.setData({
-      modifyReductions: true
+      editReduction: true,
+      editReductionHidden: true
     })
   },
 
-  reductionPercent: function(e) {
+  reductionPercentInput: function(e) {
     this.setData({
-      reductionPercent: parseInt(e.detail.value)
+      reductionPercentInput: parseInt(e.detail.value)
     })
   },
 
-  determineReduction: function(e) {
+  determineReduction: function() {
     var that = this
     wx.request({
       url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/reductions',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       data: {
-        percent: this.data.reductionPercent
+        percent: this.data.reductionPercentInput
       },
       method: 'PUT',
       success: function (res) {
         if (res.statusCode === 200) {
           that.setData({
-            modifyReductions: false,
+            reductionPercent: that.data.reductionPercentInput,
+            editReduction: false,
+            editReductionHidden: false,
           })
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
@@ -81,22 +91,22 @@ Page({
     })
   },
 
-  cancelReduction: function(e) {
-    this.setData({
-      modifyReductions: false
-    })
+  reductionDone: function(e) {
+    if (this.data.reductionPercentInput && this.data.reductionPercent !== this.data.reductionPercentInput) {
+      this.determineReduction()
+    }
   },
 
   getDiscounts: function(e) {
     var that = this
     wx.request({
-      url: 'localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts',
+      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function(res) {
         if (res.statusCode === 200) {
+          console.log(res.data)
           that.setData({
-            discountBase: res.data.discounts.base,
-            discountMinus: res.data.discounts.minus
+            discountsArray: res.data.discounts
           })
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
@@ -116,6 +126,19 @@ Page({
   discountMinus: function (e) {
     this.setData({
       discountMinus: parseInt(e.detail.value)
+    })
+  },
+
+  discountEdit: function(e) {
+    this.setData({
+      editDiscount: true,
+      editDiscountHidden: true
+    })
+  },
+
+  discountDone: function(e) {
+    this.setData({
+      editDiscountHidden: false
     })
   },
 
@@ -178,7 +201,7 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           that.setData({
-            modifyReductions: false,
+            editReduction: false,
           })
         } else if (res.statusCode === 400) {
             status.status400(res.data.error)
@@ -191,23 +214,8 @@ Page({
 
   cancel: function () {
     this.setData({
-      modifyReductions: false
+      editReduction: false
     })
   },
 
-  // status400: function(e) {
-  //   wx.showModal({
-  //     title: '错误',
-  //     content: e,
-  //     showCancel: false
-  //   })
-  // },
-
-  // status500: function(e) {
-  //   wx.showModal({
-  //     title: '错误',
-  //     content: '服务器内部错误',
-  //     showCancel: false
-  //   })
-  // }
 })
