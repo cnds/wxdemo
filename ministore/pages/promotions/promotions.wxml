@@ -35,23 +35,22 @@
         <view class='edit-btn' hidden='{{editDiscountHidden}}' bindtap='discountEdit'>编辑</view>
         <view class='edit-btn' hidden='{{!editDiscountHidden}}' bindtap='discountDone'>完成</view>
       </view>
-      <view wx:for='{{discountsArray}}' wx:for-item='discount' wx:key='base'>
-        <block wx:if='{{editDiscount && createDiscount}}'>
+      <view wx:for='{{discountsArray}}' wx:for-item='discount' wx:key='id'>
+        <block wx:if='{{editDiscount}}'>
           <view class='promotions-edit'>消费满
-            <text>{{discount.base}}</text>元 减免
-            <text>{{discount.minus}}</text>元</view>
-
+            <input bindinput='discountBase' value='{{discount.base}}' type='number' focus='true' data-id='{{discount.id}}'></input>元减免
+            <input bindinput='discountMinus' value='{{discount.minus}}' type='number' data-id='{{discount.id}}'></input>元</view>
         </block>
         <block wx:else>
           <view class='promotions-edit'>消费满
-            <input bindinput='discountBase'></input>元减免
-            <input bindinput='discountMinus'></input>元</view>
+            <text>{{discount.base}}</text>元 减免
+            <text>{{discount.minus}}</text>元</view>
         </block>
       </view>
     </view>
 
     <!--优惠券  -->
-    <view class='promotions-item'>
+    <!-- <view class='promotions-item'>
       <block wx:if="{{modifyPromotions === true}}">
         <view class='promotions-edit'>消费满
           <input bindinput='couponPay' value='{{couponPay}}'></input>元
@@ -71,16 +70,16 @@
           <text>{{couponMinus}}</text>元优惠券
         </view>
       </block>
-    </view>
+    </view> -->
 
   </view>
 
-  <block wx:if="{{modifyPromotions === true}}">
+  <!-- <block wx:if="{{modifyPromotions === true}}">
     <button class='promotions-btn' bindtap='determine'>确定</button>
     <button class='promotions-btn-cancel' bindtap='cancel'>取消</button>
   </block>
   <block wx:else>
     <button class='promotions-btn' bindtap='modifyPromotions'>修改优惠信息</button>
-  </block>
+  </block> -->
 
 </view>

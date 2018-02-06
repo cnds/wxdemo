@@ -17,3 +17,15 @@ const formatNumber = n => {
 module.exports = {
   formatTime: formatTime
 }
+
+function resultArrayToObject(resultArray) {
+  var resultObject = new Object()
+  for (var item of resultArray) {
+    const itemId = item.id
+    // delete item['id']
+    Object.assign(resultObject, { [itemId]: item })
+  }
+  return resultObject
+}
+
+module.exports.resultArrayToObject = resultArrayToObject

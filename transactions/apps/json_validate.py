@@ -182,6 +182,7 @@ discount_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "storeId": {"type": "string"},
         "base": {"type": "integer", "minimum": 0},
         "minus": {"type": "integer", "minimum": 0}
     },
