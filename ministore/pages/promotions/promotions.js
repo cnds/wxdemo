@@ -13,12 +13,14 @@ Page({
     reductionPercentInput: null,
     discountsArray: [],
     discountsArrayInput: [],
+    discountsObjectInput: {},
+    discountObjectInput: {},
     discountsObject: {},
-    discountObject: {},
     discountBase: 0,
     discountMinus: 0,
     discountBaseInput: 0,
     discountMinusInput: 0,
+    createDiscountObject: {},
     couponPay: 0,
     couponBase: 0,
     couponMinus: 0,
@@ -29,6 +31,7 @@ Page({
     createCoupon: false,
     editReductionHidden: false,
     editDiscountHidden: false,
+    createDiscountHidden: false,
   },
 
   /**
@@ -114,10 +117,10 @@ Page({
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
-          // var resultObject = util.resultArrayToObject(res.data.discounts)
+          var resultObject = util.resultArrayToObject(res.data.discounts)
           that.setData({
             discountsArray: res.data.discounts,
-            // discountsObject: resultObject
+            discountsObject: resultObject
           })
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
@@ -131,14 +134,15 @@ Page({
   discountBase: function (e) {
     var currentId = e.currentTarget.dataset.id
     this.setData({
-      discountsObject: Object.assign(this.data.discountsObject, { [currentId]: Object.assign(this.data.discountObject, { base: parseInt(e.detail.value) }) })
+      discountsObjectInput: Object.assign(this.data.discountsObjectInput, { [currentId]: Object.assign(this.data.discountObjectInput, { base: parseInt(e.detail.value) }) })
     })
   },
+
 
   discountMinus: function (e) {
     var currentId = e.currentTarget.dataset.id
     this.setData({
-      discountsObject: Object.assign(this.data.discountsObject, { [currentId]: Object.assign(this.data.discountObject, { minus: parseInt(e.detail.value) }) })
+      discountsObjectInput: Object.assign(this.data.discountsObjectInput, { [currentId]: Object.assign(this.data.discountObjectInput, { minus: parseInt(e.detail.value) }) })
     })
   },
 
@@ -149,29 +153,83 @@ Page({
     })
   },
 
-  editDiscountsArrayInput: function (discountsArrayInput, discountObject) {
-    discountsArrayInput.push(discountObject)
-  },
-
   discountDone: function (e) {
-    console.log(this.data.discountsObject)
-    var discountsToInput = this.data.discountsObject
-    Object.keys(discountsToInput).forEach(function(key) {
-      console.log(discountsToInput[key])
+    var that = this
+    var discountsToInput = this.data.discountsObjectInput
+    Object.keys(discountsToInput).forEach(function (key) {
+      if (!discountsToInput[key].base) {
+        Object.assign(discountsToInput[key], { base: that.data.discountsObject[key].base })
+      }
+      if (!discountsToInput[key].minus) {
+        Object.assign(discountsToInput[key], { minus: that.data.discountsObject[key].minus })
+      }
       wx.request({
         url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts/' + key,
         method: 'PUT',
-        header: {'Authorization': 'Bearer ' + app.globalData.storeInfo.token},
+        header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
         data: discountsToInput[key],
-        success: function(res) {
-          console.log(res)
+        success: function (res) {
+          if (res.statusCode === 200) {
+            that.setData({
+              editDiscountHidden: false,
+              editDiscount: false
+            })
+          } else if (res.statusCode === 400) {
+            status.status400(res.data.error)
+          } else {
+            status.status500()
+          }
         }
       })
-    }) 
-    this.setData({
-      editDiscountHidden: false
+    })
+    that.setData({
+      editDiscountHidden: false,
+      editDiscount: false
     })
   },
+
+  createDiscount: function (e) {
+    this.setData({
+      createDiscountHidden: true,
+    })
+  },
+
+  createDiscountDone: function (e) {
+    var that = this
+    var newDiscount = this.data.createDiscountObject
+    if (Object.keys(newDiscount).length !== 0) {
+      wx.request({
+        url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts',
+        method: 'POST',
+        data: newDiscount,
+        success: function (res) {
+          that.data.discountsArray.push(newDiscount)
+          that.onLoad()
+        }
+      })
+    }
+    console.log(this.data.discountsArray)
+    this.setData({
+      createDiscountHidden: false
+    })
+  },
+
+  createDiscountBase: function (e) {
+    this.setData({
+      createDiscountObject: Object.assign(this.data.createDiscountObject, { base: parseInt(e.detail.value) })
+    })
+  },
+
+  createDiscountMinus: function (e) {
+    this.setData({
+      createDiscountObject: Object.assign(this.data.createDiscountObject, { minus: parseInt(e.detail.value) })
+    })
+  },
+
+
+
+
+
 
   getCoupons: function (e) {
     var that = this

@@ -44,9 +44,16 @@
         <block wx:else>
           <view class='promotions-edit'>消费满
             <text>{{discount.base}}</text>元 减免
-            <text>{{discount.minus}}</text>元</view>
+            <text>{{discount.minus}}</text>元
+          </view>
         </block>
       </view>
+      <view class='promotions-edit' hidden='{{!createDiscountHidden}}'>消费满
+        <input class='createDiscountBase' type='number' focus='true' bindinput='createDiscountBase'></input>元减免
+        <input class='createDiscountMinus' type='number' bindinput='createDiscountMinus'></input>元
+      </view>
+      <view class='promotions-edit' hidden='{{createDiscountHidden}}' bindtap='createDiscount'>新增满减优惠</view>
+      <view class='promotions-edit' hidden='{{!createDiscountHidden}}' bindtap='createDiscountDone'>提交</view>
     </view>
 
     <!--优惠券  -->
