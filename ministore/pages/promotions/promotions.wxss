@@ -1,9 +1,6 @@
 /* pages/promotions/promotions.wxss */
 
 .container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   background-color: #f2f2f2;
 }
 
@@ -18,20 +15,23 @@
 
 .promotions {
   height: 80%;
-  display: flex;
-  flex-direction: column;
-  width: 95%;
+  width: 100%;
   padding: 15rpx;
 }
 
 .promotions-item {
-  /* height: 150rpx; */
-  display: flex;
   justify-content: space-between;
-  flex-direction: column;
   margin-top: 15rpx;
   font-size: 35rpx;
   border: 1rpx solid #bfc2c2;
+}
+
+.promotions-edit-delete {
+  color: orange;
+  display: flex;
+  background-color: white;
+  overflow: hidden;
+  width: 870rpx;
 }
 
 .promotions-edit {
@@ -41,8 +41,14 @@
   align-items: center;
   height: 80rpx;
   padding: 10rpx;
+  width: 750rpx;
   border-bottom: 1rpx solid #f2f2f2;
 }
+
+/* .promotions-edit.active {
+  background: red;
+  background-size: 40rpx auto;
+} */
 
 .promotions-edit input, .promotions-edit text {
   height: 100%;
@@ -55,6 +61,15 @@
 
 .promotions-edit input {
   color: black;
+}
+
+.delete-btn {
+  display: flex;
+  align-items: center;
+  width: 120rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+  background-color: #e64340;
+  color: white
 }
 
 .promotions-btn {

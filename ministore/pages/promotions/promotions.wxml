@@ -42,9 +42,12 @@
             <input bindinput='discountMinus' value='{{discount.minus}}' type='number' data-id='{{discount.id}}'></input>元</view>
         </block>
         <block wx:else>
-          <view class='promotions-edit'>消费满
-            <text>{{discount.base}}</text>元 减免
-            <text>{{discount.minus}}</text>元
+          <view class='promotions-edit-delete'>
+            <view class='promotions-edit}}' bindtouchstart='touchS' bindtouchmove='touchM' bindtouchend='touchE' data-id='{{discount.id}}' data-index='{{index}}' style='{{discount.left}}'>消费满
+              <text>{{discount.base}}</text>元 减免
+              <text>{{discount.minus}}</text>元
+            </view>
+            <view class='delete-btn' data-id='{{discount.id}}' data-index='{{index}}' catchtap='deleteDiscount'>删除</view>
           </view>
         </block>
       </view>

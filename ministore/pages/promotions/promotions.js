@@ -32,6 +32,7 @@ Page({
     editReductionHidden: false,
     editDiscountHidden: false,
     createDiscountHidden: false,
+    delBtnWidth: 120,
   },
 
   /**
@@ -208,7 +209,6 @@ Page({
         }
       })
     }
-    console.log(this.data.discountsArray)
     this.setData({
       createDiscountHidden: false
     })
@@ -226,9 +226,57 @@ Page({
     })
   },
 
+  touchS: function (e) {
+    if (e.touches.length === 1) {
+      this.setData({
+        startX: e.touches[0].clientX
+      })
+    }
+  },
 
+  touchM: function (e) {
+    // console.log(e)
+  },
 
+  touchE: function (e) {
+    console.log(e)
+    if (e.changedTouches.length === 1) {
+      var endX = e.changedTouches[0].clientX
+      var disX = this.data.startX - endX
+      var delBtnWidth = this.data.delBtnWidth
+      var left = disX > delBtnWidth / 2 ? "margin-left:-" + delBtnWidth + "rpx" : "margin-left:0rpx"
+      var index = e.currentTarget.dataset.index
+      if (index !== "" && index !== null) {
+        var discountsArrayWithStyle = this.data.discountsArray
+        Object.assign(discountsArrayWithStyle[index], { left: left })
+        this.setData({
+          discountsArray: discountsArrayWithStyle
+        })
+      }
+    }
+    console.log(this.data.discountsArray)
+  },
 
+  deleteDiscount: function (e) {
+    var that = this
+    var currentId = e.currentTarget.dataset.id
+    var index = e.currentTarget.dataset.index
+    wx.request({
+      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts/' + currentId,
+      method: 'DELETE',
+      success: function (res) {
+        if (res.statusCode === 200) {
+          var discountsArrayWithStyle = that.data.discountsArray
+          Object.assign(discountsArrayWithStyle[index], { left: "margin-left:0rpx" })
+          that.onLoad()
+        } else if (res.statusCode === 400) {
+          status.status400(res.data.error)
+        } else {
+          status.status500()
+        }
+      }
+    })
+  },
 
 
   getCoupons: function (e) {
