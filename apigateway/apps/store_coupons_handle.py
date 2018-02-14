@@ -21,7 +21,7 @@ class StoreCouponsHandler(BaseHandler):
         if resp_status != 200 and resp_status != 400:
             return '', 500
 
-        return jsonify(api_resp.json), resp_status
+        return jsonify(api_resp.json()), resp_status
 
     def post(self, store_id):
         is_valid, data = self.get_params_from_request(
@@ -34,10 +34,10 @@ class StoreCouponsHandler(BaseHandler):
             '{0}/transactions/coupons'.format(self.endpoint['transactions']),
             json=data)
         resp_status = api_resp.status_code
-        if resp_status != 200 and resp_status != 400:
+        if resp_status != 201 and resp_status != 400:
             return '', 500
 
-        return jsonify(api_resp.json), resp_status
+        return jsonify(api_resp.json()), resp_status
 
 
 class StoreCouponHandler(BaseHandler):

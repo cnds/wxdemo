@@ -12,7 +12,6 @@ Page({
     reductionPercent: null,
     reductionPercentInput: null,
     discountsArray: [],
-    discountsArrayInput: [],
     discountsObjectInput: {},
     discountObjectInput: {},
     discountsObject: {},
@@ -21,9 +20,10 @@ Page({
     discountBaseInput: 0,
     discountMinusInput: 0,
     createDiscountObject: {},
-    couponPay: 0,
-    couponBase: 0,
-    couponMinus: 0,
+    couponsArray: [],
+    couponsObjectInput: {},
+    couponObjectInput: {},
+    createCouponObject: {},
     editReduction: false,
     editDiscount: false,
     createDiscount: true,
@@ -32,7 +32,9 @@ Page({
     editReductionHidden: false,
     editDiscountHidden: false,
     createDiscountHidden: false,
-    delBtnWidth: 120,
+    editCouponHidden: false,
+    createCouponHidden: false,
+    delBtnWidth: 200,
   },
 
   /**
@@ -41,6 +43,7 @@ Page({
   onLoad: function () {
     this.getReductions()
     this.getDiscounts()
+    this.getCoupons()
   },
 
   getReductions: function () {
@@ -171,10 +174,7 @@ Page({
         data: discountsToInput[key],
         success: function (res) {
           if (res.statusCode === 200) {
-            that.setData({
-              editDiscountHidden: false,
-              editDiscount: false
-            })
+            that.onLoad()
           } else if (res.statusCode === 400) {
             status.status400(res.data.error)
           } else {
@@ -204,8 +204,16 @@ Page({
         method: 'POST',
         data: newDiscount,
         success: function (res) {
-          that.data.discountsArray.push(newDiscount)
-          that.onLoad()
+          if (res.statusCode === 201) {
+            that.setData({
+              createDiscountObject: {}
+            })
+            that.onLoad()
+          } else if (res.statusCode === 400) {
+            status.status400(res.data.error)
+          } else {
+            status.status500()
+          }
         }
       })
     }
@@ -226,7 +234,7 @@ Page({
     })
   },
 
-  touchS: function (e) {
+  touchDiscountS: function (e) {
     if (e.touches.length === 1) {
       this.setData({
         startX: e.touches[0].clientX
@@ -234,12 +242,11 @@ Page({
     }
   },
 
-  touchM: function (e) {
+  touchDiscountM: function (e) {
     // console.log(e)
   },
 
-  touchE: function (e) {
-    console.log(e)
+  touchDiscountE: function (e) {
     if (e.changedTouches.length === 1) {
       var endX = e.changedTouches[0].clientX
       var disX = this.data.startX - endX
@@ -254,20 +261,16 @@ Page({
         })
       }
     }
-    console.log(this.data.discountsArray)
   },
 
   deleteDiscount: function (e) {
     var that = this
     var currentId = e.currentTarget.dataset.id
-    var index = e.currentTarget.dataset.index
     wx.request({
       url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts/' + currentId,
       method: 'DELETE',
       success: function (res) {
         if (res.statusCode === 200) {
-          var discountsArrayWithStyle = that.data.discountsArray
-          Object.assign(discountsArrayWithStyle[index], { left: "margin-left:0rpx" })
           that.onLoad()
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
@@ -278,18 +281,17 @@ Page({
     })
   },
 
-
   getCoupons: function (e) {
     var that = this
     wx.request({
-      url: 'localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons',
+      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
+          var resultObject = util.resultArrayToObject(res.data.coupons)
           that.setData({
-            couponPay: res.data.coupons.pay,
-            couponBase: res.data.coupons.base,
-            couponMinus: res.data.coupons.minus
+            couponsArray: res.data.coupons,
+            couponsObject: resultObject
           })
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
@@ -301,21 +303,164 @@ Page({
   },
 
   couponPay: function (e) {
+    var currentId = e.currentTarget.dataset.id
     this.setData({
-      couponPay: parseInt(e.detail.value)
+      couponsObjectInput: Object.assign(this.data.couponsObjectInput, { [currentId]: Object.assign(this.data.couponObjectInput, { pay: parseInt(e.detail.value) }) })
     })
   },
 
   couponBase: function (e) {
+    var currentId = e.currentTarget.dataset.id
     this.setData({
-      couponBase: parseInt(e.detail.value)
+      couponsObjectInput: Object.assign(this.data.couponsObjectInput, { [currentId]: Object.assign(this.data.couponObjectInput, { base: parseInt(e.detail.value) }) })
     })
   },
 
   couponMinus: function (e) {
+    var currentId = e.currentTarget.dataset.id
     this.setData({
-      couponMinus: parseInt(e.detail.value)
+      couponsObjectInput: Object.assign(this.data.couponsObjectInput, { [currentId]: Object.assign(this.data.couponObjectInput, { minus: parseInt(e.detail.value) }) })
     })
+  },
+
+  couponEdit: function (e) {
+    this.setData({
+      editCoupon: true,
+      editCouponHidden: true
+    })
+  },
+
+  couponDone: function (e) {
+    var that = this
+    var couponsToInput = this.data.couponsObjectInput
+    Object.keys(couponsToInput).forEach(function (key) {
+      if (!couponsToInput[key].pay) {
+        Object.assign(couponsToInput[key], { pay: that.data.couponsObject[key].pay})
+      }
+      if (!couponsToInput[key].base) {
+        Object.assign(couponsToInput[key], { base: that.data.couponsObject[key].base })
+      }
+      if (!couponsToInput[key].minus) {
+        Object.assign(couponsToInput[key], { minus: that.data.couponsObject[key].minus })
+      }
+      wx.request({
+        url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons/' + key,
+        method: 'PUT',
+        header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
+        data: couponsToInput[key],
+        success: function (res) {
+          if (res.statusCode === 200) {
+            that.onLoad()
+          } else if (res.statusCode === 400) {
+            status.status400(res.data.error)
+          } else {
+            status.status500()
+          }
+        }
+      })
+    })
+    this.setData({
+      editCoupon: false,
+      editCouponHidden: false
+    })
+  },
+
+  createCoupon: function (e) {
+    this.setData({
+      createCouponHidden: true
+    })
+  },
+
+  createCouponDone: function (e) {
+    var that = this
+    var newCoupon = this.data.createCouponObject
+    if (Object.keys(newCoupon).length !== 0) {
+      wx.request({
+        url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons',
+        method: 'POST',
+        data: newCoupon,
+        success: function (res) {
+          if (res.statusCode === 201) {
+            that.setData({
+              createCouponObject: {}
+            })
+            that.onLoad()
+          } else if (res.statusCode === 400) {
+            status.status400(res.data.error)
+          } else {
+            status.status500()
+          }
+        }
+      })
+    }
+    this.setData({
+      createCouponHidden: false
+    })
+  },
+
+  createCouponPay: function (e) {
+    this.setData({
+      createCouponObject: Object.assign(this.data.createCouponObject, { pay: parseInt(e.detail.value) })
+    })
+  },
+
+  createCouponBase: function (e) {
+    this.setData({
+      createCouponObject: Object.assign(this.data.createCouponObject, { base: parseInt(e.detail.value) })
+    })
+  },
+
+  createCouponMinus: function (e) {
+    this.setData({
+      createCouponObject: Object.assign(this.data.createCouponObject, { minus: parseInt(e.detail.value) })
+    })
+  },
+
+  deleteCoupon: function(e) {
+    var that = this
+    var currentId = e.currentTarget.dataset.id
+    wx.request({
+      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons/' + currentId,
+      method: 'DELETE',
+      success: function(res) {
+        if (res.statusCode === 200) {
+          that.onLoad()
+        } else if (res.statusCode === 400) {
+          status.status400(res.data.error)
+        } else {
+          status.status500()
+        }
+      }
+    })
+  },
+
+  touchCouponS: function (e) {
+    if (e.touches.length === 1) {
+      this.setData({
+        startX: e.touches[0].clientX
+      })
+    }
+  },
+
+  touchCouponM: function (e) {
+    // console.log(e)
+  },
+
+  touchCouponE: function (e) {
+    if (e.changedTouches.length === 1) {
+      var endX = e.changedTouches[0].clientX
+      var disX = this.data.startX - endX
+      var delBtnWidth = this.data.delBtnWidth
+      var left = disX > delBtnWidth / 2 ? "margin-left:-" + delBtnWidth + "rpx" : "margin-left:0rpx"
+      var index = e.currentTarget.dataset.index
+      if (index !== "" && index !== null) {
+        var couponsArrayWithStyle = this.data.couponsArray
+        Object.assign(couponsArrayWithStyle[index], { left: left })
+        this.setData({
+          couponsArray: couponsArrayWithStyle
+        })
+      }
+    }
   },
 
   determine: function () {

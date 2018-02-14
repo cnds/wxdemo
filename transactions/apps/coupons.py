@@ -37,7 +37,7 @@ class Coupons(Base):
         if not result:
             return '', 500
 
-        return jsonify(result)
+        return jsonify(result), 201
 
 
 class Coupon(Base):

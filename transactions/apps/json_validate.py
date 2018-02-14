@@ -124,6 +124,7 @@ coupon_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "storeId": {"type": "string"},
         "pay": {"type": "integer", "minimum": 0, "excludeMinimum": True},
         "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
         "minus": {"type": "integer", "minimum": 0, "excludeMinimum": True},

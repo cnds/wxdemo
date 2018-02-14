@@ -23,7 +23,6 @@
   justify-content: space-between;
   margin-top: 15rpx;
   font-size: 35rpx;
-  border: 1rpx solid #bfc2c2;
 }
 
 .promotions-edit-delete {
@@ -31,7 +30,7 @@
   display: flex;
   background-color: white;
   overflow: hidden;
-  width: 870rpx;
+  width: 950rpx;
 }
 
 .promotions-edit {
@@ -40,19 +39,14 @@
   background-color: white;
   align-items: center;
   height: 80rpx;
-  padding: 10rpx;
+  padding: 10rpx 30rpx;
   width: 750rpx;
   border-bottom: 1rpx solid #f2f2f2;
 }
 
-/* .promotions-edit.active {
-  background: red;
-  background-size: 40rpx auto;
-} */
-
 .promotions-edit input, .promotions-edit text {
   height: 100%;
-  width: 100rpx;
+  width: 80rpx;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -66,13 +60,14 @@
 .delete-btn {
   display: flex;
   align-items: center;
-  width: 120rpx;
+  text-align: center;
+  width: 200rpx;
   border-bottom: 1rpx solid #f2f2f2;
   background-color: #e64340;
   color: white
 }
 
-.promotions-btn {
+/* .promotions-btn {
   display: flex;
 }
 
@@ -94,16 +89,16 @@
   background-color: #bfc2c2;
   border-radius: 0;
   font-size: 35rpx;
-}
+} */
 
 .promotions-item-nav {
   display: flex;
   justify-content: space-between;
-  height: 30rpx;
+  height: 40rpx;
   align-items: center;
   background-color: white;
   border-bottom: 1rpx solid #f2f2f2;
-  padding: 20rpx;
+  padding: 10rpx 30rpx;
 }
 
 .promotions-item-nav .label {
