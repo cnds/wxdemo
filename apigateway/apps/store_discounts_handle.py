@@ -1,12 +1,19 @@
 import requests
 from flask import request, jsonify
+from config import config
 from .base import BaseHandler
 from .json_validate import SCHEMA
+from wxbase.utils import create_md5_key
 
 
 class StoreDiscountsHandler(BaseHandler):
 
     def get(self, store_id):
+        flag, tag = self.authenticate(request, store_id,
+                                      create_md5_key(config['secret']))
+        if not flag:
+            return self.error_msg(tag)
+
         api_resp = requests.get(
             '{0}/transactions/discounts'.format(
                 self.endpoint['transactions']),
@@ -18,6 +25,11 @@ class StoreDiscountsHandler(BaseHandler):
         return jsonify(api_resp.json()), resp_status
 
     def post(self, store_id):
+        flag, tag = self.authenticate(request, store_id,
+                                      create_md5_key(config['secret']))
+        if not flag:
+            return self.error_msg(tag)
+
         is_valid, data = self.get_params_from_request(
             request, SCHEMA['store_discounts_post'])
         if not is_valid:
@@ -38,6 +50,11 @@ class StoreDiscountsHandler(BaseHandler):
 class StoreDiscountHandler(BaseHandler):
 
     def get(self, store_id, discount_id):
+        flag, tag = self.authenticate(request, store_id,
+                                      create_md5_key(config['secret']))
+        if not flag:
+            return self.error_msg(tag)
+
         api_resp = requests.get(
             '{0}/transactions/discounts/{1}'.format(
                 self.endpoint['transactions'], discount_id),
@@ -49,6 +66,11 @@ class StoreDiscountHandler(BaseHandler):
         return jsonify(api_resp.json()), resp_status
 
     def put(self, store_id, discount_id):
+        flag, tag = self.authenticate(request, store_id,
+                                      create_md5_key(config['secret']))
+        if not flag:
+            return self.error_msg(tag)
+
         is_valid, data = self.get_params_from_request(
             request, SCHEMA['store_discount_put'])
         if not is_valid:
@@ -66,6 +88,11 @@ class StoreDiscountHandler(BaseHandler):
         return jsonify(api_resp.json()), resp_status
 
     def delete(self, store_id, discount_id):
+        flag, tag = self.authenticate(request, store_id,
+                                      create_md5_key(config['secret']))
+        if not flag:
+            return self.error_msg(tag)
+
         api_resp = requests.delete(
             '{0}/transactions/discounts/{1}'.format(
                 self.endpoint['transactions'], discount_id),
