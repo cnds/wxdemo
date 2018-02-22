@@ -19,11 +19,21 @@ Page({
     })
   },
 
-  bindQRCode: function(e) {
+  bindQRCode: function (e) {
     wx.scanCode({
       scanType: ['qrCode'],
-      success: function(res) {
-        console.log(res)
+      success: function (res) {
+        // var scene = decodeURIComponent(res.scene)
+        var scene = 'T001'
+        // 传入商铺的id和支付信息
+        wx.request({
+          url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/bind-qr-code',
+          method: 'POST',
+          data: { scene: scene, storeId: app.globalData.storeInfo.id },
+          success: function (res) {
+            console.log(res)
+          }
+        })
       }
     })
   }

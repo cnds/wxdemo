@@ -14,6 +14,7 @@ Page({
     var now = new Date().getTime()
     if (expireTime && now < expireTime) {
       var storeInfo = wx.getStorageSync('storeInfo')
+      console.log(storeInfo)
       if (storeInfo) {
         app.globalData.storeInfo = storeInfo
         wx.redirectTo({
@@ -51,7 +52,7 @@ Page({
           })
           wx.setStorage({
             key: 'expire',
-            data: new Date().getTime()
+            data: new Date().getTime() + 86300000 * 7
           })
           wx.redirectTo({
             url: '../index/index',
