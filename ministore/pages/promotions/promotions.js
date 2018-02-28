@@ -34,7 +34,7 @@ Page({
     createDiscountHidden: false,
     editCouponHidden: false,
     createCouponHidden: false,
-    delBtnWidth: 200,
+    delBtnWidth: 30,
   },
 
   /**
@@ -251,7 +251,7 @@ Page({
       var endX = e.changedTouches[0].clientX
       var disX = this.data.startX - endX
       var delBtnWidth = this.data.delBtnWidth
-      var left = disX > delBtnWidth / 2 ? "margin-left:-" + delBtnWidth + "rpx" : "margin-left:0rpx"
+      var left = disX > delBtnWidth / 2 ? "margin-left:-" + delBtnWidth + "vw" : "margin-left:0rpx"
       var index = e.currentTarget.dataset.index
       if (index !== "" && index !== null) {
         var discountsArrayWithStyle = this.data.discountsArray
