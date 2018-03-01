@@ -41,6 +41,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    var that = this
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          windowWidth: res.windowWidth
+        })
+      }
+    })
     this.getReductions()
     this.getDiscounts()
     this.getCoupons()
@@ -243,13 +251,36 @@ Page({
   },
 
   touchDiscountM: function (e) {
-    // console.log(e)
+    if (e.touches.length === 1) {
+      var windowWidth = this.data.windowWidth
+      var moveX = (e.touches[0].clientX / windowWidth) * 100
+      var disX = (this.data.startX / windowWidth) * 100 - moveX
+      var delBtnWidth = this.data.delBtnWidth
+      var left = ""
+      if (disX <= 0) {
+        left = "margin-left:0rpx"
+      } else {
+        left = "margin-left:-" + disX + "vw"
+        if (disX > delBtnWidth) {
+          left = "margin-left:-" + delBtnWidth + "vw"
+        }
+      }
+      var index = e.currentTarget.dataset.index
+      if (index !== "" && index !== null) {
+        var discountsArrayWithStyle = this.data.discountsArray
+        Object.assign(discountsArrayWithStyle[index], { left: left })
+        this.setData({
+          discountsArray: discountsArrayWithStyle
+        })
+      }
+    }
   },
 
   touchDiscountE: function (e) {
     if (e.changedTouches.length === 1) {
+      var windowWidth = this.data.windowWidth
       var endX = e.changedTouches[0].clientX
-      var disX = this.data.startX - endX
+      var disX = (this.data.startX - endX) / windowWidth * 100
       var delBtnWidth = this.data.delBtnWidth
       var left = disX > delBtnWidth / 2 ? "margin-left:-" + delBtnWidth + "vw" : "margin-left:0rpx"
       var index = e.currentTarget.dataset.index
@@ -335,7 +366,7 @@ Page({
     var couponsToInput = this.data.couponsObjectInput
     Object.keys(couponsToInput).forEach(function (key) {
       if (!couponsToInput[key].pay) {
-        Object.assign(couponsToInput[key], { pay: that.data.couponsObject[key].pay})
+        Object.assign(couponsToInput[key], { pay: that.data.couponsObject[key].pay })
       }
       if (!couponsToInput[key].base) {
         Object.assign(couponsToInput[key], { base: that.data.couponsObject[key].base })
@@ -416,13 +447,13 @@ Page({
     })
   },
 
-  deleteCoupon: function(e) {
+  deleteCoupon: function (e) {
     var that = this
     var currentId = e.currentTarget.dataset.id
     wx.request({
       url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons/' + currentId,
       method: 'DELETE',
-      success: function(res) {
+      success: function (res) {
         if (res.statusCode === 200) {
           that.onLoad()
         } else if (res.statusCode === 400) {
@@ -443,15 +474,36 @@ Page({
   },
 
   touchCouponM: function (e) {
-    // console.log(e)
+    var windowWidth = this.data.windowWidth
+    var moveX = (e.touches[0].clientX / windowWidth) * 100
+    var disX = (this.data.startX / windowWidth) * 100 - moveX
+    var delBtnWidth = this.data.delBtnWidth
+    var left = ""
+    if (disX <= 0) {
+      left = "margin-left:0rpx"
+    } else {
+      left = "margin-left:-" + disX + "vw"
+      if (disX > delBtnWidth) {
+        left = "margin-left:-" + delBtnWidth + "vw"
+      }
+    }
+    var index = e.currentTarget.dataset.index
+    if (index !== "" && index !== null) {
+      var couponsArrayWithStyle = this.data.couponsArray
+      Object.assign(couponsArrayWithStyle[index], { left: left })
+      this.setData({
+        couponsArray: couponsArrayWithStyle
+      })
+    }
   },
 
   touchCouponE: function (e) {
     if (e.changedTouches.length === 1) {
+      var windowWidth = this.data.windowWidth
       var endX = e.changedTouches[0].clientX
-      var disX = this.data.startX - endX
+      var disX = (this.data.startX - endX) / windowWidth * 100
       var delBtnWidth = this.data.delBtnWidth
-      var left = disX > delBtnWidth / 2 ? "margin-left:-" + delBtnWidth + "rpx" : "margin-left:0rpx"
+      var left = disX > delBtnWidth / 2 ? "margin-left:-" + delBtnWidth + "vw" : "margin-left:0rpx"
       var index = e.currentTarget.dataset.index
       if (index !== "" && index !== null) {
         var couponsArrayWithStyle = this.data.couponsArray
