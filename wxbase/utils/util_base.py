@@ -32,6 +32,7 @@ class UtilBase(object):
         'reduction_has_been_removed': 'REDUCTION_HAS_BEEN_REMOVED',
         'reduction_not_exist': 'REDUCTION_NOT_EXIST',
         'user_coupon_not_exist': 'USER_COUPON_NOT_EXIST',
+        'store_have_not_bound_qr_code': 'STORE_HAVE_NOT_BOUND_QR_CODE',
     }
 
     def __init__(self):

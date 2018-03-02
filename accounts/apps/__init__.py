@@ -3,4 +3,4 @@ from .store_sessions import StoreSessions
 from .stores import Stores, Store, StoreResetPassword
 from .user_sessions import UserSessions
 from .users import UserRegisterStatus, Users
-from .qr_code import QRCodeBindStore
+from .qr_code import QRCodeBindStore, StoreBindPaymentInfo

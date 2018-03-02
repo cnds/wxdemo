@@ -10,7 +10,7 @@ from apps import PromotionsHandler, StoreOrdersHandler, \
     StoreCouponsHandler, StoreCouponHandler, \
     StoreDiscountsHandler, StoreDiscountHandler, \
     StoreReductionsHandler, StoreReductionHandler, \
-    UserCouponsHandler, UserCouponRemoverHandler
+    UserCouponsHandler, UserCouponRemoverHandler, StoreBindPaymentInfoHandler
 
 
 def create_app(setting):
@@ -29,6 +29,8 @@ def create_app(setting):
                      view_func=StoreHandler.as_view('store'))
     app.add_url_rule('/gateway/stores/<store_id>/bind-qr-code',
                      view_func=StoreBindQRCodeHandler.as_view('store-bind-qr-code'))
+    app.add_url_rule('/gateway/stores/<store_id>/bind-payment-info',
+                     view_func=StoreBindPaymentInfoHandler.as_view('store-bind-payment-info'))
     app.add_url_rule('/gateway/stores/<store_id>/coupons',
                      view_func=StoreCouponsHandler.as_view('store-coupons'))
     app.add_url_rule('/gateway/stores/<store_id>/coupons/<coupon_id>',

@@ -82,6 +82,17 @@ store_bind_qr_code_post = {
     "additionalProperties": False
 }
 
+store_bind_payment_info_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "WechatInfo": {"type": "string"},
+        "AlipayInfo": {"type": "string"}
+    },
+    "minProperties": 1,
+    "additionalProperties": False
+}
+
 user_payment_detail_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
