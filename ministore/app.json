@@ -7,7 +7,8 @@
     "pages/index/index",
     "pages/promotions/promotions",
     "pages/transactions/transactions",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/collection/collection"
   ],
   "window": {
     "backgroundTextStyle": "light",

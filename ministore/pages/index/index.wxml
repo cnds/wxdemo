@@ -17,7 +17,7 @@
     <navigator url="/pages/promotions/promotions" hover-class="navigator-hover">优惠设置</navigator>
   </view>
   <view class="index">
-    <text bindtap='bindQRCode'>绑定二维码</text>
+    <navigator url="/pages/collection/collection" hover-class="navigator-hover">收款设置</navigator>
   </view>
 
   <view class='index'>
