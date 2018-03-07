@@ -69,3 +69,20 @@ class StoreBindPaymentInfo(Base):
             return '', 500
 
         return jsonify(tag), 201
+
+
+class QRCodes(Base):
+
+    def get(self):
+        params = request.args.to_dict()
+        is_valid, tag = self.validate_dict_with_schema(params,
+                                                       SCHEMA['qr_codes_get'])
+        if not is_valid:
+            return self.error_msg(self.ERR['invalid_query_params'], tag)
+
+        flag, qr_codes = self.db.find_by_condition('QRCode', params)
+        if not flag:
+            return '', 500
+
+        return jsonify({'QRCodes': qr_codes})
+

@@ -10,7 +10,8 @@ from apps import PromotionsHandler, StoreOrdersHandler, \
     StoreCouponsHandler, StoreCouponHandler, \
     StoreDiscountsHandler, StoreDiscountHandler, \
     StoreReductionsHandler, StoreReductionHandler, \
-    UserCouponsHandler, UserCouponRemoverHandler, StoreBindPaymentInfoHandler
+    UserCouponsHandler, UserCouponRemoverHandler, StoreBindPaymentInfoHandler, \
+    QRCodes
 
 
 def create_app(setting):
@@ -43,6 +44,8 @@ def create_app(setting):
                      view_func=StoreReductionsHandler.as_view('store-reductions'))
     app.add_url_rule('/gateway/stores/<store_id>/reductions/<reduction_id>',
                      view_func=StoreReductionHandler.as_view('store-reduction'))
+    app.add_url_rule('/gateway/stores/<store_id>/qr-code',
+                     view_func=QRCodes.as_view('qr-codes'))
 
     # NOTE: users
     app.add_url_rule('/gateway/users/<user_id>/orders',

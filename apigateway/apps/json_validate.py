@@ -210,6 +210,17 @@ store_reductions_put = {
     "additionalProperties": False
 }
 
+store_bind_payment_info_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "wechatInfo": {"type": "string"},
+        "alipayInfo": {"type": "string"}
+    },
+    "minProperties": 1,
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -228,4 +239,5 @@ SCHEMA = {
     'store_discount_put': store_discount_put,
     'user_coupons_put': user_coupons_put,
     'user_coupon_remover_post': user_coupon_remover_post,
+    'store_bind_payment_info_post': store_bind_payment_info_post,
 }

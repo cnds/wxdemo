@@ -151,12 +151,21 @@ store_bind_payment_info_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "WechatInfo": {"type": "string"},
-        "AlipayInfo": {"type": "string"},
+        "wechatInfo": {"type": "string"},
+        "alipayInfo": {"type": "string"},
         "storeId": {"type": "string"}
     },
     "required": ["storeId"],
     "minProperties": 2,
+    "additionalProperties": False
+}
+
+qr_codes_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"}
+    },
     "additionalProperties": False
 }
 
@@ -172,4 +181,6 @@ SCHEMA = {
     'user_sessions_post': users_sessions_post,
     'qr_code_bind_store_post': qr_code_bind_store_post,
     'store_put': store_put,
+    'qr_codes_get': qr_codes_get,
+    'store_bind_payment_info_post': store_bind_payment_info_post,
 }
