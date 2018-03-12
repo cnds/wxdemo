@@ -64,7 +64,7 @@ Page({
     })
   },
 
-  bindQRCode: function (e) {
+  bindStoreCode: function (e) {
     var that = this
     wx.scanCode({
       scanType: ['qrCode'],

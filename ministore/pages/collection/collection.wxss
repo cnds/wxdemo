@@ -35,3 +35,23 @@
   height: 50vw;
   margin-left: 25vw;
 }
+
+.collection-btn {
+  margin-top: 30rpx;
+  border-bottom: 0;
+  width: 80%;
+  color: white;
+  background-color: green;
+  border-radius: 0;
+  font-size: 14px;
+}
+
+.collection-btn-cancel {
+  margin-top: 30rpx;
+  border-bottom: 0;
+  width: 80%;
+  color: white;
+  background-color: #bfc2c2;
+  border-radius: 0;
+  font-size: 14px;
+}

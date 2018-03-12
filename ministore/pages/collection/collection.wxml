@@ -12,7 +12,7 @@
         <canvas canvas-id='storeCode' bindlongtap='savaStoreCode'></canvas>
       </view>
       <view wx:else>
-        <view bindtap='bindQRCode'>绑定二维码</view>
+        <button class='collection-btn' bindtap='bindStoreCode'>绑定店铺码</button>
       </view>
     </view>
 
@@ -22,7 +22,7 @@
         <canvas canvas-id='wechatCode'></canvas>
       </view>
       <view wx:else>
-        <view bindtap='bindWechatCode'>绑定收款码</view>
+        <button class='collection-btn' bindtap='bindWechatCode'>绑定收款码</button>
       </view>
     </view>
   </view>
