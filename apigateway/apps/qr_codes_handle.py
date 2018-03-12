@@ -22,4 +22,9 @@ class QRCodes(BaseHandler):
             self.logger.error('request accounts service failed')
             return '', 500
 
-        return jsonify(api_resp.json()['QRCodes'][0]), resp_status
+        qr_code = api_resp.json()['QRCodes']
+        if qr_code:
+            result = qr_code[0]
+        else:
+            result = dict()
+        return jsonify(result), resp_status

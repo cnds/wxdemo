@@ -6,93 +6,24 @@
   </view>
 
   <view class='collection'>
-
-    <!--折扣  -->
     <view class='collection-item'>
-      <view class='collection-item-nav'>
-        <view class='label'>折扣</view>
-        <view class='edit-btn' hidden='{{editReductionHidden}}' bindtap='reductionEdit'>编辑</view>
-        <view class='edit-btn' hidden='{{!editReductionHidden}}' bindtap='reductionDone'>完成</view>
+      <view wx:if="{{code}}">
+        <text>店铺码</text>
+        <canvas canvas-id='storeCode' bindlongtap='savaStoreCode'></canvas>
       </view>
-      <block wx:if="{{editReduction}}">
-        <view class='collection-edit'>
-          折扣额度：
-          <input bindinput='reductionPercentInput' value='{{reductionPercent}}' type='number' focus='true'></input>%
-        </view>
-      </block>
-      <block wx:else>
-        <view class='collection-edit'>
-          折扣额度：
-          <text>{{reductionPercent}}</text>%
-        </view>
-      </block>
+      <view wx:else>
+        <view bindtap='bindQRCode'>绑定二维码</view>
+      </view>
     </view>
 
-    <!--满减  -->
     <view class='collection-item'>
-      <view class='collection-item-nav'>
-        <view class='label'>满减</view>
-        <view class='edit-btn' hidden='{{editDiscountHidden}}' bindtap='discountEdit'>编辑</view>
-        <view class='edit-btn' hidden='{{!editDiscountHidden}}' bindtap='discountDone'>完成</view>
+      <view wx:if="{{wechatInfo}}">
+        <text>收款码</text>
+        <canvas canvas-id='wechatCode'></canvas>
       </view>
-      <view wx:for='{{discountsArray}}' wx:for-item='discount' wx:key='id'>
-        <block wx:if='{{editDiscount}}'>
-          <view class='collection-edit'>消费满
-            <input bindinput='discountBase' value='{{discount.base}}' type='number' focus='true' data-id='{{discount.id}}'></input>元,减免
-            <input bindinput='discountMinus' value='{{discount.minus}}' type='number' data-id='{{discount.id}}'></input>元</view>
-        </block>
-        <block wx:else>
-          <view class='collection-edit-delete'>
-            <view class='collection-edit}}' bindtouchstart='touchDiscountS' bindtouchmove='touchDiscountM' bindtouchend='touchDiscountE' data-id='{{discount.id}}' data-index='{{index}}' style='{{discount.left}}'>消费满
-              <text>{{discount.base}}</text>元,减免
-              <text>{{discount.minus}}</text>元
-            </view>
-            <view class='delete-btn' data-id='{{discount.id}}' catchtap='deleteDiscount'>删除</view>
-          </view>
-        </block>
+      <view wx:else>
+        <view bindtap='bindWechatCode'>绑定收款码</view>
       </view>
-      <view class='collection-edit' hidden='{{!createDiscountHidden}}'>消费满
-        <input type='number' focus='true' bindinput='createDiscountBase'></input>元,减免
-        <input type='number' bindinput='createDiscountMinus'></input>元
-      </view>
-      <view class='collection-edit' hidden='{{createDiscountHidden}}' bindtap='createDiscount'>新增满减优惠</view>
-      <view class='collection-edit' hidden='{{!createDiscountHidden}}' bindtap='createDiscountDone'>提交</view>
-    </view>
-
-    <!--优惠券  -->
-    <view class='collection-item'>
-      <view class='collection-item-nav'>
-        <view class='label'>优惠券</view>
-        <view class='edit-btn' hidden='{{editCouponHidden}}' bindtap='couponEdit'>编辑</view>
-        <view class='edit-btn' hidden='{{!editCouponHidden}}' bindtap='couponDone'>完成</view>
-      </view>
-      <view wx:for='{{couponsArray}}' wx:for-item='coupon' wx:key='id'>
-        <block wx:if='{{editCoupon}}'>
-          <view class='collection-edit'>消费满
-            <input bindinput='couponPay' value='{{coupon.pay}}' type='number' focus='true' data-id='{{coupon.id}}'></input>元,赠送满
-            <input bindinput='couponBase' value='{{coupon.base}}' type='number' data-id='{{coupon.id}}'></input>元减
-            <input bindinput='couponMinus' value='{{coupon.minus}}' type='number' data-id='{{coupon.id}}'></input>元优惠券
-          </view>
-        </block>
-        <block wx:else>
-          <view class='collection-edit-delete'>
-            <view class='collection-edit' bindtouchstart='touchCouponS' bindtouchmove='touchCouponM' bindtouchend='touchCouponE' data-id='{{coupon.id}}' data-index='{{index}}' style='{{coupon.left}}'>
-              消费满
-              <text>{{coupon.pay}}</text>元,赠送满
-              <text>{{coupon.base}}</text>元减
-              <text>{{coupon.minus}}</text>元优惠券
-            </view>
-            <view class='delete-btn' data-id='{{coupon.id}}' catchtap='deleteCoupon'>删除</view>
-          </view>
-        </block>
-      </view>
-      <view class='collection-edit' hidden='{{!createCouponHidden}}'>消费满
-        <input type='number' focus='true' bindinput='createCouponPay'></input>元 赠送满
-        <input type='number' bindinput='createCouponBase'></input>元减
-        <input type='number' bindinput='createCouponMinus'></input>元优惠券
-      </view>
-      <view class='collection-edit' hidden='{{createCouponHidden}}' bindtap='createCoupon'>新增优惠券</view>
-      <view class='collection-edit' hidden='{{!createCouponHidden}}' bindtap='createCouponDone'>提交</view>
     </view>
   </view>
 </view>

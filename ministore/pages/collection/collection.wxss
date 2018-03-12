@@ -20,93 +20,18 @@
 }
 
 .collection-item {
-  justify-content: space-between;
   margin-top: 15rpx;
   font-size: 35rpx;
 }
 
-.collection-edit-delete {
-  color: orange;
-  display: flex;
-  background-color: white;
-  overflow: hidden;
-  width: 130vw;
+.collection-item text {
+  padding-left: 20rpx;
+  display: block
 }
 
-.collection-edit {
-  color: orange;
-  display: flex;
-  background-color: white;
-  align-items: center;
-  height: 100rpx;
-  padding: 10rpx 30rpx;
-  width: 100vw;
-  border-bottom: 1rpx solid #f2f2f2;
-  box-sizing: border-box;
-}
-
-.collection-edit input, .collection-edit text {
-  height: 100%;
-  width: 80rpx;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-}
-
-.collection-edit input {
-  color: black;
-}
-
-.delete-btn {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  width: 30vw;
-  border-bottom: 1rpx solid #f2f2f2;
-  background-color: #e64340;
-  color: white
-}
-
-/* .collection-btn {
-  display: flex;
-}
-
-.collection-btn-edit {
-  margin-top: 30rpx;
-  border-bottom: 0;
-  width: 100%;
-  color: white;
-  background-color: green;
-  border-radius: 0;
-  font-size: 35rpx;
-}
-
-.collection-btn-done {
-  margin-top: 30rpx;
-  border-bottom: 0;
-  width: 100%;
-  color: white;
-  background-color: #bfc2c2;
-  border-radius: 0;
-  font-size: 35rpx;
-} */
-
-.collection-item-nav {
-  display: flex;
-  justify-content: space-between;
-  height: 40rpx;
-  align-items: center;
-  background-color: white;
-  border-bottom: 1rpx solid #f2f2f2;
-  padding: 10rpx 30rpx;
-}
-
-.collection-item-nav .label {
-  color: #000;
-}
-
-.collection-item-nav .edit-btn {
-  color: #999;
+.collection-item canvas {
+  display: inline-block;
+  width: 50vw;
+  height: 50vw;
+  margin-left: 25vw;
 }

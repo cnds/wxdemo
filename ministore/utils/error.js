@@ -25,7 +25,8 @@ const errMsg = {
   'DISCOUNT_HAS_BEEN_REMOVED': '满减信息已被删除',
   'REDUCTION_HAS_BEEN_REMOVED': '折扣已被删除',
   'REDUCTION_NOT_EXIST': '折扣不存在',
-  'USER_COUPON_NOT_EXIST': '用户优惠券不存在'
+  'USER_COUPON_NOT_EXIST': '用户优惠券不存在',
+  'STORE_HAVE_NOT_BOUND_QR_CODE': '用户未绑定小程序二维码',
 }
 
 function status400(e) {

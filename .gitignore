@@ -5,3 +5,4 @@ venv/
 local.json
 */local.json
 .DS_Store
+.vscode
