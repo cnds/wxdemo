@@ -37,7 +37,7 @@ Page({
   //事件处理函数
   loginClick: function () {
     wx.request({
-      url: 'http://localhost:20000/authorization/store-sessions',
+      url: app.globalData.config.authorization + '/store-sessions',
       method: 'POST',
       data: {
         mobile: this.data.mobile,

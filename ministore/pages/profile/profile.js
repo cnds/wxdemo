@@ -41,7 +41,7 @@ Page({
   determine: function () {
     var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id,
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id,
       data: { address: this.data.address, storeName: this.data.storeName },
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       method: 'PUT',

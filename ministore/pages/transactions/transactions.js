@@ -11,9 +11,9 @@ Page({
   },
   onLoad: function(event) {
     var that = this
-    console.log(app.globalData.storeInfo.token)
+    console.log(app.globalData)
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/orders',
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/orders',
       header: {'Authorization': 'Bearer ' + app.globalData.storeInfo.token},
       success: function(res) {
         if (res.statusCode === 200) {

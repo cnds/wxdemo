@@ -1,4 +1,6 @@
 //app.js
+const config = require('./utils/config.js')
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -34,6 +36,7 @@ App({
     })
   },
   globalData: {
-    storeInfo: null
+    storeInfo: null,
+    config: config.config
   }
 })

@@ -57,7 +57,7 @@ Page({
   getReductions: function () {
     var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/reductions',
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/reductions',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
@@ -89,7 +89,7 @@ Page({
   determineReduction: function () {
     var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/reductions',
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/reductions',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       data: {
         percent: this.data.reductionPercentInput
@@ -125,7 +125,7 @@ Page({
   getDiscounts: function (e) {
     var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts',
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/discounts',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
@@ -176,7 +176,7 @@ Page({
         Object.assign(discountsToInput[key], { minus: that.data.discountsObject[key].minus })
       }
       wx.request({
-        url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts/' + key,
+        url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/discounts/' + key,
         method: 'PUT',
         header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
         data: discountsToInput[key],
@@ -208,7 +208,7 @@ Page({
     var newDiscount = this.data.createDiscountObject
     if (Object.keys(newDiscount).length !== 0) {
       wx.request({
-        url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts',
+        url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/discounts',
         method: 'POST',
         data: newDiscount,
         success: function (res) {
@@ -298,7 +298,7 @@ Page({
     var that = this
     var currentId = e.currentTarget.dataset.id
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/discounts/' + currentId,
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/discounts/' + currentId,
       method: 'DELETE',
       success: function (res) {
         if (res.statusCode === 200) {
@@ -315,7 +315,7 @@ Page({
   getCoupons: function (e) {
     var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons',
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/coupons',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
@@ -375,7 +375,7 @@ Page({
         Object.assign(couponsToInput[key], { minus: that.data.couponsObject[key].minus })
       }
       wx.request({
-        url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons/' + key,
+        url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/coupons/' + key,
         method: 'PUT',
         header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
         data: couponsToInput[key],
@@ -407,7 +407,7 @@ Page({
     var newCoupon = this.data.createCouponObject
     if (Object.keys(newCoupon).length !== 0) {
       wx.request({
-        url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons',
+        url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/coupons',
         method: 'POST',
         data: newCoupon,
         success: function (res) {
@@ -451,7 +451,7 @@ Page({
     var that = this
     var currentId = e.currentTarget.dataset.id
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/coupons/' + currentId,
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/coupons/' + currentId,
       method: 'DELETE',
       success: function (res) {
         if (res.statusCode === 200) {
@@ -525,7 +525,7 @@ Page({
       })
     }
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/promotions',
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/promotions',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       data: {
         discount: { base: this.data.discountBase, minus: this.data.discountMinus },

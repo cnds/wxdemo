@@ -30,7 +30,7 @@ Page({
         var scene = 'testqrcode'
         // 传入商铺的id和支付信息
         wx.request({
-          url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/bind-qr-code',
+          url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/bind-qr-code',
           method: 'POST',
           header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
           data: { QRCode: scene },
@@ -77,7 +77,7 @@ Page({
         console.log(res)
         var wechatInfo = res.result
         wx.request({
-          url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/bind-collect-code',
+          url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/bind-collect-code',
           method: 'POST',
           data: { WechatInfo: wechatInfo },
           success: function (res) {

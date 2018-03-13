@@ -11,7 +11,7 @@ Page({
   },
   signupClick: function(event) {
     wx.request({
-      url: 'http://localhost:20000/authorization/stores',
+      url: app.globalData.config.gateway + '/stores',
       data: {
         mobile: this.data.mobile,
         password: this.data.password,
@@ -50,7 +50,7 @@ Page({
   },
   sendSmsClick: function(event) {
     wx.request({
-      url: 'http://localhost:20000/authorization/sms',
+      url: app.globalData.config.gateway + '/sms',
       data: {
         verifyType: 'store_sign_up',
         mobile: this.data.mobile

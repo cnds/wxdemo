@@ -34,7 +34,7 @@ Page({
   getQRCodeInfo: function () {
     var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/qr-code',
+      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/qr-code',
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
@@ -71,7 +71,7 @@ Page({
       success: function (res) {
         var code = res.result
         wx.request({
-          url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/bind-qr-code',
+          url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/bind-qr-code',
           header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
           method: 'POST',
           data: { QRCode: code },
@@ -99,7 +99,7 @@ Page({
       success: function (res) {
         var wechatInfo = res.result
         wx.request({
-          url: 'http://localhost:10000/gateway/stores/' + app.globalData.storeInfo.id + '/bind-payment-info',
+          url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/bind-payment-info',
           header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
           method: 'POST',
           data: { wechatInfo: wechatInfo },

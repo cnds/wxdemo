@@ -22,7 +22,7 @@ Page({
       return;
     }
     wx.request({
-      url: 'http://localhost:20000/authorization/stores/reset-password',
+      url: app.globalData.config.authorization + '/stores/reset-password',
       data: {
         mobile: this.data.mobile,
         newPassword: this.data.newPassword,
@@ -67,7 +67,7 @@ Page({
   },
   sendSmsClick: function (event) {
     wx.request({
-      url: 'http://localhost:20000/authorization/sms',
+      url: app.globalData.config.authorization + '/sms',
       data: {
         verifyType: 'store_reset_password',
         mobile: this.data.mobile
