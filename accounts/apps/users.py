@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from bson import ObjectId
-from wxbase.utils import WXBizDataCrypt
+from jybase.utils import WXBizDataCrypt
 from .base import Base
 from .json_validate import SCHEMA
 from config import config

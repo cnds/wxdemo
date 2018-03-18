@@ -1,6 +1,6 @@
 from flask.views import MethodView
-from wxbase import RedisBase, AuthenticationBase
-from wxbase.utils import RequestEndpoint
+from jybase import RedisBase, AuthenticationBase
+from jybase.utils import RequestEndpoint
 from config import config
 
 

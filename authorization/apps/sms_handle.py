@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from apps.base import BaseHandler
 from apps.json_validate import SCHEMA
-from wxbase.utils import generate_verification_code
+from jybase.utils import generate_verification_code
 
 
 class SmsHandler(BaseHandler):

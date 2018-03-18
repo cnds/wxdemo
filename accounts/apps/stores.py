@@ -1,6 +1,6 @@
 from bson import ObjectId
 from flask import jsonify, request
-from wxbase.utils import create_md5_key, create_hash_key
+from jybase.utils import create_md5_key, create_hash_key
 from .base import Base
 from .json_validate import SCHEMA
 from config import config

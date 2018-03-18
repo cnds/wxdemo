@@ -2,7 +2,7 @@ from flask import request, jsonify
 
 from .base import Base
 from .json_validate import SCHEMA
-from wxbase.utils import validate_hash_key, create_md5_key, create_hash_key
+from jybase.utils import validate_hash_key, create_md5_key, create_hash_key
 from config import config
 
 

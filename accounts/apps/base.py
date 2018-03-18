@@ -1,8 +1,8 @@
 import requests
 from flask.views import MethodView
 
-from wxbase import MongoBase, RedisBase
-from wxbase.utils import JWTBase
+from jybase import MongoBase, RedisBase
+from jybase.utils import JWTBase
 from config import config
 
 

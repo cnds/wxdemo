@@ -28,8 +28,8 @@ Page({
           status.status500()
         }
       }
-
     })
+    console.log(this.data.coupons)
   },
 
   getPromotion: function(e) {

@@ -3,7 +3,7 @@ from flask import request, jsonify
 from config import config
 from .base import BaseHandler
 from .json_validate import SCHEMA
-from wxbase.utils import create_md5_key
+from jybase.utils import create_md5_key
 
 
 class StoreCouponsHandler(BaseHandler):
