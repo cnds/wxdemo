@@ -1,0 +1,13 @@
+{
+  "service": {
+    "accounts": {
+      "host": "localhost",
+      "port": 10001
+    },
+    "transactions": {
+      "host": "localhost",
+      "port": 10003
+    }
+  },
+  "api_port": 10000
+}

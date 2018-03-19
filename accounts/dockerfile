@@ -1,0 +1,7 @@
+FROM python3:latest
+RUN mkdir /run/accounts
+WORKDIR /run/accounts
+COPY . .
+RUN pip install -r requirements.txt
+EXPOSE 10001
+CMD [ "python", "main.py", "accounts.json" ]

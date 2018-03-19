@@ -1,6 +1,4 @@
 {
-  "debug": true,
-  "testing": true,
   "db": {
     "host": "localhost",
     "port": 27017,
@@ -12,11 +10,5 @@
     "host": "localhost",
     "port": 6379
   },
-  "service": {
-    "accounts": {
-      "host": "localhost",
-      "port": 10001
-    }
-  },
-  "api_port": 20000
+  "api_port": 10001
 }

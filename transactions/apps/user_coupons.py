@@ -32,7 +32,6 @@ class UserCoupons(Base):
             return '', 500
 
         if user_coupons:
-            print(user_coupons)
             for user_coupon in user_coupons:
                 from bson import ObjectId
                 coupon_id_list = [ObjectId(coupon_id) for coupon_id
