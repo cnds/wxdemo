@@ -32,12 +32,13 @@ class UserCoupons(Base):
             return '', 500
 
         if user_coupons:
+            print(user_coupons)
             for user_coupon in user_coupons:
                 from bson import ObjectId
                 coupon_id_list = [ObjectId(coupon_id) for coupon_id
                                   in user_coupon['coupons']]
                 flag, coupons = self.db.find_by_condition(
-                    'coupons', {'id': {'$in': coupon_id_list}})
+                    'coupons', {'_id': {'$in': coupon_id_list}})
                 if not flag:
                     return '', 500
 
@@ -58,6 +59,9 @@ class UserCoupons(Base):
             'coupons', {'storeId': store_id, 'pay': {'$lte': amount}})
         if not flag:
             return '', 500
+
+        if not coupons:
+            return jsonify({'id': user_id})
 
         coupon_id = coupons[0]['id']
         pay = coupons[0]['pay']
