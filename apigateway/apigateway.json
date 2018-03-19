@@ -1,4 +1,6 @@
 {
+  "testing": false,
+  "debug": false,
   "service": {
     "accounts": {
       "host": "localhost",

@@ -32,6 +32,7 @@ class UserCoupons(Base):
             return '', 500
 
         if user_coupons:
+            print(user_coupons)
             for user_coupon in user_coupons:
                 from bson import ObjectId
                 coupon_id_list = [ObjectId(coupon_id) for coupon_id
@@ -76,7 +77,7 @@ class UserCoupons(Base):
         if user_coupon:
             user_coupon_id = user_coupon[0]['id']
             flag, result = self.db.update('userCoupons', {
-                'id': user_coupon_id}, {'$push': {'coupons': coupon_id}})
+                'id': user_coupon_id}, {'$inc': {'coupons.' + coupon_id: 1}})
             if not flag:
                 self.logger.error('update user coupon failed')
                 return '', 500
@@ -89,7 +90,7 @@ class UserCoupons(Base):
         else:
             result = self.db.create('userCoupons', {'storeId': store_id,
                                                     'userId': user_id,
-                                                    'coupons': [coupon_id]})
+                                                    'coupons': {coupon_id: 1}})
             if not result:
                 self.logger.error('create user coupon failed')
                 return '', 500
@@ -108,13 +109,29 @@ class UserCouponRemover(Base):
         user_id = data['userId']
         store_id = data['storeId']
         coupon_id = data['couponId']
-        flag, result = self.db.update('userCoupons', {
-            'userId': user_id, 'storeId': store_id}, {
-            '$pull': {'coupons': coupon_id}})
+        flag, user_coupon = self.db.find_by_condition(
+            'userCoupons', {'userId': user_id, 'storeId': store_id})
         if not flag:
             return '', 500
-
-        if not result:
+        
+        if not user_coupon:
             return self.error_msg(self.ERR['user_coupon_not_exist'])
 
-        return jsonify(result)
+        user_coupon_id = user_coupon[0]['id']
+        coupon_num = user_coupon[0]['coupons'][coupon_id]
+        if coupon_num < 1:
+            return self.error_msg(self.ERR['user_coupon_not_exist'])
+        elif coupon_num == 1:
+            flag, result = self.db.update('userCoupons', {
+                'id': user_coupon_id}, {'$pullAll': {'coupons': coupon_id}})
+            if not flag:
+                return '', 500
+
+            return jsonify(result)
+        else:
+            flag, result = self.db.update('userCoupons', {
+                'id': user_coupon_id}, {'$inc': {'coupons.' + coupon_id: -1}})
+            if not flag:
+                return '', 500
+            
+            return jsonify(result)
