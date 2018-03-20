@@ -17,8 +17,8 @@ Page({
       url: 'http://localhost:10000/gateway/users/' + app.globalData.userId + '/coupons',
       header: {'Authorization': 'Bearer ' + app.globalData.token},
       success: function(res) {
-        console.log(res)
         if (res.statusCode === 200) {
+          console.log(res.data.userCoupons)
           that.setData({
             coupons: res.data.userCoupons
           }) 
@@ -29,7 +29,6 @@ Page({
         }
       }
     })
-    console.log(this.data.coupons)
   },
 
   getPromotion: function(e) {

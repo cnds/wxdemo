@@ -1,3 +1,5 @@
+import requests
+
 from flask import request, jsonify
 from .base import Base
 from .json_validate import SCHEMA
@@ -44,7 +46,23 @@ class UserCoupons(Base):
                 for coupon in coupons:
                     coupon_num = user_coupon['coupons'].get(coupon['id'])
                     coupon['number'] = coupon_num
+
                 user_coupon['coupons'] = coupons
+
+                store_id = user_coupon['storeId']
+                api_resp = requests.get(
+                    '{0}/accounts/stores/{1}'.format(
+                        self.endpoint['accounts'], store_id))
+                resp_status = api_resp.status_code
+                if resp_status != 200:
+                    if resp_status == 400:
+                        return self.error_msg(api_resp.json())
+
+                    return '', 500
+
+                store = api_resp.json()
+                user_coupon['storeName'] = store['storeName']
+                user_coupon['address'] = store['address']
 
         return jsonify({'userCoupons': user_coupons})
 
