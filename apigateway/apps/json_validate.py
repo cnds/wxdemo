@@ -194,9 +194,9 @@ user_coupon_remover_post = {
     "type": "object",
     "properties": {
         "storeId": {"type": "string"},
-        "amount": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "couponId": {"type": "string"}
     },
-    "required": ["storeId", "amount"],
+    "required": ["storeId", "couponId"],
     "additionalProperties": False
 }
 
@@ -210,16 +210,16 @@ store_reductions_put = {
     "additionalProperties": False
 }
 
-store_bind_payment_info_post = {
-    "$schema": "http://json-schema.org/schema#",
-    "type": "object",
-    "properties": {
-        "wechatInfo": {"type": "string"},
-        "alipayInfo": {"type": "string"}
-    },
-    "minProperties": 1,
-    "additionalProperties": False
-}
+# store_bind_payment_info_post = {
+#     "$schema": "http://json-schema.org/schema#",
+#     "type": "object",
+#     "properties": {
+#         "wechatInfo": {"type": "string"},
+#         "alipayInfo": {"type": "string"}
+#     },
+#     "minProperties": 1,
+#     "additionalProperties": False
+# }
 
 SCHEMA = {
     'stores_get': stores_get,

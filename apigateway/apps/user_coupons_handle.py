@@ -62,7 +62,7 @@ class UserCouponRemoverHandler(BaseHandler):
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
-        data['userId'] = user
+        data['userId'] = user_id
         api_resp = requests.post(
             '{0}/transactions/user-coupons/remove'.format(
                 self.endpoint['transactions']),

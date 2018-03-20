@@ -32,16 +32,18 @@ class UserCoupons(Base):
             return '', 500
 
         if user_coupons:
-            print(user_coupons)
             for user_coupon in user_coupons:
                 from bson import ObjectId
                 coupon_id_list = [ObjectId(coupon_id) for coupon_id
-                                  in user_coupon['coupons']]
+                                  in user_coupon['coupons'].keys()]
                 flag, coupons = self.db.find_by_condition(
                     'coupons', {'_id': {'$in': coupon_id_list}})
                 if not flag:
                     return '', 500
 
+                for coupon in coupons:
+                    coupon_num = user_coupon['coupons'].get(coupon['id'])
+                    coupon['number'] = coupon_num
                 user_coupon['coupons'] = coupons
 
         return jsonify({'userCoupons': user_coupons})
@@ -110,7 +112,8 @@ class UserCouponRemover(Base):
         store_id = data['storeId']
         coupon_id = data['couponId']
         flag, user_coupon = self.db.find_by_condition(
-            'userCoupons', {'userId': user_id, 'storeId': store_id})
+            'userCoupons', {'userId': user_id, 'storeId': store_id,
+                            'coupons.' + coupon_id: {'$exists': True}})
         if not flag:
             return '', 500
         
@@ -121,13 +124,15 @@ class UserCouponRemover(Base):
         coupon_num = user_coupon[0]['coupons'][coupon_id]
         if coupon_num < 1:
             return self.error_msg(self.ERR['user_coupon_not_exist'])
+
         elif coupon_num == 1:
             flag, result = self.db.update('userCoupons', {
-                'id': user_coupon_id}, {'$pullAll': {'coupons': coupon_id}})
+                'id': user_coupon_id}, {'$unset': {'coupons.' + coupon_id: 1}})
             if not flag:
                 return '', 500
 
             return jsonify(result)
+
         else:
             flag, result = self.db.update('userCoupons', {
                 'id': user_coupon_id}, {'$inc': {'coupons.' + coupon_id: -1}})
