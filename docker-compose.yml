@@ -1,6 +1,9 @@
 version: '3'
 
 services:
+  jypython:
+    build: .
+
   accounts:
     build: ./accounts/.
     command: python main.py accounts.json

@@ -1,5 +1,3 @@
-FROM python3:latest
+FROM jypython:latest
 RUN mkdir /accounts
 WORKDIR /accounts
-COPY requirements.txt /accounts
-RUN pip install -r requirements.txt
