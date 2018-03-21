@@ -13,12 +13,12 @@ class UserCoupons(Base):
                 {
                     "userId": xxx,
                     "storeId": yyy,
-                    "coupons": []
+                    "coupons": {}
                 },
                 {
                     "userId": aaa,
                     "storeId": bbb,
-                    "coupons": []
+                    "coupons": {}
                 }
             ]
         }

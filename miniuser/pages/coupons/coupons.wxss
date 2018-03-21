@@ -10,3 +10,41 @@
   height: 100%;
   overflow: hidden;
 }
+
+.table {
+  border:1px solid #dadada;
+  border-right: 0;
+  border-bottom: 0;
+  width: 90%;
+  font-size: 30rpx;
+}
+
+.tr {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.th,.td {
+  border-bottom: 1px solid #dadada;
+  border-right: 1px solid #dadada;
+  text-align: center;
+  width:100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.th {
+  font-weight: 800;
+  background-color: #dadada
+}
+
+.td-detail {
+  border-right: 1px solid #dadada;
+  text-align: center;
+  width:100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
