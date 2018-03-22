@@ -1,3 +1,3 @@
-FROM python3:latest
+FROM jypython:latest
 RUN mkdir /authorization
 WORKDIR /authorization

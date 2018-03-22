@@ -23,7 +23,7 @@ services:
   authorization:
     build: ./authorization/.
     command: python main.py authorization.json
-    volomes:
+    volumes:
       - ./authorization/.:/authorization
     ports:
       - "20000"
@@ -32,7 +32,7 @@ services:
   apigateway:
     build: ./apigateway/.
     command: python main.py apigateway.json
-    volomes:
+    volumes:
       - ./apigateway/.:/apigateway
     ports:
       - "10000"
