@@ -7,8 +7,6 @@ services:
     command: python main.py accounts.json
     volumes:
       - ./accounts/.:/accounts
-    ports:
-      - "10001"
     container_name: accounts
 
   trasactions:
@@ -16,8 +14,6 @@ services:
     command: python main.py transactions.json
     volumes:
       - ./transactions/.:/transactions
-    ports:
-      - "10003"
     container_name: transactions
 
   authorization:
@@ -26,7 +22,7 @@ services:
     volumes:
       - ./authorization/.:/authorization
     ports:
-      - "20000"
+      - "20000:20000"
     container_name: authorization
 
   apigateway:
@@ -35,5 +31,5 @@ services:
     volumes:
       - ./apigateway/.:/apigateway
     ports:
-      - "10000"
+      - "10000:10000"
     container_name: apigateway

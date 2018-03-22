@@ -1,3 +1,4 @@
 FROM jypython:latest
 RUN mkdir /transactions
 WORKDIR /transactions
+EXPOSE 10003

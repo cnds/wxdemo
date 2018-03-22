@@ -1,3 +1,4 @@
 FROM jypython:latest
 RUN mkdir /authorization
 WORKDIR /authorization
+EXPOSE 20000
