@@ -1,7 +1,3 @@
 FROM python3:latest
-RUN mkdir /run/apigateway
-WORKDIR /run/apigateway
-COPY . .
-RUN pip install -r requirements.txt
-EXPOSE 10000
-CMD [ "python", "main.py", "apigateway.json" ]
+RUN mkdir /apigateway
+WORKDIR /apigateway

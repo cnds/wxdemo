@@ -1,4 +1,6 @@
 {
+  "debug": false,
+  "testing": false,
   "db": {
     "host": "localhost",
     "port": 27017,

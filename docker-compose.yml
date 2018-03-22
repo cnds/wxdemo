@@ -1,11 +1,39 @@
 version: '3'
 
 services:
-  jypython:
-    build: .
 
   accounts:
     build: ./accounts/.
     command: python main.py accounts.json
     volumes:
       - ./accounts/.:/accounts
+    ports:
+      - "10001"
+    container_name: accounts
+
+  trasactions:
+    build: ./transactions/.
+    command: python main.py transactions.json
+    volumes:
+      - ./transactions/.:/transactions
+    ports:
+      - "10003"
+    container_name: transactions
+
+  authorization:
+    build: ./authorization/.
+    command: python main.py authorization.json
+    volomes:
+      - ./authorization/.:/authorization
+    ports:
+      - "20000"
+    container_name: authorization
+
+  apigateway:
+    build: ./apigateway/.
+    command: python main.py apigateway.json
+    volomes:
+      - ./apigateway/.:/apigateway
+    ports:
+      - "10000"
+    container_name: apigateway
