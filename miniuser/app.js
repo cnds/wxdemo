@@ -1,4 +1,7 @@
 //app.js
+const config = require('./utils/config.js')
+
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -11,7 +14,7 @@ App({
   login: function (openId) {
     var that = this
     wx.request({
-      url: 'http://localhost:20000/authorization/user-sessions',
+      url: config.config.authorization + '/user-sessions',
       data: { openId: openId },
       method: 'POST',
       success: function (res) {
@@ -49,7 +52,7 @@ App({
 
                 // 查看用户注册状态，如果未注册，创建用户后登录，如已注册则直接登录
                 wx.request({
-                  url: 'http://localhost:20000/authorization/users/register-status',
+                  url: config.config.authorization + '/users/register-status',
                   data: { code: code },
                   method: 'POST',
                   success: function (res) {
@@ -59,7 +62,7 @@ App({
                       var iv = res.iv
                       var encryptedData = res.encryptedData
                       wx.request({
-                        url: 'http://localhost:20000/authorization/users',
+                        url: config.config.authorization + '/users',
                         data: {
                           code: code,
                           iv: iv,
@@ -90,6 +93,7 @@ App({
   globalData: {
     userInfo: null,
     token: null,
-    userId: null
+    userId: null,
+    config: config.config
   }
 })
