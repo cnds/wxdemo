@@ -29,7 +29,7 @@ class StoreSessions(Base):
         store = store[0]
         store_id = store['id']
         password_from_db = store['password']
-        salt = create_md5_key(config['secret'])
+        salt = create_md5_key(store_id + config['secret'])
         if not validate_hash_key(password, password_from_db, salt):
             return self.error_msg(self.ERR['password_verification_failed'])
 
