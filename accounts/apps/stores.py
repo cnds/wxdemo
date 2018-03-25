@@ -114,7 +114,7 @@ class StoreResetPassword(Base):
         if code_from_redis != sms_code:
             return self.error_msg(self.ERR['sms_code_verification_failed'])
 
-        salt = create_md5_key(store_id)
+        salt = create_md5_key(config['secret'])
         hashed_password = create_hash_key(new_password, salt)
         flag, result = self.db.update('stores',
             {'id': store_id}, {'$set': {'password': hashed_password}})
