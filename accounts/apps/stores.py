@@ -74,7 +74,7 @@ class Stores(Base):
 
             store_id = store_by_address['id']
 
-        salt = create_md5_key(store_id + config['secret'])
+        salt = create_md5_key(config['secret'])
         hashed_password = create_hash_key(password, salt)
         flag, result = self.db.update(
             'stores', {'id': store_id},
