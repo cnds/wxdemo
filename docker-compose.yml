@@ -33,3 +33,8 @@ services:
     ports:
       - "10000:10000"
     container_name: apigateway
+
+  nginx:
+    image: ./nginx/.
+    ports:
+      - "443:443"
