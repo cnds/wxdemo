@@ -62,7 +62,7 @@ store_reset_password = {
     "properties": {
         "newPassword": {"type": "string", "minLength": 8},
         "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"},
-        "code": {"type": "string"}
+        "smsCode": {"type": "string"}
     },
     "required": ["mobile", "newPassword", "code"],
     "additionalProperties": False
