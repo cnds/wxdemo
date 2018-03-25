@@ -86,8 +86,8 @@ store_bind_payment_info_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "WechatInfo": {"type": "string"},
-        "AlipayInfo": {"type": "string"}
+        "wechatInfo": {"type": "string"},
+        "alipayInfo": {"type": "string"}
     },
     "minProperties": 1,
     "additionalProperties": False
