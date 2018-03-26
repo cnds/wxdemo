@@ -1,4 +1,5 @@
 // pages/sign-up/sign-up.js
+const app = getApp()
 var status = require('../../utils/error.js')
 Page({
 
@@ -11,7 +12,7 @@ Page({
   },
   signupClick: function(event) {
     wx.request({
-      url: app.globalData.config.gateway + '/stores',
+      url: app.globalData.config.authorization + '/stores',
       data: {
         mobile: this.data.mobile,
         password: this.data.password,
@@ -50,7 +51,7 @@ Page({
   },
   sendSmsClick: function(event) {
     wx.request({
-      url: app.globalData.config.gateway + '/sms',
+      url: app.globalData.config.authorization + '/sms',
       data: {
         verifyType: 'store_sign_up',
         mobile: this.data.mobile

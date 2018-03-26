@@ -1,4 +1,5 @@
 // pages/reset-pwd/reset-pwd.js
+const app = getApp()
 var status = require('../../utils/error.js')
 
 Page({
@@ -26,12 +27,12 @@ Page({
       data: {
         mobile: this.data.mobile,
         newPassword: this.data.newPassword,
-        code: this.data.code
+        smsCode: this.data.code
       },
       method: 'POST',
       success: function (res) {
-        status = res.statusCode
-        if (status === '201') {
+
+        if (res.statusCode === 201) {
           wx.redirectTo({
             url: '../sign-in/sign-in',
           })

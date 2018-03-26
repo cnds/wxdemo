@@ -20,7 +20,7 @@ Page({
   onLoad: function (options) {
     var that = this
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         that.setData({
           windowWidth: res.windowWidth,
           windowHeight: res.windowHeight
@@ -28,7 +28,6 @@ Page({
       }
     })
     this.getQRCodeInfo()
-    console.log(that.data)
   },
 
   getQRCodeInfo: function () {
@@ -38,12 +37,15 @@ Page({
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
-          that.setData({
-            code: res.data.code,
-            wechatInfo: res.data.wechatInfo
-          })
-          var storeCode = that.createQRCode('storeCode', that.data.code)
-          var wechatCode = that.createQRCode('wechatCode', that.data.wechatInfo)
+          if (Object.keys(res.data).length !== 0) {
+            console.log(res.data)
+            that.setData({
+              code: res.data.code,
+              wechatInfo: res.data.wechatInfo
+            })
+            var storeCode = that.createQRCode('storeCode', that.data.code)
+            var wechatCode = that.createQRCode('wechatCode', that.data.wechatInfo)
+          }
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
         } else {
@@ -120,15 +122,15 @@ Page({
     })
   },
 
-  savaStoreCode: function() {
+  savaStoreCode: function () {
     this.savaPic('storeCode')
   },
 
-  savaPic: function(canvasId) {
+  savaPic: function (canvasId) {
     let that = this
     wx.canvasToTempFilePath({
       canvasId: canvasId,
-      success: function(res) {
+      success: function (res) {
         util.savePicToAlbum(res.tempFilePath)
       }
     })

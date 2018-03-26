@@ -209,6 +209,7 @@ Page({
     if (Object.keys(newDiscount).length !== 0) {
       wx.request({
         url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/discounts',
+        header: {'Authorization': 'Bearer ' + app.globalData.storeInfo.token},
         method: 'POST',
         data: newDiscount,
         success: function (res) {
@@ -299,6 +300,7 @@ Page({
     var currentId = e.currentTarget.dataset.id
     wx.request({
       url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/discounts/' + currentId,
+      header: {'Authorization': 'Bearer ' + app.globalData.storeInfo.token},
       method: 'DELETE',
       success: function (res) {
         if (res.statusCode === 200) {
@@ -408,6 +410,7 @@ Page({
     if (Object.keys(newCoupon).length !== 0) {
       wx.request({
         url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/coupons',
+        header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
         method: 'POST',
         data: newCoupon,
         success: function (res) {
@@ -453,6 +456,7 @@ Page({
     wx.request({
       url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/coupons/' + currentId,
       method: 'DELETE',
+      header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
           that.onLoad()
