@@ -12,4 +12,13 @@
     }
   },
   "api_port": 20000
+  "sms": {
+    "access_key_id": "",
+    "access_key_secret": "",
+    "sign": "",
+    "template": {
+      "store_reset_password": "",
+      "store_sign_up": ""
+    }
+  }
 }
