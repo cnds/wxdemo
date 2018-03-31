@@ -6,7 +6,7 @@ from gevent.pywsgi import WSGIServer
 from config import config
 from apps import StoreSessionsHandler, SmsHandler, \
     StoresHandler, StoreResetPasswordHandler, \
-    UserRegisterStatus, UserSessionsHandler
+    UserRegisterStatus, UserSessionsHandler, Users
 
 
 def create_app(setting):
@@ -27,6 +27,8 @@ def create_app(setting):
                          'user-register-status'))
     app.add_url_rule('/authorization/user-sessions',
                      view_func=UserSessionsHandler.as_view('user-session'))
+    app.add_url_rule('/authorization/users',
+                     view_func=UsersHandler.as_view('users'))
     return app
 
 
