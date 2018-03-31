@@ -4,7 +4,7 @@ from .base import BaseHandler
 from .json_validate import SCHEMA
 
 
-class UserRegisterStatus(BaseHandler):
+class UserRegisterStatusHandler(BaseHandler):
 
     def post(self):
         is_valid, data = self.get_params_from_request(
@@ -22,7 +22,7 @@ class UserRegisterStatus(BaseHandler):
         return jsonify(api_resp.json()), resp_status
 
 
-class Users(BaseHandler):
+class UsersHandler(BaseHandler):
 
     def post(self):
         is_valid, data = self.get_params_from_request(

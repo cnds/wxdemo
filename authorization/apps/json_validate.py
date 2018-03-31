@@ -78,6 +78,18 @@ user_sessions_post = {
     "additionalProperties": False
 }
 
+users_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "code": {"type": "string"},
+        "iv": {"type": "string"},
+        "encryptedData": {"type": "string"}
+    },
+    "required": ["code", "iv", "encryptedData"],
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -86,4 +98,5 @@ SCHEMA = {
     'sms_post': sms_post,
     'store_reset_password': store_reset_password,
     'user_sessions_post': user_sessions_post,
+    'users_post': users_post,
 }
