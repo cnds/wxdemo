@@ -81,7 +81,7 @@ class UserRegisterStatus(Base):
             return '', 500
 
         if not data_from_wx:
-            self.error_msg(self.ERR['invalid_wx_code'])
+            return self.error_msg(self.ERR['invalid_wx_code'])
 
         open_id = data_from_wx['openid']
         flag, user = self.db.find_by_condition('users', {'openId': open_id})

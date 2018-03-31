@@ -164,7 +164,8 @@ qr_codes_get = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "storeId": {"type": "string"}
+        "storeId": {"type": "string"},
+        "code": {"type": "string"}
     },
     "additionalProperties": False
 }
