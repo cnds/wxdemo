@@ -44,7 +44,7 @@ class Users(Base):
             return '', 500
 
         if not data_from_wx:
-            self.error_msg(self.ERR['invalid_wx_code'])
+            return self.error_msg(self.ERR['invalid_wx_code'])
 
         open_id = data_from_wx['openid']
         session_key = data_from_wx['session_key']
