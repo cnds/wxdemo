@@ -9,7 +9,7 @@ class PaymentDetail(Base):
         is_valid, data = self.get_params_from_request(
             request, SCHEMA['payment_detail_post'])
         if not is_valid:
-            return self.error_msg(self.ERR['invalid_body_content'])
+            return self.error_msg(self.ERR['invalid_body_content'], data)
 
         store_id = data['storeId']
         user_id = data['userId']
@@ -18,7 +18,7 @@ class PaymentDetail(Base):
         result = dict()
 
         flag, reduction = self.db.find_by_condition('reductions',
-                                                    {'storeId', store_id})
+                                                    {'storeId': store_id})
         if not flag:
             return '', 500
 
@@ -64,5 +64,5 @@ class PaymentDetail(Base):
                 actual_amount = actual_amount - coupon_minus
 
         result.update({'actualAmount': actual_amount})
-        return jsonify({'paymentDetail': result})
+        return jsonify(result), 201
 

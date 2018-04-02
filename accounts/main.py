@@ -4,7 +4,7 @@ monkey.patch_all()
 from flask import Flask
 from gevent.pywsgi import WSGIServer
 from apps import Stores, StoreResetPassword, StoreSessions, Users, \
-    UserRegisterStatus, UserSessions, QRCodeBindStore, Store, StoreBindPaymentInfo, QRCodes
+    UserRegisterStatus, UserSessions, QRCodeBindStore, Store, StoreBindPaymentInfo, QRCodes, StoreInfo
 from config import config
 
 
@@ -36,6 +36,8 @@ def create_app(setting):
                      view_func=StoreBindPaymentInfo.as_view('store-bind-payment-info'))
     app.add_url_rule('/accounts/qr-code',
                      view_func=QRCodes.as_view('qr-codes'))
+    app.add_url_rule('/accounts/store-info/<code>',
+                     view_func=StoreInfo.as_view('store-info'))
     return app
 
 

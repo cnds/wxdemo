@@ -11,7 +11,7 @@ from apps import PromotionsHandler, StoreOrdersHandler, \
     StoreDiscountsHandler, StoreDiscountHandler, \
     StoreReductionsHandler, StoreReductionHandler, \
     UserCouponsHandler, UserCouponRemoverHandler, StoreBindPaymentInfoHandler, \
-    QRCodes
+    QRCodes, StoreInfoHandler
 
 
 def create_app(setting):
@@ -58,6 +58,8 @@ def create_app(setting):
                      view_func=UserCouponsHandler.as_view('user-coupons'))
     app.add_url_rule('/gateway/users/<user_id>/coupons/remove',
                      view_func=UserCouponRemoverHandler.as_view('user-coupon-remover'))
+    app.add_url_rule('/gateway/users/<user_id>/store-info/<code>',
+                     view_func=StoreInfoHandler.as_view('store-info'))
     return app
 
 

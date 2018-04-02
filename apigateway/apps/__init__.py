@@ -9,3 +9,4 @@ from .store_discounts_handle import StoreDiscountHandler, StoreDiscountsHandler
 from .store_reductions_handle import StoreReductionHandler, StoreReductionsHandler
 from .user_coupons_handle import UserCouponRemoverHandler, UserCouponsHandler
 from .qr_codes_handle import QRCodes
+from .store_info_handle import StoreInfoHandler
