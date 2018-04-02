@@ -64,7 +64,7 @@ class Users(Base):
             self.logger.error('create user failed')
             return '', 500
 
-        return jsonify(result), 201
+        return jsonify({'id': open_id}), 201
 
 
 class UserRegisterStatus(Base):
@@ -89,6 +89,6 @@ class UserRegisterStatus(Base):
             return '', 500
 
         if not user:
-            return self.error_msg(self.ERR['user_not_exist'])
+            return self.error_msg(self.ERR['user_not_found'])
 
         return jsonify({'openId': open_id}), 201
