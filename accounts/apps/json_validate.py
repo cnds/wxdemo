@@ -170,6 +170,26 @@ qr_codes_get = {
     "additionalProperties": False
 }
 
+point_password_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "pointPassword": {"type": "string", "pattern": "^(\d{6})$"},
+    },
+    "minProperties": 1,
+    "additionalProperties": False
+}
+
+point_password_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "pointPassword": {"type": "string", "pattern": "^(\d{6})$"},
+    },
+    "minProperties": 1,
+    "additionalProperties": False
+}
+
 
 SCHEMA = {
     'stores_get': stores_get,
@@ -184,4 +204,6 @@ SCHEMA = {
     'store_put': store_put,
     'qr_codes_get': qr_codes_get,
     'store_bind_payment_info_post': store_bind_payment_info_post,
+    'point_password_post': point_password_post,
+    'point_password_put': point_password_put,
 }

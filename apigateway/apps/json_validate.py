@@ -210,16 +210,25 @@ store_reductions_put = {
     "additionalProperties": False
 }
 
-# store_bind_payment_info_post = {
-#     "$schema": "http://json-schema.org/schema#",
-#     "type": "object",
-#     "properties": {
-#         "wechatInfo": {"type": "string"},
-#         "alipayInfo": {"type": "string"}
-#     },
-#     "minProperties": 1,
-#     "additionalProperties": False
-# }
+store_point_password_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "pointPassword": {"type": "string", "pattern": "^(\d{6})$"},
+    },
+    "minProperties": 1,
+    "additionalProperties": False
+}
+
+store_point_password_put = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "pointPassword": {"type": "string", "pattern": "^(\d{6})$"},
+    },
+    "minProperties": 1,
+    "additionalProperties": False
+}
 
 SCHEMA = {
     'stores_get': stores_get,
@@ -240,4 +249,6 @@ SCHEMA = {
     'user_coupons_put': user_coupons_put,
     'user_coupon_remover_post': user_coupon_remover_post,
     'store_bind_payment_info_post': store_bind_payment_info_post,
+    'store_point_password_post': store_point_password_post,
+    'store_point_password_put': store_point_password_put,
 }
