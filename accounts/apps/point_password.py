@@ -70,3 +70,29 @@ class PointPassword(Base):
         return jsonify(result), 200
 
 
+class PointPasswordChecker(Base):
+
+    def post(self, store_id):
+        is_valid, data = self.get_params_from_request(
+            request, SCHEMA['point_password_checker'])
+        if not is_valid:
+            return self.error_msg(self.ERR['invalid_body_content'], data)
+
+        password = data['pointPassword']
+        salt = create_md5_key(store_id)
+        hashed_password = create_hash_key(password, salt)
+
+        flag, store = self.db.find_by_condition('pointPassword',
+                                                {'storeId': store_id})
+        if not flag:
+            return '', 500
+
+        if not store:
+            return self.error_msg(self.ERR['have_no_password'])
+
+        password_from_db = store[0]['pointPassword']
+        if hashed_password != password_from_db:
+            return self.error_msg(self.ERR['password_verification_failed'])
+
+        return jsonify({'id': store_id})
+

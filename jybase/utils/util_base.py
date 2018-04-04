@@ -34,6 +34,7 @@ class UtilBase(object):
         'user_coupon_not_exist': 'USER_COUPON_NOT_EXIST',
         'store_have_not_bound_qr_code': 'STORE_HAVE_NOT_BOUND_QR_CODE',
         'password_been_set': 'PASSWORD_BEEN_SET',
+        'have_no_password': 'HAVE_NO_PASSWORD'
     }
 
     def __init__(self):

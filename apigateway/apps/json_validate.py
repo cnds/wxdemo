@@ -230,6 +230,17 @@ store_point_password_put = {
     "additionalProperties": False
 }
 
+point_password_checker_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "pointPassword": {"type": "string", "pattern": "^(\d{6})$"},
+        "storeId": {"type": "string"}
+    },
+    "required": ["pointPassword", "storeId"],
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -251,4 +262,5 @@ SCHEMA = {
     'store_bind_payment_info_post': store_bind_payment_info_post,
     'store_point_password_post': store_point_password_post,
     'store_point_password_put': store_point_password_put,
+    'point_password_checker_post': point_password_checker_post,
 }
