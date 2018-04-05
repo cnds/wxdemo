@@ -80,7 +80,7 @@ class Orders(Base):
         if not result:
             return '', 500
 
-        return jsonify(result), 200
+        return jsonify(result), 201
 
 
 class Order(Base):

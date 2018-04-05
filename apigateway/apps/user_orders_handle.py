@@ -51,7 +51,7 @@ class UserOrdersHandler(BaseHandler):
             '{0}/transactions/orders'.format(self.endpoint['transactions']),
             json=data)
         resp_status = api_resp.status_code
-        if resp_status != 200 and resp_status != 400:
+        if resp_status != 201 and resp_status != 400:
             self.logger.error('request transactions server failed')
             return '', 500
 

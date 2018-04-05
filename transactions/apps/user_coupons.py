@@ -149,7 +149,7 @@ class UserCouponRemover(Base):
             if not flag:
                 return '', 500
 
-            return jsonify(result)
+            return jsonify(result), 201
 
         else:
             flag, result = self.db.update('userCoupons', {
@@ -157,4 +157,4 @@ class UserCouponRemover(Base):
             if not flag:
                 return '', 500
             
-            return jsonify(result)
+            return jsonify(result), 201

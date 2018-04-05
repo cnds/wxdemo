@@ -94,5 +94,5 @@ class PointPasswordChecker(Base):
         if hashed_password != password_from_db:
             return self.error_msg(self.ERR['password_verification_failed'])
 
-        return jsonify({'id': store_id})
+        return jsonify({'id': store_id}), 201
 
