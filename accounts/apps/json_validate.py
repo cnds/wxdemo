@@ -174,7 +174,7 @@ point_password_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "pointPassword": {"type": "string", "pattern": "^(\d{6})$"},
+        "pointPassword": {"type": "string", "pattern": "^(\d{4})$"},
     },
     "minProperties": 1,
     "additionalProperties": False
@@ -184,7 +184,7 @@ point_password_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "pointPassword": {"type": "string", "pattern": "^(\d{6})$"},
+        "pointPassword": {"type": "string", "pattern": "^(\d{4})$"},
     },
     "minProperties": 1,
     "additionalProperties": False
@@ -194,7 +194,7 @@ point_password_checker = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "pointPassword": {"type": "string", "pattern": "^(\d{6})$"},
+        "pointPassword": {"type": "string", "pattern": "^(\d{4})$"},
     },
     "minProperties": 1,
     "additionalProperties": False
