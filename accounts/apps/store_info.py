@@ -13,8 +13,10 @@ class StoreInfo(Base):
         if not qr_info:
             return self.error_msg(self.ERR['qr_code_not_exist'])
 
-        store_id = qr_info[0]['storeId']
-        wechat_info = qr_info[0].get('wechatInfo')
+        store_id = qr_info[0].get('storeId')
+        if not store_id:
+            return self.error_msg(self.ERR['code_with_no_store'])
+
         flag, store = self.db.find_by_id('stores', store_id)
         if not flag:
             return '', 500
@@ -23,6 +25,4 @@ class StoreInfo(Base):
             return self.error_msg(self.ERR['store_not_exist'])
 
         store['code'] = code
-        if wechat_info:
-            store['wechatInfo'] = wechat_info
         return jsonify(store), 200

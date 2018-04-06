@@ -19,6 +19,7 @@ class UtilBase(object):
         'operation_failed': 'OPERATION_FAILED',
         'invalid_wx_code': 'INVALID_WX_CODE',
         'qr_code_not_exist': 'QR_CODE_NOT_EXIST',
+        'code_with_no_store': 'CODE_WITH_NO_STORE',
         'store_not_exist': 'STORE_NOT_EXIST',
         'qr_code_already_been_bound': 'QR_CODE_ALREADY_BEEN_BOUND',
         'conflict_coupon': 'CONFLICT_COUPON',
