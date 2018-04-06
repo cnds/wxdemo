@@ -12,3 +12,5 @@ from .qr_codes_handle import QRCodes
 from .store_info_handle import StoreInfoHandler
 from .store_point_password_handle import StorePointPassword
 from .user_point_password_checker_handler import PointPasswordCheckerHandler
+from .user_points_handle import UserPointsHandler, IncreaseUserPointsHandler, DecreaseUserPointsHandler
+from .user_point_mall_handle import UserPointMallHandler

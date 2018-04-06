@@ -11,7 +11,8 @@ from apps import PromotionsHandler, StoreOrdersHandler, \
     StoreDiscountsHandler, StoreDiscountHandler, \
     StoreReductionsHandler, StoreReductionHandler, \
     UserCouponsHandler, UserCouponRemoverHandler, StoreBindPaymentInfoHandler, \
-    QRCodes, StoreInfoHandler, StorePointPassword, PointPasswordCheckerHandler
+    QRCodes, StoreInfoHandler, StorePointPassword, PointPasswordCheckerHandler, \
+    UserPointsHandler, IncreaseUserPointsHandler, DecreaseUserPointsHandler, UserPointMallHandler
 
 
 def create_app(setting):
@@ -64,6 +65,14 @@ def create_app(setting):
                      view_func=StoreInfoHandler.as_view('store-info'))
     app.add_url_rule('/gateway/users/<user_id>/password-checker',
                      view_func=PointPasswordCheckerHandler.as_view('password-checker'))
+    app.add_url_rule('/gateway/users/<user_id>/points',
+                     view_func=UserPointsHandler.as_view('user-points'))
+    app.add_url_rule('/gateway/users/<user_id>/points/increase',
+                     view_func=IncreaseUserPointsHandler.as_view('increase-user-points'))
+    app.add_url_rule('/gateway/users/<user_id>/points/decrease',
+                     view_func=DecreaseUserPointsHandler.as_view('decrease-user-points'))
+    app.add_url_rule('/gateway/users/<user_id>/point-mall',
+                     view_func=UserPointMallHandler.as_view('user-point-mall'))
     return app
 
 

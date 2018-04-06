@@ -5,3 +5,5 @@ from .coupons import Coupons, Coupon
 from .reductions import Reductions, Reduction
 from .discounts import Discount, Discounts
 from .user_coupons import UserCoupons, UserCouponRemover
+from .points import PointsDecrease, PointsIncrease, Points
+from .user_points_mall import UserPointsMall

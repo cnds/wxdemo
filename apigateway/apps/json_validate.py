@@ -241,6 +241,44 @@ point_password_checker_post = {
     "additionalProperties": False
 }
 
+user_points_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"}
+    },
+    "additionalProperties": False
+}
+
+user_points_increase_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "storeId": {"type": "string"}
+    },
+    "additionalProperties": False
+}
+
+user_points_decrease_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "storeId": {"type": "string"}
+    },
+    "additionalProperties": False
+}
+
+user_point_mall_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"}
+    },
+    "additionalProperties": False
+}
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -263,4 +301,8 @@ SCHEMA = {
     'store_point_password_post': store_point_password_post,
     'store_point_password_put': store_point_password_put,
     'point_password_checker_post': point_password_checker_post,
+    'user_points_get': user_points_get,
+    'user_points_increase_post': user_points_increase_post,
+    'user_points_decrease_post': user_points_decrease_post,
+    'user_point_mall_get': user_point_mall_get,
 }

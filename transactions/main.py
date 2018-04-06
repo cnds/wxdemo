@@ -6,7 +6,7 @@ from gevent.pywsgi import WSGIServer
 from config import config
 from apps import Coupons, Coupon, Promotion, Reductions, Reduction, \
     Discounts, Discount, Orders, Order, Promotions, PaymentDetail, \
-    UserCoupons, UserCouponRemover
+    UserCoupons, UserCouponRemover, Points, PointsIncrease, PointsDecrease, UserPointsMall
 
 
 def create_app(config):
@@ -39,6 +39,14 @@ def create_app(config):
                      view_func=UserCoupons.as_view('user-coupons'))
     app.add_url_rule('/transactions/user-coupons/remove',
                      view_func=UserCouponRemover.as_view('user-coupon-remover'))
+    app.add_url_rule('/transactions/points',
+                     view_func=Points.as_view('points'))
+    app.add_url_rule('/transactions/points/increase',
+                     view_func=PointsIncrease.as_view('point-increase'))
+    app.add_url_rule('/transactions/points/decrease',
+                     view_func=PointsDecrease.as_view('point-decrease'))
+    app.add_url_rule('/transactions/<user_id>/point-mall',
+                     view_func=UserPointsMall.as_view('point-mall'))
     return app
 
 

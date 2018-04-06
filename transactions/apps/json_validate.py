@@ -225,6 +225,61 @@ user_coupon_remover_post = {
     "additionalProperties": False
 }
 
+points_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "userId": {"type": "string"},
+    },
+    "additionalProperties": False
+}
+
+points_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "userId": {"type": "string"},
+        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True}
+    },
+    "required": ["storeId", "userId", "point"],
+    "additionalProperties": False
+}
+
+points_increase_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "userId": {"type": "string"},
+        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True}
+    },
+    "required": ["storeId", "userId", "point"],
+    "additionalProperties": False
+}
+
+points_decrease_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+        "userId": {"type": "string"},
+        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True}
+    },
+    "required": ["storeId", "userId", "point"],
+    "additionalProperties": False
+}
+
+user_points_mall_get = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "storeId": {"type": "string"},
+    },
+    "additionalProperties": False
+}
+
 
 SCHEMA = {
     'orders_post': orders_post,
@@ -244,4 +299,9 @@ SCHEMA = {
     'user_coupons_get': user_coupons_get,
     'user_coupons_put': user_coupons_put,
     'user_coupon_remover_post': user_coupon_remover_post,
+    'points_get': points_get,
+    'points_post': points_post,
+    'points_increase_post': points_increase_post,
+    'points_decrease_post': points_decrease_post,
+    'user_points_mall_get': user_points_mall_get,
 }
