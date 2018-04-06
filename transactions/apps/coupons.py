@@ -25,7 +25,7 @@ class Coupons(Base):
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
         condition = self.get_data_with_keys(data,
-                                            ('storeId', 'pay', 'base'))
+                                            ('storeId', 'point'))
         flag, coupon = self.db.find_by_condition('coupons', condition)
         if not flag:
             return '', 500
@@ -61,6 +61,20 @@ class Coupon(Base):
         return jsonify(coupon)
 
     def put(self, coupon_id):
+        params = request.args.to_dict()
+        store_id = params.get('storeId')
+        flag, coupon = self.db.find_by_id('coupons', coupon_id)
+        if not flag:
+            return '', 500
+
+        if coupon is None:
+            return self.error_msg(self.ERR['coupon_not_exist'])
+
+        if store_id:
+            store_id_from_db = coupon['storeId']
+            if store_id != store_id_from_db:
+                return self.error_msg(self.ERR['permission_denied'])
+
         is_valid, data = self.get_params_from_request(request,
                                                       SCHEMA['coupon_put'])
         if not is_valid:

@@ -136,11 +136,10 @@ store_coupons_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "pay": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True},
         "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
     },
-    "required": ["pay", "minus", "base"],
+    "required": ["point", "minus"],
     "additionalProperties": False
 }
 
@@ -148,11 +147,10 @@ store_coupon_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "pay": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True},
         "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
     },
-    "required": ["pay", "minus", "base"],
+    "required": ["point", "minus"],
     "additionalProperties": False
 }
 

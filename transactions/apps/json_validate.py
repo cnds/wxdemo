@@ -112,11 +112,10 @@ coupons_post = {
     "type": "object",
     "properties": {
         "storeId": {"type": "string"},
-        "pay": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True},
         "minus": {"type": "integer", "minimum": 0, "excludeMinimum": True},
     },
-    "required": ["storeId", "pay", "base", "minus"],
+    "required": ["storeId", "point", "minus"],
     "additionalProperties": False
 }
 
@@ -124,12 +123,10 @@ coupon_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "storeId": {"type": "string"},
-        "pay": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True},
         "minus": {"type": "integer", "minimum": 0, "excludeMinimum": True},
     },
-    "required": ["pay", "base", "minus"],
+    "required": ["point", "minus"],
     "additionalProperties": False
 }
 

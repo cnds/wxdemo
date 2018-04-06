@@ -14,16 +14,9 @@ class StoreCouponsHandler(BaseHandler):
         if not flag:
             return self.error_msg(tag)
 
-        params = request.args.to_dict()
-        # is_valid, tag = self.validate_dict_with_schema(
-        #     params, SCHEMA['store_coupons_get'])
-        # if not is_valid:
-        #     return self.error_msg(self.ERR['invalid_query_params'], tag)
-
-        params['storeId'] = store_id
         api_resp = requests.get(
             '{0}/transactions/coupons'.format(self.endpoint['transactions']),
-            params=params)
+            params={'storeId': store_id})
         resp_status = api_resp.status_code
         if resp_status != 200 and resp_status != 400:
             return '', 500
@@ -81,11 +74,10 @@ class StoreCouponHandler(BaseHandler):
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
-        data['storeId'] = store_id
         api_resp = requests.put(
             '{0}/transactions/coupons/{1}'.format(
                 self.endpoint['transactions'], coupon_id),
-            json=data)
+            json=data, params={'storeId': store_id})
         resp_status = api_resp.status_code
         if resp_status != 200 and resp_status != 400:
             return '', 500

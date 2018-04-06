@@ -5,6 +5,12 @@ from .json_validate import SCHEMA
 
 class PaymentDetail(Base):
 
+    """
+    先计算折扣和满减，然后根据用户的积分情况，获取优惠券情况，计算出实际需要支付的金额
+
+    所有优惠都在最开始都金额基础上做计算
+    """
+
     def post(self):
         is_valid, data = self.get_params_from_request(
             request, SCHEMA['payment_detail_post'])
@@ -45,39 +51,29 @@ class PaymentDetail(Base):
                                         'minus': discount_minus}})
             actual_amount -= discount_minus
 
-        flag, user_coupons = self.db.find_by_condition(
-            'userCoupons', {'storeId': store_id, 'userId': user_id})
+        flag, points = self.db.find_by_condition(
+            'points', {'userId': user_id, 'storeId': store_id})
         if not flag:
             return '', 500
 
-        if user_coupons:
-            from bson import ObjectId
-            coupon_id_list = [ObjectId(coupon_id) for coupon_id
-                              in user_coupons[0]['coupons'].keys()]
-            # coupon_id_list = [ObjectId(coupon_id) for coupon_id
-            #                   in user_coupons[0]['coupons']]
-            flag, coupons = self.db.find_by_condition('coupons', {'_id': {
-                '$in': coupon_id_list}, 'base': {'$lte': amount}})
+        if points:
+            point = points[0]['point']
+            flag, coupons = self.db.find_by_condition(
+                'coupons', {'storeId': store_id, 'point': {'$lte': point}})
             if not flag:
                 return '', 500
 
             if coupons:
-                coupon_base = coupons[0]['base']
+                coupon_point = coupons[0]['point']
                 coupon_minus = coupons[0]['minus']
-                coupon_pay = coupons[0]['pay']
-                coupon_id = coupons[0]['id']
                 for coupon in coupons:
-                    if coupon['base'] > coupon_base:
-                        coupon_base = coupon['base']
+                    if coupon['point'] > coupon_point:
+                        coupon_point = coupon['point']
                         coupon_minus = coupon['minus']
-                        coupon_pay = coupon['pay']
-                        coupon_id = coupon['id']
 
-                result.update({'coupon': {'pay': coupon_pay,
-                                          'base': coupon_base,
-                                          'minus': coupon_minus,
-                                          'id': coupon_id}})
-                actual_amount = actual_amount - coupon_minus
+                result.update({'coupon': {'point': coupon_point,
+                                          'minus': coupon_minus}})
+                actual_amount -= coupon_minus
 
         result.update({'actualAmount': actual_amount})
         return jsonify(result), 201
