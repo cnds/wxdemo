@@ -47,9 +47,9 @@ class PaymentDetail(Base):
                 if discount['base'] > discount_base:
                     discount_base = discount['base']
                     discount_minus = discount['minus']
-            result.update({'discount': {'base': discount_base,
-                                        'minus': discount_minus}})
             if actual_amount >= discount_minus:
+                result.update({'discount': {'base': discount_base,
+                                            'minus': discount_minus}})
                 actual_amount -= discount_minus
 
         flag, points = self.db.find_by_condition(
@@ -71,10 +71,9 @@ class PaymentDetail(Base):
                     if coupon['point'] > coupon_point:
                         coupon_point = coupon['point']
                         coupon_minus = coupon['minus']
-
-                result.update({'coupon': {'point': coupon_point,
-                                          'minus': coupon_minus}})
                 if actual_amount >= coupon_minus:
+                    result.update({'coupon': {'point': coupon_point,
+                                              'minus': coupon_minus}})
                     actual_amount -= coupon_minus
 
         result.update({'actualAmount': actual_amount})
