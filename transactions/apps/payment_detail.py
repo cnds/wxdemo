@@ -49,7 +49,8 @@ class PaymentDetail(Base):
                     discount_minus = discount['minus']
             result.update({'discount': {'base': discount_base,
                                         'minus': discount_minus}})
-            actual_amount -= discount_minus
+            if actual_amount >= discount_minus:
+                actual_amount -= discount_minus
 
         flag, points = self.db.find_by_condition(
             'points', {'userId': user_id, 'storeId': store_id})
@@ -73,7 +74,8 @@ class PaymentDetail(Base):
 
                 result.update({'coupon': {'point': coupon_point,
                                           'minus': coupon_minus}})
-                actual_amount -= coupon_minus
+                if actual_amount >= coupon_minus:
+                    actual_amount -= coupon_minus
 
         result.update({'actualAmount': actual_amount})
         return jsonify(result), 201
