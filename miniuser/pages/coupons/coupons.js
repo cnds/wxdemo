@@ -3,25 +3,22 @@ const app = getApp()
 var status = require('../../utils/error.js')
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    coupons: []
+    pointMall: []
   },
 
   onLoad: function() {
     var that = this
     wx.request({
-      url: 'http://localhost:10000/gateway/users/' + app.globalData.userId + '/coupons',
+      url: app.globalData.config.gateway + '/users/' + app.globalData.userId + '/point-mall',
       header: {'Authorization': 'Bearer ' + app.globalData.token},
       success: function(res) {
         if (res.statusCode === 200) {
-          console.log(res.data.userCoupons)
+          // console.log(res.data.userCoupons)
           that.setData({
-            coupons: res.data.userCoupons
-          }) 
+            pointMall: res.data.pointMall
+          })
+          console.log(that.data)
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
         } else {
@@ -32,7 +29,7 @@ Page({
   },
 
   getPromotion: function(e) {
-    console.log(e)
+    // console.log(e)
   }
 
 })

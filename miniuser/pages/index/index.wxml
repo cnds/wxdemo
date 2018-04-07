@@ -12,10 +12,13 @@
     <navigator url="/pages/transactions/transactions" hover-class="navigator-hover">消费记录</navigator>
   </view>
   <view class="my-item">
-    <navigator url="/pages/coupons/coupons" hover-class="navigator-hover">我的优惠券</navigator>
+    <navigator url="/pages/coupons/coupons" hover-class="navigator-hover">积分商城</navigator>
+  </view>
+    <view class="my-item">
+    <navigator url="/pages/mypoints/mypoints" hover-class="navigator-hover">我的积分</navigator>
   </view>
   <view class="my-item">
-    <text bindtap='scanQRCode'>扫码支付</text>
+    <navigator url='/pages/payment/payment' hover-class='navigator-hover'>获取优惠</navigator>
   </view>
 
 

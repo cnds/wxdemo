@@ -1,6 +1,6 @@
 const config = {
-  authorization: 'https://api.ehuiyuan2018.cn/authorization',
-  gateway: 'https://api.ehuiyuan2018.cn/gateway'
+  authorization: 'https://api.haokou.com/authorization',
+  gateway: 'https://api.haokou.com/gateway'
 }
 
 // const config = {

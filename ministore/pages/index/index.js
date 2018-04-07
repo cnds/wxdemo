@@ -25,8 +25,7 @@ Page({
     wx.scanCode({
       scanType: ['qrCode'],
       success: function (res) {
-        console.log(res)
-        // var scene = decodeURIComponent(res.scene)
+        // console.log(res)
         var scene = 'testqrcode'
         // 传入商铺的id和支付信息
         wx.request({
@@ -42,7 +41,7 @@ Page({
                   if (res.tapIndex === 0) {
                     that.bindCollectCode()
                   } else if (res.tapIndex === 1) {
-                    console.log(res)
+                    // console.log(res)
                   }
                 }
               })
@@ -50,16 +49,16 @@ Page({
               if (res.data.error === 'QR_CODE_ALREADY_BEEN_BOUND') {
                 wx.showActionSheet({
                   itemList: ['继续绑定收款码', '下次再说'],
-                  success: function(res) {
+                  success: function (res) {
                     if (res.tapIndex === 0) {
                       that.bindCollectCode()
                     } else if (res.tapIndex === 1) {
-                      console.log(res)
+                      // console.log(res)
                     }
                   }
                 })
               } else {
-              status.status400(res.data.error)
+                status.status400(res.data.error)
               }
             } else {
               status.status500()
@@ -70,11 +69,11 @@ Page({
     })
   },
 
-  bindCollectCode: function(e) {
+  bindCollectCode: function (e) {
     wx.scanCode({
       scanType: ['qrCode'],
       success: function (res) {
-        console.log(res)
+        // console.log(res)
         var wechatInfo = res.result
         wx.request({
           url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/bind-collect-code',
@@ -94,5 +93,27 @@ Page({
         })
       }
     })
+  },
+
+  quitLogin: function (e) {
+    try {
+      wx.clearStorageSync()
+      var success = true
+    } catch (e) {
+      success = false
+      wx.showModal({
+        title: '提示',
+        content: '清理缓存失败，请重新启动小程序',
+        showCancel: false
+      })
+    }
+    if (success) {
+      wx.showToast({
+        title: '退出登录成功',
+      })
+      wx.redirectTo({
+        url: '../sign-in/sign-in'
+      })
+    }
   }
 })

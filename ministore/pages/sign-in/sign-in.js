@@ -14,7 +14,7 @@ Page({
     var now = new Date().getTime()
     if (expireTime && now < expireTime) {
       var storeInfo = wx.getStorageSync('storeInfo')
-      console.log(storeInfo)
+      // console.log(storeInfo)
       if (storeInfo) {
         app.globalData.storeInfo = storeInfo
         wx.redirectTo({

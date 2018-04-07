@@ -8,15 +8,43 @@
   <view class='collection'>
     <view class='collection-item'>
       <view wx:if="{{code}}">
-        <text>店铺码</text>
-        <canvas canvas-id='storeCode' bindlongtap='savaStoreCode'></canvas>
+        <text>店铺码:</text>
+        <text style='color: red; margin: 30rpx;'>{{code}}</text>
+        <!-- <canvas canvas-id='storeCode' bindlongtap='saveStoreCode'></canvas> -->
       </view>
       <view wx:else>
+        <text style='padding-left:50rpx'>请输入店铺码</text>
+        <input focus='true' bindinput='storeCode'></input>
         <button class='collection-btn' bindtap='bindStoreCode'>绑定店铺码</button>
       </view>
     </view>
 
     <view class='collection-item'>
+      <view wx:if='{{hasPointPassword}}'>
+        <text>已设置积分密码</text>
+        <view wx:if='{{changingPassword === false}}'>
+          <button class='collection-btn' bindtap='changePointPassword'>修改积分密码</button>
+        </view>
+        <view wx:else>
+          <input bindinput='pointPassword' focus='true' type='number' placeholder='积分密码为4位数字' maxlength='4'></input>
+          <button class='collection-btn-determine' bindtap='changePointPasswordDetermine'>确定</button>
+          <button class='collection-btn-cancel' bindtap='changePointPasswordCancel'>取消</button>
+        </view>
+      </view>
+      <view wx:else>
+        <view wx:if='{{settingPassword}}'>
+          <text>设置积分密码</text>
+          <input bindinput='pointPassword' focus='true' type='number' placeholder='积分密码为4位数字' maxlength='4'></input>
+          <button class='collection-btn-determine' bindtap='setPointPasswordDetermine'>确定</button>
+          <button class='collection-btn-cancel' bindtap='setPointPasswordCancel'>取消</button>
+        </view>
+        <view wx:else>
+          <button class='collection-btn' bindtap='setPointPassword'>设置积分密码</button>
+        </view>
+
+      </view>
+    </view>
+    <!-- <view class='collection-item'>
       <view wx:if="{{wechatInfo}}">
         <text>收款码</text>
         <canvas canvas-id='wechatCode'></canvas>
@@ -24,6 +52,6 @@
       <view wx:else>
         <button class='collection-btn' bindtap='bindWechatCode'>绑定收款码</button>
       </view>
-    </view>
+    </view> -->
   </view>
 </view>

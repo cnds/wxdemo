@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    reductionPercent: null,
+    reductionPercent: 100,
     reductionPercentInput: null,
     discountsArray: [],
     discountsObjectInput: {},
@@ -61,9 +61,11 @@ Page({
       header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       success: function (res) {
         if (res.statusCode === 200) {
-          that.setData({
-            reductionPercent: res.data.reductions[0].percent
-          })
+          if (res.data.reductions.length !== 0) {
+            that.setData({
+              reductionPercent: res.data.reductions[0].percent
+            })
+          }
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
         } else {
@@ -209,7 +211,7 @@ Page({
     if (Object.keys(newDiscount).length !== 0) {
       wx.request({
         url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/discounts',
-        header: {'Authorization': 'Bearer ' + app.globalData.storeInfo.token},
+        header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
         method: 'POST',
         data: newDiscount,
         success: function (res) {
@@ -300,7 +302,7 @@ Page({
     var currentId = e.currentTarget.dataset.id
     wx.request({
       url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/discounts/' + currentId,
-      header: {'Authorization': 'Bearer ' + app.globalData.storeInfo.token},
+      header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
       method: 'DELETE',
       success: function (res) {
         if (res.statusCode === 200) {
@@ -335,17 +337,10 @@ Page({
     })
   },
 
-  couponPay: function (e) {
+  couponPoint: function (e) {
     var currentId = e.currentTarget.dataset.id
     this.setData({
-      couponsObjectInput: Object.assign(this.data.couponsObjectInput, { [currentId]: Object.assign(this.data.couponObjectInput, { pay: parseInt(e.detail.value) }) })
-    })
-  },
-
-  couponBase: function (e) {
-    var currentId = e.currentTarget.dataset.id
-    this.setData({
-      couponsObjectInput: Object.assign(this.data.couponsObjectInput, { [currentId]: Object.assign(this.data.couponObjectInput, { base: parseInt(e.detail.value) }) })
+      couponsObjectInput: Object.assign(this.data.couponsObjectInput, { [currentId]: Object.assign(this.data.couponObjectInput, { point: parseInt(e.detail.value) }) })
     })
   },
 
@@ -367,11 +362,8 @@ Page({
     var that = this
     var couponsToInput = this.data.couponsObjectInput
     Object.keys(couponsToInput).forEach(function (key) {
-      if (!couponsToInput[key].pay) {
-        Object.assign(couponsToInput[key], { pay: that.data.couponsObject[key].pay })
-      }
-      if (!couponsToInput[key].base) {
-        Object.assign(couponsToInput[key], { base: that.data.couponsObject[key].base })
+      if (!couponsToInput[key].point) {
+        Object.assign(couponsToInput[key], { point: that.data.couponsObject[key].point })
       }
       if (!couponsToInput[key].minus) {
         Object.assign(couponsToInput[key], { minus: that.data.couponsObject[key].minus })
@@ -407,6 +399,7 @@ Page({
   createCouponDone: function (e) {
     var that = this
     var newCoupon = this.data.createCouponObject
+    // console.log(newCoupon)
     if (Object.keys(newCoupon).length !== 0) {
       wx.request({
         url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/coupons',
@@ -432,15 +425,9 @@ Page({
     })
   },
 
-  createCouponPay: function (e) {
+  createCouponPoint: function (e) {
     this.setData({
-      createCouponObject: Object.assign(this.data.createCouponObject, { pay: parseInt(e.detail.value) })
-    })
-  },
-
-  createCouponBase: function (e) {
-    this.setData({
-      createCouponObject: Object.assign(this.data.createCouponObject, { base: parseInt(e.detail.value) })
+      createCouponObject: Object.assign(this.data.createCouponObject, { point: parseInt(e.detail.value) })
     })
   },
 
@@ -517,43 +504,6 @@ Page({
         })
       }
     }
-  },
-
-  determine: function () {
-    var that = this
-    if (this.data.discountMinus > this.data.discountBase || this.data.couponMinus > this.data.couponBase) {
-      wx.showModal({
-        title: '提示',
-        content: '折扣金额不能大于基础金额',
-        showCancel: false,
-      })
-    }
-    wx.request({
-      url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/promotions',
-      header: { 'Authorization': 'Bearer ' + app.globalData.storeInfo.token },
-      data: {
-        discount: { base: this.data.discountBase, minus: this.data.discountMinus },
-        coupon: { pay: this.data.couponPay, base: this.data.couponBase, minus: this.data.couponMinus }
-      },
-      method: 'PUT',
-      success: function (res) {
-        if (res.statusCode === 200) {
-          that.setData({
-            editReduction: false,
-          })
-        } else if (res.statusCode === 400) {
-          status.status400(res.data.error)
-        } else {
-          status.status500()
-        }
-      }
-    })
-  },
-
-  cancel: function () {
-    this.setData({
-      editReduction: false
-    })
-  },
+  }
 
 })

@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -9,8 +9,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.7.0",
-	"appid": "wx706fb33771137dc7",
-	"projectname": "miniuser",
+	"appid": "wx524d1e91367114be",
+	"projectname": "%E5%85%A5%E4%BC%9A%E7%A0%81%E4%B8%AA%E4%BA%BA%E7%89%88",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -20,9 +20,25 @@
 			"current": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"plugin": {
 			"current": -1,
 			"list": []
+		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "测试scene",
+					"pathName": "pages/index/index",
+					"query": "scene=JY201803T00270001",
+					"scene": "1047"
+				}
+			]
 		}
 	}
 }

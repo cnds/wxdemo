@@ -7,11 +7,11 @@ Page({
     orders: null
   },
   transactionClick: function(event) {
-    console.log(event)
+    // console.log(event)
   },
   onLoad: function(event) {
     var that = this
-    console.log(app.globalData)
+    // console.log(app.globalData)
     wx.request({
       url: app.globalData.config.gateway + '/stores/' + app.globalData.storeInfo.id + '/orders',
       header: {'Authorization': 'Bearer ' + app.globalData.storeInfo.token},

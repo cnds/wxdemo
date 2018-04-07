@@ -1,0 +1,64 @@
+/* pages/payment/payment.wxss */
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.name {
+  width: 500rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.storeinfo {
+  height: 100rpx;
+  display: flex;
+  flex-direction: column;
+  padding: 50rpx 0;
+  align-items: center;
+  background: #e85654;
+  width: 750rpx;
+}
+
+.storeinfo-storename {
+  color: #fff;
+}
+
+.storeinfo-address {
+  margin-top: 10rpx;
+  color: #fff;
+}
+
+.payment {
+  height: 80%;
+  width: 85%;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  margin: 15rpx 30rpx;
+}
+
+.payment input {
+  margin-top: 30rpx;
+  color: black;
+  border-bottom: 1rpx solid #eee;
+}
+
+.payment button {
+  margin-top: 30rpx;
+  width: 80%;
+  color: white;
+  background-color: green;
+  font-size: 14px;
+  border-radius: 0;
+  border-bottom: 0;
+}
+
+.payment text {
+  color: #888;
+}

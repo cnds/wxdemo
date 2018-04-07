@@ -13,6 +13,7 @@ const errMsg = {
   'OPERATION_FAILED': '操作失败',
   'INVALID_WX_CODE': '错误的二维码',
   'QR_CODE_NOT_EXIST': '二维码不存在',
+  'CODE_WITH_NO_STORE': '二维码未绑定店铺',
   'STORE_NOT_EXIST': '店铺不存在',
   'QR_CODE_ALREADY_BEEN_BOUND': '二维码已被绑定',
   'CONFLICT_COUPON': '重复的优惠券',
@@ -27,6 +28,10 @@ const errMsg = {
   'REDUCTION_NOT_EXIST': '折扣不存在',
   'USER_COUPON_NOT_EXIST': '用户优惠券不存在',
   'STORE_HAVE_NOT_BOUND_QR_CODE': '用户未绑定店铺码',
+  'PASSWORD_BEEN_SET': '密码已设置',
+  'CONFLICT_INFO_EXIST': '重复信息',
+  'INSUFFICIENT_POINT': '积分不足',
+  'HAVE_NO_PASSWORD': '未设置密码',
 }
 
 function status400(e) {

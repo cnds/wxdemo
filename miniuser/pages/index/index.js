@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
+var status = require('../../utils/error.js')
 
 Page({
   data: {
@@ -8,20 +9,16 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  //事件处理函数
-  // bindViewTap: function() {
-  //   wx.navigateTo({
-  //     url: '../logs/logs'
-  //   })
-  // },
-  onLoad: function () {
-    console.log(app.globalData)
+
+  onLoad: function (options) {
+    var code = decodeURIComponent(options.scene)
+    app.globalData.code = code
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -42,9 +39,17 @@ Page({
         }
       })
     }
+    console.log(app.globalData.scene)
+    if (app.globalData.scene === '1047') {
+      wx.navigateTo({
+        url: '../payment/payment',
+      })
+    }
   },
-  getUserInfo: function(e) {
-    console.log(e)
+
+
+  getUserInfo: function (e) {
+    // console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -52,24 +57,24 @@ Page({
     })
   },
 
-  scanQRCode: function(e) {
-    wx.scanCode({
-      scanType: ['qrCode'],
-      success: function(res) {
-        console.log(res.result)
-        // TODO: 解析扫码内容，调用API找到商家，返回用户拥有的商家优惠
-      }
-    })
-  },
+  // scanQRCode: function (e) {
+  //   var that = this
+  //   wx.scanCode({
+  //     scanType: ['qrCode'],
+  //     success: function (res) {
+  //       wx.navigateTo({
+  //         url: '../payment/payment',
+  //       })
+  //     }
+  //   })
+  // },
 
   relogin: function () {
     var that = this;
     app.globalData.token = null;
     app.registerUser();
-    wx.showModal({
-      title: '提示',
-      content: '重新登陆成功',
-      showCancel: false,
+    wx.showToast({
+      title: '重新登录成功',
       success: function (res) {
         if (res.confirm) {
           that.onShow();

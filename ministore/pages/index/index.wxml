@@ -5,7 +5,6 @@
     <image wx:if="{{storeInfo}}" background-size="cover"></image>
     <text class="storeinfo-storename">{{ storeInfo.storeName }}</text>
     <text class="storeinfo-mobile">{{ storeInfo.mobile }}</text>
-
   </view>
   <view style="height:50rpx;width:100%;"></view>
   <view class="index" style='background:none;display:flex;flex-direction:column;height:auto;'>
@@ -23,4 +22,6 @@
   <view class='index'>
     <navigator url='/pages/profile/profile' hover-class='navigator-hover'>店铺信息</navigator>
   </view>
+
+  <button type='warn' bindtap='quitLogin' style='width:80vw'>退出登录</button>
 </view>

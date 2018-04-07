@@ -7,6 +7,38 @@
 
   <view class='promotions'>
 
+    <!--积分优惠  -->
+    <view class='promotions-item'>
+      <view class='promotions-item-nav'>
+        <view class='label'>积分优惠</view>
+        <view class='edit-btn' hidden='{{editCouponHidden}}' bindtap='couponEdit'>编辑</view>
+        <view class='edit-btn' hidden='{{!editCouponHidden}}' bindtap='couponDone'>完成</view>
+      </view>
+      <view wx:for='{{couponsArray}}' wx:for-item='coupon' wx:key='id'>
+        <block wx:if='{{editCoupon}}'>
+          <view class='promotions-edit'>每
+            <input bindinput='couponPoint' value='{{coupon.point}}' type='number' focus='true' data-id='{{coupon.id}}'></input>积分可换取
+            <input bindinput='couponMinus' value='{{coupon.minus}}' type='number' data-id='{{coupon.id}}'></input>元优惠券
+          </view>
+        </block>
+        <block wx:else>
+          <view class='promotions-edit-delete'>
+            <view class='promotions-edit' bindtouchstart='touchCouponS' bindtouchmove='touchCouponM' bindtouchend='touchCouponE' data-id='{{coupon.id}}' data-index='{{index}}' style='{{coupon.left}}'>每
+              <text>{{coupon.point}}</text>积分可换取
+              <text>{{coupon.minus}}</text>元优惠券
+            </view>
+            <view class='delete-btn' data-id='{{coupon.id}}' catchtap='deleteCoupon'>删除</view>
+          </view>
+        </block>
+      </view>
+      <view class='promotions-edit' hidden='{{!createCouponHidden}}'>每
+        <input type='number' focus='true' bindinput='createCouponPoint'></input>元 赠送满
+        <input type='number' bindinput='createCouponMinus'></input>元优惠券
+      </view>
+      <view class='promotions-edit' hidden='{{createCouponHidden}}' bindtap='createCoupon'>新增积分优惠</view>
+      <view class='promotions-edit' hidden='{{!createCouponHidden}}' bindtap='createCouponDone'>提交</view>
+    </view>
+
     <!--折扣  -->
     <view class='promotions-item'>
       <view class='promotions-item-nav'>
@@ -59,40 +91,5 @@
       <view class='promotions-edit' hidden='{{!createDiscountHidden}}' bindtap='createDiscountDone'>提交</view>
     </view>
 
-    <!--优惠券  -->
-    <view class='promotions-item'>
-      <view class='promotions-item-nav'>
-        <view class='label'>优惠券</view>
-        <view class='edit-btn' hidden='{{editCouponHidden}}' bindtap='couponEdit'>编辑</view>
-        <view class='edit-btn' hidden='{{!editCouponHidden}}' bindtap='couponDone'>完成</view>
-      </view>
-      <view wx:for='{{couponsArray}}' wx:for-item='coupon' wx:key='id'>
-        <block wx:if='{{editCoupon}}'>
-          <view class='promotions-edit'>消费满
-            <input bindinput='couponPay' value='{{coupon.pay}}' type='number' focus='true' data-id='{{coupon.id}}'></input>元,赠送满
-            <input bindinput='couponBase' value='{{coupon.base}}' type='number' data-id='{{coupon.id}}'></input>元减
-            <input bindinput='couponMinus' value='{{coupon.minus}}' type='number' data-id='{{coupon.id}}'></input>元优惠券
-          </view>
-        </block>
-        <block wx:else>
-          <view class='promotions-edit-delete'>
-            <view class='promotions-edit' bindtouchstart='touchCouponS' bindtouchmove='touchCouponM' bindtouchend='touchCouponE' data-id='{{coupon.id}}' data-index='{{index}}' style='{{coupon.left}}'>
-              消费满
-              <text>{{coupon.pay}}</text>元,赠送满
-              <text>{{coupon.base}}</text>元减
-              <text>{{coupon.minus}}</text>元优惠券
-            </view>
-            <view class='delete-btn' data-id='{{coupon.id}}' catchtap='deleteCoupon'>删除</view>
-          </view>
-        </block>
-      </view>
-      <view class='promotions-edit' hidden='{{!createCouponHidden}}'>消费满
-        <input type='number' focus='true' bindinput='createCouponPay'></input>元 赠送满
-        <input type='number' bindinput='createCouponBase'></input>元减
-        <input type='number' bindinput='createCouponMinus'></input>元优惠券
-      </view>
-      <view class='promotions-edit' hidden='{{createCouponHidden}}' bindtap='createCoupon'>新增优惠券</view>
-      <view class='promotions-edit' hidden='{{!createCouponHidden}}' bindtap='createCouponDone'>提交</view>
-    </view>
   </view>
 </view>

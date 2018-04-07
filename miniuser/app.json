@@ -4,7 +4,8 @@
     "pages/transactions/transactions",
     "pages/logs/logs",
     "pages/coupons/coupons",
-    "pages/payment/payment"
+    "pages/payment/payment",
+    "pages/mypoints/mypoints"
   ],
   "window": {
     "backgroundTextStyle": "light",

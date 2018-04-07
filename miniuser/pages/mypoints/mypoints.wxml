@@ -1,0 +1,19 @@
+<!--pages/mypoints/mypoints.wxml-->
+
+<view class='container'>
+  <view class='name'>
+    <text>我的积分</text>
+  </view>
+  <view class="table">
+    <view class="tr">
+      <view class="th">店铺</view>
+      <view class="th">积分</view>
+      <view class='th'>地址</view>
+    </view>
+    <view class="tr" wx:for="{{points}}" wx:key="storeName">
+      <view class="td">{{item.storeName}}</view>
+      <view class="td">{{item.point}}</view>
+      <view class="td">{{item.address}}</view>
+    </view>
+  </view>
+</view>
