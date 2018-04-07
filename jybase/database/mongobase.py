@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING
 from pymongo.errors import BulkWriteError
 from flask import logging
 from datetime import datetime
@@ -23,8 +23,9 @@ class MongoBase(object):
     def find_by_condition(self, collection, condition, page=1, limit=0):
         skip = (page - 1) * limit
         try:
-            cursor = self.mongo[collection].find(condition,
-                                                 skip=skip, limit=limit)
+            cursor = self.mongo[collection].find(
+                condition, skip=skip, limit=limit).sort('lastModifiedDate',
+                                                        DESCENDING)
         except Exception as ex:
             self.logger.error(ex)
             return False, None
