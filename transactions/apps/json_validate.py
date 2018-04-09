@@ -94,7 +94,7 @@ payment_detail_post = {
         "userId": {"type": "string"},
         "amount": {"type": "number"}
     },
-    "required": ["storeId", "userId", "number"],
+    "required": ["storeId", "userId", "amount"],
     "additionalProperties": False
 }
 
