@@ -66,7 +66,7 @@ user_orders_post = {
     "type": "object",
     "properties": {
         "storeId": {"type": "string"},
-        "amount": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "amount": {"type": "number", "minimum": 0, "excludeMinimum": True},
     },
     "required": ["storeId", "amount"],
     "additionalProperties": False
@@ -136,8 +136,8 @@ store_coupons_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+        "point": {"type": "number", "minimum": 0, "excludeMinimum": True},
+        "minus": {"type": "number", "minimum": 0, "excludeMinimum": False}
     },
     "required": ["point", "minus"],
     "additionalProperties": False
@@ -147,8 +147,8 @@ store_coupon_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "point": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+        "point": {"type": "number", "minimum": 0, "excludeMinimum": True},
+        "minus": {"type": "number", "minimum": 0, "excludeMinimum": False}
     },
     "required": ["point", "minus"],
     "additionalProperties": False
@@ -158,8 +158,8 @@ store_discounts_post = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
-        "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
+        "base": {"type": "number", "minimum": 0, "excludeMinimum": True},
+        "minus": {"type": "number", "minimum": 0, "excludeMinimum": False}
     },
     "required": ["minus", "base"],
     "additionalProperties": False
@@ -169,7 +169,7 @@ store_discount_put = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "base": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "base": {"type": "number", "minimum": 0, "excludeMinimum": True},
         "minus": {"type": "integer", "minimum": 0, "excludeMinimum": False}
     },
     "required": ["minus", "base"],
@@ -181,7 +181,7 @@ user_coupons_put = {
     "type": "object",
     "properties": {
         "storeId": {"type": "string"},
-        "amount": {"type": "integer", "minimum": 0, "excludeMinimum": True},
+        "amount": {"type": "number", "minimum": 0, "excludeMinimum": True},
     },
     "required": ["storeId", "amount"],
     "additionalProperties": False
