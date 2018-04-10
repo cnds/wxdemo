@@ -37,7 +37,7 @@ Page({
 
   Amount: function (e) {
     this.setData({
-      amount: parseInt(e.detail.value)
+      amount: parseFloat(e.detail.value)
     })
   },
 
@@ -51,6 +51,15 @@ Page({
       success: function (res) {
         console.log(res.data)
         if (res.statusCode === 201) {
+          that.setData({
+            reductionPercent: null,
+            discountBase: null,
+            discountMinus: null,
+            couponMinus: null,
+            couponPoint: null,
+            actualAmount: null,
+            hasPaymentDetail: false
+          })
           if (res.data.reduction) {
             that.setData({
               reductionPercent: res.data.reduction.percent,
@@ -69,7 +78,7 @@ Page({
             })
           }
           that.setData({
-            actualAmount: parseInt(res.data.actualAmount),
+            actualAmount: parseFloat((res.data.actualAmount).toFixed(2)),
             hasPaymentDetail: true
           })
         } else if (res.statusCode === 400) {
@@ -154,7 +163,7 @@ Page({
       url: app.globalData.config.gateway + '/users/' + app.globalData.userId + '/points/increase',
       method: 'POST',
       header: { 'Authorization': 'Bearer ' + app.globalData.token },
-      data: { storeId: this.data.storeId, point: this.data.actualAmount },
+      data: { storeId: this.data.storeId, point: parseInt(this.data.actualAmount) },
       success: function (res) {
         if (res.statusCode === 201) {
           wx.showToast({
