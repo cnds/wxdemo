@@ -45,7 +45,7 @@ class IncreaseUserPointsHandler(BaseHandler):
         is_valid, data = self.get_params_from_request(
             request, SCHEMA['user_points_increase_post'])
         if not is_valid:
-            return self.error_msg(self.ERR['invalid_body_content'])
+            return self.error_msg(self.ERR['invalid_body_content'], data)
 
         data['userId'] = user_id
         api_resp = requests.post(
@@ -70,7 +70,7 @@ class DecreaseUserPointsHandler(BaseHandler):
         is_valid, data = self.get_params_from_request(
             request, SCHEMA['user_points_decrease_post'])
         if not is_valid:
-            return self.error_msg(self.ERR['invalid_body_content'])
+            return self.error_msg(self.ERR['invalid_body_content'], data)
 
         data['userId'] = user_id
         api_resp = requests.post(
