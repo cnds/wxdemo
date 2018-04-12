@@ -9,7 +9,7 @@
 
   <view class='payment'>
     <text>请输入商家告知的需付金额:</text>
-    <input bindinput='Amount'></input>
+    <input bindinput='Amount' focus='true' type='digit'></input>
     <button bindtap='getPaymentDetail'>计算实际需付金额</button>
 
 
