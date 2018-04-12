@@ -17,9 +17,9 @@
     <view class="my-item">
     <navigator url="/pages/mypoints/mypoints" hover-class="navigator-hover">我的积分</navigator>
   </view>
-  <view class="my-item">
+  <!-- <view class="my-item">
     <navigator url='/pages/payment/payment' hover-class='navigator-hover'>获取优惠</navigator>
-  </view>
+  </view> -->
 
 
   <view style="height:20rpx;"></view>

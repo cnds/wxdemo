@@ -7,11 +7,12 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
 
   onLoad: function (options) {
-    var code = decodeURIComponent(options.scene)
+    var scene = app.globalData.scene  // 场景值
+    var code = decodeURIComponent(options.scene) // 扫码得到的内容
     app.globalData.code = code
     if (app.globalData.userInfo) {
       this.setData({
@@ -22,6 +23,7 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
+        app.globalData.userInfo = res.userInfo
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
@@ -39,23 +41,22 @@ Page({
         }
       })
     }
-    console.log(app.globalData.scene)
-    if (app.globalData.scene === '1047') {
-      wx.navigateTo({
+    if (scene === '1047') {
+      wx.redirectTo({
         url: '../payment/payment',
       })
     }
   },
 
 
-  getUserInfo: function (e) {
-    // console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
+  // getUserInfo: function (e) {
+  //   // console.log(e)
+  //   app.globalData.userInfo = e.detail.userInfo
+  //   this.setData({
+  //     userInfo: e.detail.userInfo,
+  //     hasUserInfo: true
+  //   })
+  // },
 
   // scanQRCode: function (e) {
   //   var that = this

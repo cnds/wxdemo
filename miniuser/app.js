@@ -25,13 +25,15 @@ App({
         if (res.statusCode === 201) {
           that.globalData.token = res.data.token
           that.globalData.userId = res.data.id
-        } else if (res.statusCode === 400) {
+          wx.showToast({
+            title: '登录成功',
+          })
+        } else {
           wx.showModal({
             title: '错误',
             content: '登录失败',
             showCancel: false
           })
-          return;
         }
       }
     })

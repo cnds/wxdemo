@@ -2,6 +2,7 @@
 const app = getApp()
 var status = require('../../utils/error.js')
 var QRCode = require('../../utils/qrcode.js')
+var config = require('../../utils/config.js')
 
 Page({
   data: {
@@ -11,7 +12,99 @@ Page({
   },
 
   onLoad: function (options) {
-    this.getStoreInfo()
+    app.globalData.scene = null
+    if (app.globalData.userId && app.globalData.token) {
+      this.getStoreInfo()
+    } else {
+      this.registerUser()
+    }
+  },
+
+  login: function (openId) {
+    var that = this
+    wx.request({
+      url: config.config.authorization + '/user-sessions',
+      data: { openId: openId },
+      method: 'POST',
+      success: function (res) {
+        if (res.statusCode === 201) {
+          app.globalData.token = res.data.token
+          app.globalData.userId = res.data.id
+          that.getStoreInfo()
+          wx.showToast({
+            title: '登录成功',
+          })
+        } else {
+          wx.showModal({
+            title: '错误',
+            content: '登录失败',
+            showCancel: false
+          })
+        }
+      }
+    })
+  },
+
+  registerUser: function () {
+    var that = this
+    // 登录
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        var code = res.code
+        // console.log(res)
+        wx.getSetting({
+          success: res => {
+            // console.log(res)
+            wx.getUserInfo({
+              success: res => {
+                // 可以将 res 发送给后台解码出 unionId
+                app.globalData.userInfo = res.userInfo
+                // console.log(res)
+                var iv = res.iv
+                var encryptedData = res.encryptedData
+
+                // 查看用户注册状态，如果未注册，创建用户后登录，如已注册则直接登录
+                wx.request({
+                  url: config.config.authorization + '/users/register-status',
+                  data: { code: code },
+                  method: 'POST',
+                  success: function (res) {
+                    if (res.statusCode === 201) {
+                      that.login(res.data.openId)
+                    } else if (res.statusCode === 400) {
+                      wx.login({
+                        success: res => {
+                          var code = res.code
+                          wx.request({
+                            url: config.config.authorization + '/users',
+                            data: {
+                              code: code,
+                              iv: iv,
+                              encryptedData: encryptedData
+                            },
+                            method: 'POST',
+                            success: function (res) {
+                              wx.hideLoading();
+                              that.login(res.data.id);
+                            }
+                          })
+                        }
+                      })
+                    }
+                  }
+                })
+                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                // 所以此处加入 callback 以防止这种情况
+                if (this.userInfoReadyCallback) {
+                  this.userInfoReadyCallback(res)
+                }
+              }
+            })
+          }
+        })
+      }
+    })
   },
 
   getStoreInfo: function () {
@@ -78,7 +171,7 @@ Page({
             })
           }
           that.setData({
-            actualAmount: parseFloat((res.data.actualAmount).toFixed(2)),
+            actualAmount: parseFloat((res.data.actualAmount).toFixed(1)),
             hasPaymentDetail: true
           })
         } else if (res.statusCode === 400) {
@@ -171,6 +264,9 @@ Page({
           })
           that.setData({
             showPointPasswordInput: false
+          })
+          wx.redirectTo({
+            url: '../index/index',
           })
         } else if (res.statusCode === 400) {
           status.status400(res.data.error)
