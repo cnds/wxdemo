@@ -24,7 +24,7 @@ stores_post = {
         "address": {"type": "string"},
         "storeName": {"type": "string"}
     },
-    "required": ["mobile", "password", "smsCode", "address", "storeName"],
+    "required": ["mobile", "password", "smsCode"],
     "additionalProperties": False
 }
 

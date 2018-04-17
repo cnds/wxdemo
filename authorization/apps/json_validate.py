@@ -18,7 +18,7 @@ stores_post = {
         "address": {"type": "string"},
         "storeName": {"type": "string"}
     },
-    "required": ["mobile", "password", "smsCode", "address", "storeName"],
+    "required": ["mobile", "password", "smsCode"],
     "additionalProperties": False
 }
 
@@ -60,7 +60,7 @@ store_reset_password = {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "newPassword": {"type": "string", "minLength": 8},
+        "newPassword": {"type": "string"},
         "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"},
         "smsCode": {"type": "string"}
     },
