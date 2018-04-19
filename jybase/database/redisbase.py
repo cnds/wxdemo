@@ -56,4 +56,3 @@ class RedisBase(object):
             return False
         else:
             return result.decode() if result else None
-

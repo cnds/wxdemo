@@ -19,14 +19,14 @@
       <view wx:if='{{discountBase}}'>满减: 满 {{discountBase}} 元减免 {{discountMinus}} 元</view>
       <view wx:if='{{couponMinus}}'>积分优惠券: 减免 {{couponMinus}} 元</view>
       <view wx:if='{{actualAmount}}' style='color:red'>实际支付: {{actualAmount}} 元</view>
-      <view wx:if='{{showPointPasswordInput}}'>
+      <!-- <view wx:if='{{showPointPasswordInput}}'>
         <input bindinput='pointPasswordInput' focus='true' placeholder='请让店家输入4位数字的积分密码' type='number' maxlength='4'></input>
         <button bindtap='pointPasswordDetermine'>确定</button>
         <button bindtap='pointPasswordCancel' style='background-color: #888'>取消</button>
       </view>
-      <view wx:else>
-        <button bindtap='getPoints'>获取积分</button>
-      </view>
+      <view wx:else> -->
+        <button bindtap='createOrder'>获取积分</button>
+      <!-- </view> -->
     </view>
   </view>
 </view>

@@ -41,7 +41,7 @@ Page({
         }
       })
     }
-    if (scene === 1047) {
+    if (scene == 1047) {
       wx.redirectTo({
         url: '../payment/payment',
       })

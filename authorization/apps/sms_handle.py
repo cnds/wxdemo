@@ -70,3 +70,7 @@ class SmsHandler(BaseHandler):
             redis_key = verify_type + ':' + mobile + ':'
             self.redis.set_value(redis_key, code)
             return jsonify({'id': result['RequestId']}), 201
+        elif result_code == 'isv.BUSINESS_LIMIT_CONTROL':
+            return self.error_msg(self.ERR['business_limit_control'])
+        else:
+            return self.error_msg(self.ERR['SEND_SMS_FAILED'])

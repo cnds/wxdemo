@@ -38,6 +38,8 @@ class UtilBase(object):
         'have_no_password': 'HAVE_NO_PASSWORD',
         'conflict_info_exist': 'CONFLICT_INFO_EXIST',
         'insufficient_point': 'INSUFFICIENT_POINT',
+        'business_limit_control': 'BUSINESS_LIMIT_CONTROL',
+        'send_sms_failed': 'SEND_SMS_FAILED',
     }
 
     def __init__(self):

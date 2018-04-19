@@ -32,6 +32,7 @@ const errMsg = {
   'CONFLICT_INFO_EXIST': '重复信息',
   'INSUFFICIENT_POINT': '积分不足',
   'HAVE_NO_PASSWORD': '未设置密码',
+  'BUSINESS_LIMIT_CONTROL': '请勿重复发送',
 }
 
 function status400(e) {
