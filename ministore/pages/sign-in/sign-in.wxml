@@ -10,7 +10,7 @@
     <view class='login-item'>
       <view class='login-item-info'>手机</view>
       <view>
-        <input bindinput='mobileInput' />
+        <input bindinput='mobileInput' type='number' focus='true'></input>
       </view>
     </view>
 
