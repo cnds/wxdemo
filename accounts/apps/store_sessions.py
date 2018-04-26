@@ -17,24 +17,37 @@ class StoreSessions(Base):
         if not is_valid:
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
-        mobile = data['mobile']
-        password = data['password']
-        flag, store = self.db.find_by_condition('stores', {'mobile': mobile})
-        if not flag:
-            return '', 500
-
-        if len(store) == 0:
-            return self.error_msg(self.ERR['user_not_found'])
-
-        store = store[0]
-        store_id = store['id']
-        password_from_db = store['password']
+        mobile = data.get('mobile')
         salt = create_md5_key(config['secret'])
-        if not validate_hash_key(password, password_from_db, salt):
-            return self.error_msg(self.ERR['password_verification_failed'])
+        if mobile:
+            password = data['password']
+            flag, store = self.db.find_by_condition('stores', {'mobile': mobile})
+            if not flag:
+                return '', 500
+
+            if len(store) == 0:
+                return self.error_msg(self.ERR['user_not_found'])
+
+            store = store[0]
+            store_id = store['id']
+            password_from_db = store['password']
+            if not validate_hash_key(password, password_from_db, salt):
+                return self.error_msg(self.ERR['password_verification_failed'])
+
+        else:
+            open_id = data['openId']
+            flag, store = self.db.find_by_condition('stores', {'openId': open_id})
+            if not flag:
+                return '', 500
+
+            if len(store) == 0:
+                return self.error_msg(self.ERR['user_not_found'])
+
+            store = store[0]
+            store_id = store['id']
 
         token = self.create_jwt({'accountId': store_id}, salt)
         result = self.get_data_with_keys(
-                store, ('mobile', 'id', 'address', 'storeName'),
+                store, ('mobile', 'id', 'address', 'storeName', 'nickName'),
                 {'token': token.decode()})
         return jsonify(result), 201

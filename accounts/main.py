@@ -3,9 +3,9 @@ monkey.patch_all()
 
 from flask import Flask
 from gevent.pywsgi import WSGIServer
-from apps import Stores, StoreResetPassword, StoreSessions, Users, \
+from apps import Stores, StoreResetPassword, StoreSessions, Users, User, \
     UserRegisterStatus, UserSessions, QRCodeBindStore, Store, StoreBindPaymentInfo, \
-    QRCodes, StoreInfo, PointPassword, PointPasswordChecker
+    QRCodes, StoreInfo, PointPassword, PointPasswordChecker, StoreRegisterStatus
 from config import config
 
 
@@ -27,6 +27,8 @@ def create_app(setting):
     #                  view_func=StoreProfiles.as_view('store-profiles'))
     app.add_url_rule('/accounts/users',
                      view_func=Users.as_view('users'))
+    app.add_url_rule('/accounts/users/<user_id>',
+                     view_func=User.as_view('user'))
     app.add_url_rule('/accounts/users/register-status',
                      view_func=UserRegisterStatus.as_view('user-register-status'))
     app.add_url_rule('/accounts/user-sessions',
@@ -43,6 +45,8 @@ def create_app(setting):
                      view_func=PointPassword.as_view('point-password'))
     app.add_url_rule('/accounts/stores/<store_id>/point-password/checker',
                      view_func=PointPasswordChecker.as_view('point-password-checker'))
+    app.add_url_rule('/accounts/stores/register-status',
+                     view_func=StoreRegisterStatus.as_view('store-register-status'))
     return app
 
 

@@ -13,10 +13,10 @@ class Base(MethodView, JWTBase):
         self.db = MongoBase(config)
         self.redis = RedisBase(config)
 
-    def get_data_from_wx(self, code):
+    def get_data_from_wx(self, app_id, secret, code):
         query_params = {
-            'appid': config['wechat']['appId'],
-            'secret': config['wechat']['appSecret'],
+            'appid': app_id,
+            'secret': secret,
             'js_code': code,
             'grant_type': 'authorization_code'
         }

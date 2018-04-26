@@ -277,6 +277,19 @@ user_points_mall_get = {
     "additionalProperties": False
 }
 
+template_messages_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "orderId": {"type": "string"},
+        "formId": {"type": "string"},
+        "openId": {"type": "string"},
+        "userId": {"type": "string"},
+    },
+    "required": ["orderId", "formId", "openId", "userId"],
+    "additionalProperties": False
+}
+
 
 SCHEMA = {
     'orders_post': orders_post,
@@ -301,4 +314,5 @@ SCHEMA = {
     'points_increase_post': points_increase_post,
     'points_decrease_post': points_decrease_post,
     'user_points_mall_get': user_points_mall_get,
+    'template_messages_post': template_messages_post,
 }

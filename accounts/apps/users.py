@@ -39,7 +39,9 @@ class Users(Base):
         code = data['code']
         iv = data['iv']
         encrypted_data = data['encryptedData']
-        flag, data_from_wx = self.get_data_from_wx(code)
+        app_id = config['weChat']['user']['appId']
+        secret = config['weChat']['user']['appSecret']
+        flag, data_from_wx = self.get_data_from_wx(app_id, secret, code)
         if not flag:
             return '', 500
 
@@ -57,7 +59,7 @@ class Users(Base):
         if user:
             return self.error_msg(self.ERR['conflict_user_exist'])
 
-        pc = WXBizDataCrypt(config['wechat']['appId'], session_key)
+        pc = WXBizDataCrypt(app_id, session_key)
         decrypted_data = pc.decrypt(encrypted_data, iv)
         result = self.db.create('users', decrypted_data)
         if not result:
@@ -76,7 +78,9 @@ class UserRegisterStatus(Base):
             return self.error_msg(self.ERR['invalid_body_content'], data)
 
         code = data['code']
-        flag, data_from_wx = self.get_data_from_wx(code)
+        app_id = config['weChat']['user']['appId']
+        secret = config['weChat']['user']['appSecret']
+        flag, data_from_wx = self.get_data_from_wx(app_id, secret, code)
         if not flag:
             return '', 500
 
@@ -92,3 +96,16 @@ class UserRegisterStatus(Base):
             return self.error_msg(self.ERR['user_not_found'])
 
         return jsonify({'openId': open_id}), 201
+
+
+class User(Base):
+
+    def get(self, user_id):
+        flag, user = self.db.find_by_id('users', user_id)
+        if not flag:
+            return '', 500
+
+        if user is None:
+            return self.error_msg(self.ERR['user_not_found'])
+
+        return jsonify(user)

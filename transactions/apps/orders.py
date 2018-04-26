@@ -99,7 +99,7 @@ class Order(Base):
             return '', None
 
         if order is None:
-            return self.error_msg(self.ERR['not_found'])
+            return self.error_msg(self.ERR['order_not_exist'])
 
         if store_id:
             store_id_from_db = order.get('storeId')

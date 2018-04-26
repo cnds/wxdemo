@@ -22,9 +22,15 @@ stores_post = {
         "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"},
         "smsCode": {"type": "string"},
         "address": {"type": "string"},
-        "storeName": {"type": "string"}
+        "storeName": {"type": "string"},
+        "code": {"type": "string"},
+        "encryptedData": {"type": "string"},
+        "iv": {"type": "string"}
     },
-    "required": ["mobile", "password", "smsCode"],
+    "oneOf": [
+        {"required": ["mobile", "password", "smsCode"]},
+        {"required": ["code", "encryptedData", "iv"]}
+    ],
     "additionalProperties": False
 }
 
@@ -33,9 +39,13 @@ store_sessions_post = {
     "type": "object",
     "properties": {
         "password": {"type": "string"},
-        "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"}
+        "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"},
+        "openId": {"type": "string"}
     },
-    "required": ["mobile", "password"],
+    "oneOf": [
+        {"required": ["mobile", "password"]},
+        {"required": ["openId"]}
+    ],
     "additionalProperties": False
 }
 
@@ -200,6 +210,16 @@ point_password_checker = {
     "additionalProperties": False
 }
 
+store_register_status_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "code": {"type": "string"},
+    },
+    "minProperties": 1,
+    "additionalProperties": False
+}
+
 
 SCHEMA = {
     'stores_get': stores_get,
@@ -217,4 +237,5 @@ SCHEMA = {
     'point_password_post': point_password_post,
     'point_password_put': point_password_put,
     'point_password_checker': point_password_checker,
+    'store_register_status_post': store_register_status_post,
 }

@@ -7,3 +7,4 @@ from .discounts import Discount, Discounts
 from .user_coupons import UserCoupons, UserCouponRemover
 from .points import PointsDecrease, PointsIncrease, Points
 from .user_points_mall import UserPointsMall
+from .template_messages import TemplateMessages

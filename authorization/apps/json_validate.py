@@ -16,9 +16,15 @@ stores_post = {
         "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"},
         "smsCode": {"type": "string"},
         "address": {"type": "string"},
-        "storeName": {"type": "string"}
+        "storeName": {"type": "string"},
+        "code": {"type": "string"},
+        "encryptedData": {"type": "string"},
+        "iv": {"type": "string"}
     },
-    "required": ["mobile", "password", "smsCode"],
+    "oneOf": [
+        {"required": ["mobile", "password", "smsCode"]},
+        {"required": ["code", "encryptedData", "iv"]}
+    ],
     "additionalProperties": False
 }
 
@@ -27,9 +33,13 @@ store_sessions_post = {
     "type": "object",
     "properties": {
         "password": {"type": "string"},
+        "openId": {"type": "string"},
         "mobile": {"type": "string", "pattern": "^(1[3|5|7|8]\\d{9})$"}
     },
-    "required": ["mobile", "password"],
+    "oneOf": [
+        {"required": ["mobile", "password"]},
+        {"required": ["openId"]}
+    ],
     "additionalProperties": False
 }
 
@@ -90,6 +100,17 @@ users_post = {
     "additionalProperties": False
 }
 
+store_register_status_post = {
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "code": {"type": "string"}
+    },
+    "required": ["code"],
+    "additionalProperties": False
+}
+
+
 SCHEMA = {
     'stores_get': stores_get,
     'stores_post': stores_post,
@@ -99,4 +120,5 @@ SCHEMA = {
     'store_reset_password': store_reset_password,
     'user_sessions_post': user_sessions_post,
     'users_post': users_post,
+    'store_register_status_post': store_register_status_post,
 }

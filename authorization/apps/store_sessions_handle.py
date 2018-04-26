@@ -23,7 +23,8 @@ class StoreSessionsHandler(BaseHandler):
         resp_status = api_resp.status_code
         if resp_status != 201:
             if resp_status == 400:
-                self.redis.set_ip_block(remote_ip)
+                # NOTE: docker nginx can not pass correct ip to server, need to fix
+                # self.redis.set_ip_block(remote_ip)
                 return jsonify(api_resp.json()), 400
 
             self.logger.error('request account server failed')

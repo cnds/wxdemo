@@ -12,7 +12,8 @@ from apps import PromotionsHandler, StoreOrdersHandler, \
     StoreReductionsHandler, StoreReductionHandler, \
     UserCouponsHandler, UserCouponRemoverHandler, StoreBindPaymentInfoHandler, \
     QRCodes, StoreInfoHandler, StorePointPassword, PointPasswordCheckerHandler, \
-    UserPointsHandler, IncreaseUserPointsHandler, DecreaseUserPointsHandler, UserPointMallHandler
+    UserPointsHandler, IncreaseUserPointsHandler, DecreaseUserPointsHandler, \
+    UserPointMallHandler, UserTemplateMessages
 
 
 def create_app(setting):
@@ -73,6 +74,8 @@ def create_app(setting):
                      view_func=DecreaseUserPointsHandler.as_view('decrease-user-points'))
     app.add_url_rule('/gateway/users/<user_id>/point-mall',
                      view_func=UserPointMallHandler.as_view('user-point-mall'))
+    app.add_url_rule('/gateway/users/<user_id>/messages',
+                     view_func=UserTemplateMessages.as_view('user-template-messages'))
     return app
 
 
